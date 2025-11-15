@@ -2875,6 +2875,38 @@ body:not([data-theme="dark"]) .about-text p {
   color: #475569 !important; /* Slightly lighter for about text */
 }
 
+/* Dark mode styles for About section */
+[data-theme="dark"] .about-grid {
+  /* Grid layout works the same in dark mode */
+}
+
+[data-theme="dark"] .stat-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .stat-value {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .stat-label {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .facts {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .facts-list li {
+  color: var(--text-secondary);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .facts-list li strong {
+  color: var(--text-dark);
+}
+
 /* Dark mode: headings use light text */
 [data-theme="dark"] h1,
 [data-theme="dark"] h2,
