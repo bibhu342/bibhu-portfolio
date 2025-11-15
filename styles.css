@@ -3257,6 +3257,30 @@ a:hover::after {
   color: #fca5a5 !important;
 }
 
+/* Cookie Consent - Dark Mode */
+[data-theme="dark"] .cookie-consent {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  border-top: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .cookie-content {
+  color: var(--text-primary);
+}
+
+/* Improve image visibility in dark mode */
+[data-theme="dark"] .project-media img,
+[data-theme="dark"] .project-card img {
+  opacity: 0.95;
+  filter: brightness(1.05);
+}
+
+[data-theme="dark"] .profile-image {
+  filter: brightness(1.1);
+  border-color: rgba(255,255,255,0.3);
+}
+
 /* Enhanced shadows in dark mode */
 [data-theme="dark"] .shadow-sm {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
