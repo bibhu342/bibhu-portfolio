@@ -2159,6 +2159,7 @@ details.exp-details summary::-webkit-details-marker {
   flex: 1;
   min-width: 0; /* Prevent text overflow */
   word-wrap: break-word;
+  padding-right: 120px; /* Add space for status badge */
 }
 
 .edu-title {
@@ -2209,6 +2210,33 @@ details.exp-details summary::-webkit-details-marker {
   background: rgba(245,158,11,0.12);
   color: #f59e0b;
   border: 1px solid rgba(245,158,11,0.3);
+}
+
+/* Responsive adjustments for education cards */
+@media (max-width: 768px) {
+  .edu-content {
+    padding-right: 100px; /* Less padding on smaller screens */
+  }
+  
+  .edu-status {
+    top: 12px;
+    right: 12px;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .edu-content {
+    padding-right: 90px; /* Even less padding on mobile */
+  }
+  
+  .edu-status {
+    top: 10px;
+    right: 10px;
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
 }
 
 .edu-skills {
