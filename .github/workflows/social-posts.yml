@@ -31,7 +31,7 @@ jobs:
         ls -la generated/ 2>/dev/null || echo "No generated files"
         
     - name: Create PR with generated posts
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const fs = require('fs');
