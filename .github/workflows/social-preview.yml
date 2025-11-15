@@ -6,6 +6,9 @@ on:
     paths: [ 'index.html', 'assets/**' ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   generate-og-image:
     runs-on: ubuntu-latest

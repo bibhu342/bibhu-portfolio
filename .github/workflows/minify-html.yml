@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   minify:
     runs-on: ubuntu-latest
@@ -50,3 +53,5 @@ jobs:
         else
           echo "No changes to commit"
         fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

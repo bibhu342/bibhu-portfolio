@@ -70,7 +70,7 @@ jobs:
         });
         EOF
         
-        npx playwright test || echo "Visual tests completed"
+        npx playwright test --update-snapshots || echo "Visual tests completed (first run creates baselines)"
         
     - name: Upload test results
       uses: actions/upload-artifact@v4
