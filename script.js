@@ -346,41 +346,62 @@
   // 7. COUNTER ANIMATION FOR STATS
   // ============================================
   function animateCounter(element) {
-    const target = parseInt(element.dataset.target || element.getAttribute('data-target'));
-    const duration = 2000;
-    const increment = target / (duration / 16);
-    let current = 0;
+    // Get target value
+    const target = parseInt(element.dataset.target || element.getAttribute('data-target'), 10);
     
-    const updateCounter = () => {
-      current += increment;
-      if (current < target) {
-        element.textContent = Math.ceil(current);
+    // Skip if invalid target
+    if (isNaN(target) || target <= 0) {
+      return;
+    }
+    
+    // Ensure element starts at 0
+    element.textContent = '0';
+    
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
+    const startValue = 0;
+    
+    const updateCounter = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentValue = Math.floor(startValue + (target - startValue) * easeOutQuart);
+      
+      element.textContent = currentValue;
+      
+      if (progress < 1) {
         requestAnimationFrame(updateCounter);
       } else {
+        // Ensure final value is exact
         element.textContent = target;
       }
     };
     
-    updateCounter();
+    // Start animation
+    requestAnimationFrame(updateCounter);
   }
 
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        counterObserver.unobserve(entry.target);
+        // Only animate if not already animated
+        if (!entry.target.classList.contains('counter-animated')) {
+          entry.target.classList.add('counter-animated');
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.3, rootMargin: '0px 0px -50px 0px' });
 
-  // Fix achievement counter animation - target achievement-metric elements
-  document.querySelectorAll('.achievement-metric[data-target], .counter[data-target], [data-target]').forEach(counter => {
+  // Initialize achievement counter animation - target achievement-metric elements
+  document.querySelectorAll('.achievement-metric[data-target]').forEach(counter => {
     const target = counter.dataset.target || counter.getAttribute('data-target');
-    if (target && !isNaN(parseInt(target))) {
-      // Initialize counter to 0 if it's not already set
-      if (!counter.textContent.trim() || counter.textContent.trim() === '0') {
-        counter.textContent = '0';
-      }
+    if (target && !isNaN(parseInt(target, 10))) {
+      // Initialize counter to 0
+      counter.textContent = '0';
       counterObserver.observe(counter);
     }
   });
