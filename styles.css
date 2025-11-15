@@ -1290,6 +1290,8 @@ details.exp-details summary::-webkit-details-marker {
   visibility: visible;
   opacity: 1;
   min-height: 200px;
+  max-width: 100%;
+  background: transparent;
 }
 
 /* Responsive adjustments for project banners */
