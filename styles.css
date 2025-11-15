@@ -2741,9 +2741,31 @@ a:hover::after {
   border-color: var(--border-color);
 }
 
-/* Ensure headings are readable in dark mode */
-/* Note: Light mode headings already use var(--text-dark) which is #0f172a (dark) */
-/* Dark mode: --text-dark becomes #f1f5f9 (light) */
+/* Explicit light mode text colors for readability */
+body:not([data-theme="dark"]) {
+  color: var(--text-primary); /* #333333 - dark gray on white */
+  background-color: var(--bg-primary); /* #ffffff - white */
+}
+
+body:not([data-theme="dark"]) .card {
+  background-color: var(--bg-card); /* #ffffff - white */
+  color: var(--text-primary); /* #333333 - dark gray */
+}
+
+body:not([data-theme="dark"]) h1,
+body:not([data-theme="dark"]) h2,
+body:not([data-theme="dark"]) h3,
+body:not([data-theme="dark"]) h4,
+body:not([data-theme="dark"]) h5,
+body:not([data-theme="dark"]) h6 {
+  color: var(--text-dark); /* #0f172a - very dark for headings */
+}
+
+body:not([data-theme="dark"]) p {
+  color: var(--text-secondary); /* #666666 - medium gray for paragraphs */
+}
+
+/* Dark mode: headings use light text */
 [data-theme="dark"] h1,
 [data-theme="dark"] h2,
 [data-theme="dark"] h3,
