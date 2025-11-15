@@ -17,7 +17,7 @@
         "crawlable-anchors": "off",
         "csp-xss": "off",
         "errors-in-console": "off",
-        "non-composited-animations": "off,
+        "non-composited-animations": "off",
         "unsized-images": "off",
         "unminified-css": "off",
         "unminified-javascript": "off",
