@@ -2742,19 +2742,20 @@ a:hover::after {
 }
 
 /* Ensure headings are readable in dark mode */
+/* Note: Light mode headings already use var(--text-dark) which is #0f172a (dark) */
+/* Dark mode: --text-dark becomes #f1f5f9 (light) */
 [data-theme="dark"] h1,
 [data-theme="dark"] h2,
 [data-theme="dark"] h3,
 [data-theme="dark"] h4,
 [data-theme="dark"] h5,
 [data-theme="dark"] h6 {
-  color: var(--text-dark) !important; /* Light text in dark mode */
+  color: var(--text-dark); /* In dark mode, --text-dark is light (#f1f5f9) */
 }
 
-[data-theme="dark"] .experience-section h2,
-[data-theme="dark"] .card h2,
-[data-theme="dark"] section h2 {
-  color: var(--text-dark) !important; /* Ensure section headings are light */
+/* Ensure section headings inherit correctly in both modes */
+.experience-section h2 {
+  color: var(--text-dark);
 }
 /* === Accessibility: color-contrast fixes (auto-applied) ===
    Addresses axe color-contrast violations reported in PR #8.
