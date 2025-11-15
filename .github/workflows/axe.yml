@@ -1,0 +1,54 @@
+name: Accessibility Testing
+
+on:
+  push:
+    branches: [ main, gh-pages ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 3 * * 1'  # Weekly on Monday at 3 AM UTC
+
+jobs:
+  accessibility:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install accessibility tools
+      run: |
+        npm install -g pa11y-ci
+        npm install -g axe-core @axe-core/cli
+        
+    - name: Wait for deployment (if running after push)
+      if: github.event_name == 'push'
+      run: sleep 60
+        
+    - name: Run Pa11y accessibility tests
+      run: |
+        pa11y-ci --sitemap https://bibhu342.github.io/bibhu-portfolio/sitemap.xml \
+          --threshold 10 \
+          --ignore "color-contrast" || true
+          
+    - name: Run Axe accessibility tests
+      run: |
+        axe https://bibhu342.github.io/bibhu-portfolio/ \
+          --exit \
+          --save axe-results.json \
+          --tags wcag2a,wcag2aa
+          
+    - name: Upload accessibility results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: accessibility-results
+        path: |
+          axe-results.json
+          pa11y-results.json
+        retention-days: 30

@@ -1,0 +1,45 @@
+{
+  "projects": [
+    {
+      "id": "csv-data-cleaner",
+      "title": "CSV Data Cleaner & Validator",
+      "summary": "Python tool for cleaning and validating large CSV datasets with automated error detection and correction.",
+      "description": "A comprehensive Python application that processes CSV files to identify data quality issues, remove duplicates, standardize formats, and generate validation reports. Features include configurable cleaning rules, batch processing, and detailed logging.",
+      "url": "https://github.com/bibhu342/csv-cleaner",
+      "repo": "bibhu342/csv-cleaner",
+      "tech": ["Python", "Pandas", "FastAPI", "SQLite"],
+      "date": "2025-10-15",
+      "status": "completed",
+      "featured": true
+    },
+    {
+      "id": "web-scraper-automation",
+      "title": "Multi-Site Web Scraper",
+      "summary": "Automated web scraping solution with proxy rotation, rate limiting, and data export capabilities.",
+      "description": "A robust web scraping framework built with Python that handles multiple websites simultaneously. Includes proxy management, CAPTCHA solving, data cleaning, and export to various formats including CSV, JSON, and databases.",
+      "url": "https://github.com/bibhu342/web-scraper",
+      "repo": "bibhu342/web-scraper",
+      "tech": ["Python", "Scrapy", "Selenium", "BeautifulSoup", "Redis"],
+      "date": "2025-09-22",
+      "status": "completed",
+      "featured": true
+    },
+    {
+      "id": "data-pipeline-etl",
+      "title": "ETL Data Pipeline",
+      "summary": "Scalable ETL pipeline for processing large datasets with automated scheduling and monitoring.",
+      "description": "A production-ready ETL pipeline that extracts data from multiple sources, transforms it according to business rules, and loads it into data warehouses. Features include error handling, data validation, and real-time monitoring dashboards.",
+      "url": "https://github.com/bibhu342/etl-pipeline",
+      "repo": "bibhu342/etl-pipeline",
+      "tech": ["Python", "Apache Airflow", "PostgreSQL", "Docker", "AWS"],
+      "date": "2025-08-10",
+      "status": "completed",
+      "featured": false
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2025-11-13",
+    "totalProjects": 3,
+    "featuredCount": 2
+  }
+}

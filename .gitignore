@@ -1,0 +1,21 @@
+.DS_Store
+node_modules/
+dist/
+.venv/
+*.log
+
+# Lighthouse reports (generated locally)
+lighthouse-report.report.html
+lighthouse-report.report.json
+lighthouse-summary.json
+lighthouse-public-report.md
+
+# Package lock file (can be regenerated)
+package-lock.json
+
+# Local development
+.lighthouseci/
+
+# Profile repo clone (temporary)
+bibhu342/
+convert_profile.py

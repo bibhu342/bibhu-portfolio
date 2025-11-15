@@ -1,0 +1,94 @@
+name: Backup Assets
+
+on:
+  push:
+    branches: [ main, gh-pages ]
+    paths: [ 'assets/**' ]
+  schedule:
+    - cron: '0 1 * * 0'  # Weekly on Sunday at 1 AM UTC
+  workflow_dispatch:
+
+jobs:
+  backup-assets:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Get full history
+        
+    - name: Create backup directory
+      run: |
+        mkdir -p backups/assets
+        TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+        echo "BACKUP_DIR=backups/assets/$TIMESTAMP" >> $GITHUB_ENV
+        echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
+        
+    - name: Backup current assets
+      run: |
+        # Copy all assets to timestamped backup directory
+        cp -r assets/* $BACKUP_DIR/ || echo "No assets to backup"
+        
+        # Create backup manifest
+        cat > $BACKUP_DIR/manifest.json << EOF
+        {
+          "timestamp": "$TIMESTAMP",
+          "backup_date": "$(date -u +"%Y-%m-%d %H:%M:%S UTC")",
+          "git_commit": "$GITHUB_SHA",
+          "git_ref": "$GITHUB_REF",
+          "triggered_by": "$GITHUB_EVENT_NAME",
+          "files": [
+        $(find assets -type f -exec echo '    "{}"' \; | sed '$!s/$/,/')
+          ]
+        }
+        EOF
+        
+    - name: Check for changes
+      id: check-changes
+      run: |
+        if [ -d "backups" ] && [ "$(ls -A backups/assets/)" ]; then
+          LATEST_BACKUP=$(ls -t backups/assets/ | head -n2 | tail -n1)
+          if [ -n "$LATEST_BACKUP" ] && [ "$LATEST_BACKUP" != "$TIMESTAMP" ]; then
+            if diff -r "backups/assets/$LATEST_BACKUP" "$BACKUP_DIR" > /dev/null 2>&1; then
+              echo "changed=false" >> $GITHUB_OUTPUT
+              echo "No changes detected, removing backup"
+              rm -rf $BACKUP_DIR
+            else
+              echo "changed=true" >> $GITHUB_OUTPUT
+              echo "Changes detected, keeping backup"
+            fi
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "First backup or only backup, keeping"
+          fi
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "No previous backups, creating first backup"
+        fi
+        
+    - name: Upload backup artifacts
+      if: steps.check-changes.outputs.changed == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: asset-backup-${{ env.TIMESTAMP }}
+        path: ${{ env.BACKUP_DIR }}
+        retention-days: 90
+        
+    - name: Commit backup to repository
+      if: steps.check-changes.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add backups/
+        if ! git diff --cached --quiet; then
+          git commit -m "chore: backup assets $TIMESTAMP [skip ci]"
+          git push
+        fi
+        
+    - name: Cleanup old backups (keep last 10)
+      run: |
+        cd backups/assets
+        # Keep only the 10 most recent backup directories
+        ls -t | tail -n +11 | xargs -r rm -rf
+        echo "Cleaned up old backups, keeping last 10"

@@ -1,0 +1,133 @@
+name: Optimize Images
+
+on:
+  push:
+    branches: [ main, gh-pages ]
+    paths: [ 'assets/**/*.png', 'assets/**/*.jpg', 'assets/**/*.jpeg' ]
+  workflow_dispatch:
+
+jobs:
+  optimize-images:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install image optimization tools
+      run: |
+        npm install -g imagemin-cli imagemin-pngquant imagemin-mozjpeg imagemin-webp
+        
+    - name: Optimize PNG images
+      run: |
+        find assets -name "*.png" -type f | while read file; do
+          echo "Optimizing $file"
+          original_size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file")
+          
+          # Create optimized version
+          imagemin "$file" --plugin=pngquant --plugin=webp > "${file%.png}.tmp.png"
+          
+          # Check if optimization reduced file size
+          if [ -f "${file%.png}.tmp.png" ]; then
+            new_size=$(stat -f%z "${file%.png}.tmp.png" 2>/dev/null || stat -c%s "${file%.png}.tmp.png")
+            
+            if [ $new_size -lt $original_size ]; then
+              mv "${file%.png}.tmp.png" "$file"
+              echo "✅ Optimized $file: $original_size → $new_size bytes"
+            else
+              rm "${file%.png}.tmp.png"
+              echo "⏭️ Skipped $file: already optimized"
+            fi
+          fi
+        done
+        
+    - name: Optimize JPG images
+      run: |
+        find assets -name "*.jpg" -o -name "*.jpeg" | while read file; do
+          echo "Optimizing $file"
+          original_size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file")
+          
+          # Create optimized version
+          imagemin "$file" --plugin=mozjpeg --plugin=webp > "$file.tmp"
+          
+          # Check if optimization reduced file size
+          if [ -f "$file.tmp" ]; then
+            new_size=$(stat -f%z "$file.tmp" 2>/dev/null || stat -c%s "$file.tmp")
+            
+            if [ $new_size -lt $original_size ]; then
+              mv "$file.tmp" "$file"
+              echo "✅ Optimized $file: $original_size → $new_size bytes"
+            else
+              rm "$file.tmp"
+              echo "⏭️ Skipped $file: already optimized"
+            fi
+          fi
+        done
+        
+    - name: Generate WebP versions
+      run: |
+        find assets -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" | while read file; do
+          webp_file="${file%.*}.webp"
+          if [ ! -f "$webp_file" ]; then
+            echo "Creating WebP version: $webp_file"
+            imagemin "$file" --plugin=webp > "$webp_file"
+          fi
+        done
+        
+    - name: Generate optimization report
+      run: |
+        cat > optimization-report.md << 'EOF'
+        # Image Optimization Report
+        
+        **Date:** $(date)
+        **Workflow:** ${{ github.workflow }}
+        
+        ## Optimized Images
+        
+        EOF
+        
+        find assets -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.webp" | while read file; do
+          size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file")
+          echo "- $file: ${size} bytes" >> optimization-report.md
+        done
+        
+        echo "" >> optimization-report.md
+        echo "## Performance Tips" >> optimization-report.md
+        echo "- Use WebP format for modern browsers" >> optimization-report.md
+        echo "- Implement lazy loading for images below the fold" >> optimization-report.md  
+        echo "- Consider using picture element with multiple formats" >> optimization-report.md
+        
+    - name: Check for changes
+      id: check-changes
+      run: |
+        git add -N assets/
+        if git diff --cached --quiet; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "No image optimizations needed"
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "Images optimized"
+        fi
+        
+    - name: Commit optimized images
+      if: steps.check-changes.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add assets/
+        git commit -m "perf: optimize images and generate WebP versions [skip ci]"
+        git push
+        
+    - name: Upload optimization report
+      uses: actions/upload-artifact@v4
+      with:
+        name: image-optimization-report
+        path: optimization-report.md
+        retention-days: 30

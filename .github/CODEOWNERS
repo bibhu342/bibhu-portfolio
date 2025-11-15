@@ -1,0 +1,21 @@
+# Global ownership
+* @bibhu342
+
+# Workflow files
+/.github/ @bibhu342
+
+# Source code
+*.html @bibhu342
+*.css @bibhu342  
+*.js @bibhu342
+
+# Configuration files
+*.json @bibhu342
+*.yml @bibhu342
+*.yaml @bibhu342
+
+# Documentation
+*.md @bibhu342
+
+# Assets
+/assets/ @bibhu342

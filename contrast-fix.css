@@ -1,0 +1,64 @@
+﻿/* ==== contrast-fix: applied to fix WCAG color-contrast issues reported by axe ==== */
+/* Only affect light theme defaults — dark theme CSS vars remain intact. */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* darker primary for light backgrounds to reach >=4.5:1 contrast for normal text */
+    --primary-color: #0056b3; /* darker blue than #007bff */
+    --text-primary: #0f172a;  /* ensure body text contrast on white */
+    --text-muted: #5f5f5f;
+    --footer-text: #666666;
+  }
+
+  /* Buttons / filter chips that were low contrast in light mode */
+  .skills-tab-btn,
+  button[data-filter],
+  button.btn,
+  .btn-text,
+  .skills-tab-btn.active {
+    color: var(--primary-color) !important;
+  }
+
+  /* Ghost-outline / transparent buttons need clearer borders / hover background */
+  .skills-tab-btn {
+    border: 1px solid rgba(0,86,179,0.12);
+    background-color: transparent;
+  }
+  .skills-tab-btn:hover,
+  .skills-tab-btn:focus {
+    background-color: rgba(0,86,179,0.06);
+    color: var(--primary-color);
+  }
+
+  /* Contact links (email/phone/external) — make explicit link color */
+  .contact-card-value > a[href^="mailto"],
+  .contact-card-value > a[href^="tel"],
+  .contact-card-value > a[rel="noopener"] {
+    color: var(--primary-color) !important;
+    text-decoration: underline; /* improves discoverability & contrast perception */
+  }
+
+  /* Footer text contrast */
+  .footer-copyright,
+  .footer-bottom-content > div:nth-child(1),
+  .footer-bottom-content > div:nth-child(2) > span {
+    color: var(--footer-text) !important;
+  }
+
+  /* Cookie buttons */
+  #accept-cookies {
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important; /* white text on darker primary */
+  }
+  #decline-cookies {
+    border: 1px solid var(--primary-color) !important;
+    color: var(--primary-color) !important;
+    background-color: transparent !important;
+  }
+
+  /* Skip link ensure strong contrast when visible */
+  .skip-link {
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important;
+  }
+}
+/* ==== end contrast-fix ==== */

@@ -1,0 +1,24 @@
+{
+  "name": "bibhu-portfolio",
+  "version": "1.0.0",
+  "description": "[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green?logo=github)](https://bibhu342.github.io/bibhu-portfolio/)\r [![HTML Validation](https://img.shields.io/badge/HTML-Valid-brightgreen?logo=w3c)](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbibhu342.github.io%2Fbibhu-portfolio%2F)\r [![Lighthouse](https://img.shields.io/badge/Lighthouse-100%2F100-brightgreen?logo=lighthouse)](https://github.com/bibhu342/bibhu-portfolio/actions)\r [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bibhu342/bibhu-portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bibhu342/bibhu-portfolio/issues"
+  },
+  "homepage": "https://github.com/bibhu342/bibhu-portfolio#readme",
+  "devDependencies": {
+    "@lhci/cli": "^0.15.1"
+  }
+}

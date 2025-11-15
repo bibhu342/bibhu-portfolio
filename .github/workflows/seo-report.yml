@@ -1,0 +1,181 @@
+name: Weekly SEO Report
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Weekly on Monday at 9 AM UTC
+  workflow_dispatch:
+
+jobs:
+  seo-audit:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install SEO tools
+      run: |
+        npm install -g puppeteer lighthouse @lhci/cli
+        npm init -y
+        npm install puppeteer
+        
+    - name: Run SEO audit
+      run: |
+        cat > seo-audit.js << 'EOF'
+        const puppeteer = require('puppeteer');
+        const fs = require('fs');
+
+        (async () => {
+          const browser = await puppeteer.launch({ headless: 'new' });
+          const page = await browser.newPage();
+          
+          const url = 'https://bibhu342.github.io/bibhu-portfolio/';
+          await page.goto(url, { waitUntil: 'networkidle0' });
+          
+          // Extract SEO data
+          const seoData = await page.evaluate(() => {
+            const getMetaContent = (name) => {
+              const meta = document.querySelector(`meta[name="${name}"], meta[property="${name}"]`);
+              return meta ? meta.getAttribute('content') : null;
+            };
+            
+            return {
+              title: document.title,
+              titleLength: document.title.length,
+              description: getMetaContent('description'),
+              descriptionLength: getMetaContent('description')?.length || 0,
+              ogTitle: getMetaContent('og:title'),
+              ogDescription: getMetaContent('og:description'),
+              ogImage: getMetaContent('og:image'),
+              twitterCard: getMetaContent('twitter:card'),
+              canonicalUrl: document.querySelector('link[rel="canonical"]')?.href,
+              h1Count: document.querySelectorAll('h1').length,
+              h2Count: document.querySelectorAll('h2').length,
+              imagesMissingAlt: Array.from(document.querySelectorAll('img:not([alt])')).length,
+              internalLinks: Array.from(document.querySelectorAll('a[href^="/"], a[href^="#"]')).length,
+              externalLinks: Array.from(document.querySelectorAll('a[href^="http"]:not([href*="bibhu342.github.io"])')).length
+            };
+          });
+          
+          await browser.close();
+          
+          // Generate report
+          const report = {
+            timestamp: new Date().toISOString(),
+            url: url,
+            seo: seoData,
+            issues: [],
+            recommendations: []
+          };
+          
+          // Check for issues
+          if (seoData.titleLength > 60) report.issues.push(`Title too long (${seoData.titleLength} chars, max 60)`);
+          if (seoData.titleLength < 30) report.issues.push(`Title too short (${seoData.titleLength} chars, min 30)`);
+          if (seoData.descriptionLength > 160) report.issues.push(`Description too long (${seoData.descriptionLength} chars, max 160)`);
+          if (seoData.descriptionLength < 120) report.issues.push(`Description too short (${seoData.descriptionLength} chars, min 120)`);
+          if (!seoData.ogImage) report.issues.push('Missing og:image');
+          if (!seoData.canonicalUrl) report.issues.push('Missing canonical URL');
+          if (seoData.h1Count !== 1) report.issues.push(`${seoData.h1Count} H1 tags found (should be exactly 1)`);
+          if (seoData.imagesMissingAlt > 0) report.issues.push(`${seoData.imagesMissingAlt} images missing alt text`);
+          
+          // Add recommendations
+          if (seoData.internalLinks < 5) report.recommendations.push('Add more internal links for better site structure');
+          if (seoData.externalLinks > 10) report.recommendations.push('Consider reducing external links to improve link equity');
+          
+          console.log('SEO Audit Report:');
+          console.log('=================');
+          console.log(`Title: ${seoData.title} (${seoData.titleLength} chars)`);
+          console.log(`Description: ${seoData.descriptionLength} chars`);
+          console.log(`H1 tags: ${seoData.h1Count}`);
+          console.log(`H2 tags: ${seoData.h2Count}`);
+          console.log(`Images missing alt: ${seoData.imagesMissingAlt}`);
+          console.log(`Internal links: ${seoData.internalLinks}`);
+          console.log(`External links: ${seoData.externalLinks}`);
+          
+          if (report.issues.length > 0) {
+            console.log('\nIssues Found:');
+            report.issues.forEach(issue => console.log(`❌ ${issue}`));
+          }
+          
+          if (report.recommendations.length > 0) {
+            console.log('\nRecommendations:');
+            report.recommendations.forEach(rec => console.log(`💡 ${rec}`));
+          }
+          
+          if (report.issues.length === 0) {
+            console.log('\n✅ No SEO issues found!');
+          }
+          
+          // Save detailed report
+          fs.writeFileSync('seo-report.json', JSON.stringify(report, null, 2));
+        })();
+        EOF
+        
+        node seo-audit.js
+        
+    - name: Run Lighthouse SEO audit
+      run: |
+        lighthouse https://bibhu342.github.io/bibhu-portfolio/ \
+          --only-categories=seo \
+          --output=json \
+          --output-path=lighthouse-seo.json \
+          --chrome-flags="--headless --no-sandbox"
+          
+    - name: Generate summary report
+      run: |
+        cat > summary-report.md << 'EOF'
+        # Weekly SEO Report
+        
+        **Date:** $(date)
+        **URL:** https://bibhu342.github.io/bibhu-portfolio/
+        
+        ## Lighthouse SEO Score
+        ```
+        $(node -p "JSON.parse(require('fs').readFileSync('lighthouse-seo.json')).categories.seo.score * 100")%
+        ```
+        
+        ## Page Analysis
+        ```
+        $(cat seo-report.json | node -p "
+          const data = JSON.parse(require('fs').readFileSync('/dev/stdin'));
+          \`Title: \${data.seo.title} (\${data.seo.titleLength} chars)
+        Description: \${data.seo.descriptionLength} chars
+        H1 Tags: \${data.seo.h1Count}
+        Images Missing Alt: \${data.seo.imagesMissingAlt}
+        Internal/External Links: \${data.seo.internalLinks}/\${data.seo.externalLinks}\`
+        ")
+        ```
+        
+        ## Issues & Recommendations
+        $(node -p "
+          const data = JSON.parse(require('fs').readFileSync('seo-report.json'));
+          let output = '';
+          if (data.issues.length > 0) {
+            output += '### Issues:\n';
+            data.issues.forEach(issue => output += \`- ❌ \${issue}\n\`);
+          }
+          if (data.recommendations.length > 0) {
+            output += '### Recommendations:\n';
+            data.recommendations.forEach(rec => output += \`- 💡 \${rec}\n\`);
+          }
+          if (data.issues.length === 0 && data.recommendations.length === 0) {
+            output = '✅ No issues or recommendations - SEO is optimized!';
+          }
+          output;
+        ")
+        EOF
+        
+    - name: Upload SEO reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: seo-report-${{ github.run_number }}
+        path: |
+          seo-report.json
+          lighthouse-seo.json
+          summary-report.md
+        retention-days: 90

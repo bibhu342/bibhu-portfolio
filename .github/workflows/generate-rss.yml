@@ -1,0 +1,47 @@
+name: Generate RSS Feed
+
+on:
+  push:
+    branches: [ main, gh-pages ]
+    paths: [ 'data/projects.json' ]
+  workflow_dispatch:
+
+jobs:
+  generate-feed:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Generate RSS feed and sitemap
+      run: |
+        python scripts/generate_sitemap_and_rss.py
+        
+    - name: Check for changes
+      id: check-changes
+      run: |
+        git add -N feed.xml sitemap.xml
+        if git diff --cached --quiet; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "No changes to RSS feed or sitemap"
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "RSS feed or sitemap updated"
+        fi
+        
+    - name: Commit updated feed and sitemap
+      if: steps.check-changes.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add feed.xml sitemap.xml
+        git commit -m "chore: update RSS feed and sitemap [skip ci]"
+        git push

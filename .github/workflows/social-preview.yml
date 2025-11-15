@@ -1,0 +1,133 @@
+name: Auto-Generate Social Preview
+
+on:
+  push:
+    branches: [ main, gh-pages ]
+    paths: [ 'index.html', 'assets/**' ]
+  workflow_dispatch:
+
+jobs:
+  generate-og-image:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm init -y
+        npm install puppeteer sharp
+        
+    - name: Generate OG image
+      run: |
+        cat > generate-og.js << 'EOF'
+        const puppeteer = require('puppeteer');
+        const sharp = require('sharp');
+        const fs = require('fs');
+        const path = require('path');
+
+        (async () => {
+          const browser = await puppeteer.launch({
+            headless: 'new',
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+          });
+          
+          const page = await browser.newPage();
+          await page.setViewport({ width: 1200, height: 630 });
+          
+          // Create a local HTML file for the OG image
+          const ogHtml = \`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <style>
+              body { 
+                margin: 0; 
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 630px;
+                width: 1200px;
+              }
+              .container {
+                text-align: center;
+                padding: 60px;
+              }
+              h1 {
+                font-size: 48px;
+                margin: 0 0 20px 0;
+                font-weight: 700;
+              }
+              p {
+                font-size: 24px;
+                opacity: 0.9;
+                margin: 0;
+                max-width: 800px;
+              }
+              .highlight {
+                color: #3b82f6;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>Bibhudendu Behera</h1>
+              <p><span class="highlight">Data Automation</span> & <span class="highlight">Python Engineer</span></p>
+              <p style="font-size: 18px; margin-top: 20px;">Professional portfolio showcasing automation solutions</p>
+            </div>
+          </body>
+          </html>
+          \`;
+          
+          await page.setContent(ogHtml);
+          await page.waitForTimeout(1000);
+          
+          const screenshot = await page.screenshot({
+            type: 'png',
+            clip: { x: 0, y: 0, width: 1200, height: 630 }
+          });
+          
+          await browser.close();
+          
+          // Optimize image
+          await sharp(screenshot)
+            .png({ quality: 90, compressionLevel: 9 })
+            .toFile('assets/og-image-new.png');
+          
+          console.log('OG image generated successfully');
+        })();
+        EOF
+        
+        node generate-og.js
+        
+    - name: Check if image changed
+      id: check-changes
+      run: |
+        if cmp -s assets/og-image.png assets/og-image-new.png; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "No changes in OG image"
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "OG image updated"
+          mv assets/og-image-new.png assets/og-image.png
+        fi
+        
+    - name: Commit updated OG image
+      if: steps.check-changes.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add assets/og-image.png
+        git commit -m "chore: auto-update og-image [skip ci]" || exit 0
+        git push

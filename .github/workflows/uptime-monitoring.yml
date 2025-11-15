@@ -1,0 +1,407 @@
+name: Uptime Monitoring
+
+on:
+  schedule:
+    # Check every 15 minutes
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  uptime-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm install axios puppeteer fs-extra
+        
+    - name: Run uptime checks
+      run: |
+        cat > uptime-check.js << 'EOF'
+        const axios = require('axios');
+        const puppeteer = require('puppeteer');
+        const fs = require('fs-extra');
+        const { performance } = require('perf_hooks');
+        
+        // Configuration
+        const SITE_URL = process.env.SITE_URL || 'https://your-portfolio-url.com';
+        const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || '';
+        const MAX_RESPONSE_TIME = 3000; // 3 seconds
+        
+        const checks = [
+          { name: 'Home Page', url: SITE_URL, critical: true },
+          { name: 'Privacy Page', url: `${SITE_URL}/privacy.html`, critical: false },
+          { name: 'Terms Page', url: `${SITE_URL}/terms.html`, critical: false },
+          { name: 'Sitemap', url: `${SITE_URL}/sitemap.xml`, critical: false },
+          { name: 'RSS Feed', url: `${SITE_URL}/feed.xml`, critical: false },
+          { name: 'Manifest', url: `${SITE_URL}/manifest.webmanifest`, critical: false }
+        ];
+        
+        class UptimeMonitor {
+          constructor() {
+            this.results = [];
+            this.errors = [];
+            this.startTime = Date.now();
+          }
+          
+          async checkEndpoint(check) {
+            const start = performance.now();
+            
+            try {
+              console.log(`Checking ${check.name}: ${check.url}`);
+              
+              const response = await axios.get(check.url, {
+                timeout: 10000,
+                validateStatus: (status) => status < 500,
+                headers: {
+                  'User-Agent': 'Portfolio-Uptime-Monitor/1.0'
+                }
+              });
+              
+              const responseTime = Math.round(performance.now() - start);
+              const isHealthy = response.status >= 200 && response.status < 400;
+              const isFast = responseTime < MAX_RESPONSE_TIME;
+              
+              const result = {
+                name: check.name,
+                url: check.url,
+                status: response.status,
+                responseTime: responseTime,
+                healthy: isHealthy,
+                fast: isFast,
+                critical: check.critical,
+                timestamp: new Date().toISOString(),
+                size: response.headers['content-length'] || 'unknown'
+              };
+              
+              this.results.push(result);
+              
+              if (!isHealthy && check.critical) {
+                this.errors.push(`❌ CRITICAL: ${check.name} returned ${response.status}`);
+              } else if (!isHealthy) {
+                this.errors.push(`⚠️ Warning: ${check.name} returned ${response.status}`);
+              }
+              
+              if (!isFast) {
+                this.errors.push(`🐌 Slow response: ${check.name} took ${responseTime}ms`);
+              }
+              
+              return result;
+              
+            } catch (error) {
+              const responseTime = Math.round(performance.now() - start);
+              
+              const result = {
+                name: check.name,
+                url: check.url,
+                status: 'ERROR',
+                responseTime: responseTime,
+                healthy: false,
+                fast: false,
+                critical: check.critical,
+                timestamp: new Date().toISOString(),
+                error: error.message
+              };
+              
+              this.results.push(result);
+              
+              if (check.critical) {
+                this.errors.push(`🚨 CRITICAL ERROR: ${check.name} - ${error.message}`);
+              } else {
+                this.errors.push(`⚠️ Error: ${check.name} - ${error.message}`);
+              }
+              
+              return result;
+            }
+          }
+          
+          async checkWithBrowser() {
+            let browser;
+            try {
+              console.log('Starting browser checks...');
+              
+              browser = await puppeteer.launch({
+                headless: 'new',
+                args: ['--no-sandbox', '--disable-setuid-sandbox']
+              });
+              
+              const page = await browser.newPage();
+              
+              // Set viewport and user agent
+              await page.setViewport({ width: 1920, height: 1080 });
+              await page.setUserAgent('Portfolio-Uptime-Monitor/1.0 (Browser)');
+              
+              const start = performance.now();
+              
+              // Navigate to main page
+              const response = await page.goto(SITE_URL, {
+                waitUntil: 'networkidle0',
+                timeout: 15000
+              });
+              
+              const loadTime = Math.round(performance.now() - start);
+              
+              // Check critical elements
+              const criticalElements = await page.evaluate(() => {
+                const checks = {
+                  title: !!document.title,
+                  header: !!document.querySelector('header'),
+                  nav: !!document.querySelector('nav'),
+                  main: !!document.querySelector('main'),
+                  footer: !!document.querySelector('footer'),
+                  projects: !!document.querySelector('.project-card'),
+                  contact: !!document.querySelector('#contact')
+                };
+                
+                return {
+                  checks,
+                  title: document.title,
+                  url: window.location.href,
+                  userAgent: navigator.userAgent
+                };
+              });
+              
+              // Performance metrics
+              const metrics = await page.evaluate(() => {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                return {
+                  domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+                  loadComplete: perfData.loadEventEnd - perfData.loadEventStart,
+                  firstPaint: performance.getEntriesByType('paint').find(p => p.name === 'first-paint')?.startTime || 0,
+                  firstContentfulPaint: performance.getEntriesByType('paint').find(p => p.name === 'first-contentful-paint')?.startTime || 0
+                };
+              });
+              
+              const browserResult = {
+                name: 'Browser Test',
+                url: SITE_URL,
+                status: response.status(),
+                responseTime: loadTime,
+                healthy: response.ok(),
+                fast: loadTime < MAX_RESPONSE_TIME,
+                critical: true,
+                timestamp: new Date().toISOString(),
+                elements: criticalElements,
+                performance: metrics
+              };
+              
+              this.results.push(browserResult);
+              
+              if (!response.ok()) {
+                this.errors.push(`🚨 Browser test failed with status ${response.status()}`);
+              }
+              
+              const missingElements = Object.entries(criticalElements.checks)
+                .filter(([key, value]) => !value)
+                .map(([key]) => key);
+                
+              if (missingElements.length > 0) {
+                this.errors.push(`⚠️ Missing elements: ${missingElements.join(', ')}`);
+              }
+              
+            } catch (error) {
+              this.errors.push(`🚨 Browser test error: ${error.message}`);
+            } finally {
+              if (browser) {
+                await browser.close();
+              }
+            }
+          }
+          
+          async generateReport() {
+            const totalTime = Date.now() - this.startTime;
+            const healthyCount = this.results.filter(r => r.healthy).length;
+            const totalCount = this.results.length;
+            const uptime = totalCount > 0 ? ((healthyCount / totalCount) * 100).toFixed(2) : '0.00';
+            
+            const report = {
+              summary: {
+                timestamp: new Date().toISOString(),
+                uptime: `${uptime}%`,
+                healthy: healthyCount,
+                total: totalCount,
+                errors: this.errors.length,
+                duration: `${totalTime}ms`
+              },
+              results: this.results,
+              errors: this.errors
+            };
+            
+            // Save report
+            await fs.writeJson('uptime-report.json', report, { spaces: 2 });
+            
+            // Generate markdown report
+            let markdown = `# Uptime Report\n\n`;
+            markdown += `**Generated:** ${new Date().toISOString()}\n`;
+            markdown += `**Overall Uptime:** ${uptime}%\n`;
+            markdown += `**Checks:** ${healthyCount}/${totalCount} healthy\n`;
+            markdown += `**Duration:** ${totalTime}ms\n\n`;
+            
+            if (this.errors.length > 0) {
+              markdown += `## 🚨 Issues Found\n\n`;
+              this.errors.forEach(error => {
+                markdown += `- ${error}\n`;
+              });
+              markdown += `\n`;
+            }
+            
+            markdown += `## 📊 Detailed Results\n\n`;
+            markdown += `| Service | Status | Response Time | Health |\n`;
+            markdown += `|---------|--------|---------------|--------|\n`;
+            
+            this.results.forEach(result => {
+              const statusIcon = result.healthy ? '✅' : '❌';
+              const speedIcon = result.fast ? '🚀' : '🐌';
+              markdown += `| ${result.name} | ${result.status} | ${result.responseTime}ms ${speedIcon} | ${statusIcon} |\n`;
+            });
+            
+            await fs.writeFile('uptime-report.md', markdown);
+            
+            return report;
+          }
+          
+          async sendNotification(report) {
+            if (!WEBHOOK_URL || this.errors.length === 0) return;
+            
+            const criticalErrors = this.errors.filter(e => e.includes('CRITICAL'));
+            if (criticalErrors.length === 0) return;
+            
+            const embed = {
+              title: '🚨 Portfolio Uptime Alert',
+              description: `Critical issues detected with your portfolio`,
+              color: 0xff0000,
+              fields: [
+                {
+                  name: 'Uptime',
+                  value: report.summary.uptime,
+                  inline: true
+                },
+                {
+                  name: 'Issues',
+                  value: this.errors.length.toString(),
+                  inline: true
+                },
+                {
+                  name: 'Critical Errors',
+                  value: criticalErrors.slice(0, 5).join('\n') || 'None'
+                }
+              ],
+              timestamp: new Date().toISOString(),
+              footer: {
+                text: 'Portfolio Uptime Monitor'
+              }
+            };
+            
+            try {
+              await axios.post(WEBHOOK_URL, {
+                embeds: [embed]
+              });
+              console.log('✅ Notification sent successfully');
+            } catch (error) {
+              console.error('❌ Failed to send notification:', error.message);
+            }
+          }
+        }
+        
+        // Run monitoring
+        async function main() {
+          console.log('🔍 Starting uptime monitoring...');
+          
+          const monitor = new UptimeMonitor();
+          
+          // Run endpoint checks
+          for (const check of checks) {
+            await monitor.checkEndpoint(check);
+          }
+          
+          // Run browser test
+          await monitor.checkWithBrowser();
+          
+          // Generate report
+          const report = await monitor.generateReport();
+          
+          // Send notifications if needed
+          await monitor.sendNotification(report);
+          
+          console.log('📋 Monitoring complete!');
+          console.log(`Overall uptime: ${report.summary.uptime}`);
+          
+          if (monitor.errors.length > 0) {
+            console.log('⚠️ Issues found:');
+            monitor.errors.forEach(error => console.log(`  ${error}`));
+            process.exit(1);
+          } else {
+            console.log('✅ All systems operational');
+          }
+        }
+        
+        main().catch(error => {
+          console.error('💥 Monitor crashed:', error);
+          process.exit(1);
+        });
+        EOF
+        
+        node uptime-check.js
+      env:
+        SITE_URL: https://bibhudendu-behera.netlify.app  # Update with your actual URL
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        
+    - name: Upload monitoring report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: uptime-report-${{ github.run_number }}
+        path: |
+          uptime-report.json
+          uptime-report.md
+        retention-days: 30
+        
+    - name: Update status badge
+      if: always()
+      run: |
+        # Create a simple status badge
+        STATUS_COLOR="red"
+        STATUS_TEXT="down"
+        
+        if [ -f uptime-report.json ]; then
+          UPTIME=$(cat uptime-report.json | jq -r '.summary.uptime' | sed 's/%//')
+          
+          if (( $(echo "$UPTIME >= 99" | bc -l) )); then
+            STATUS_COLOR="brightgreen"
+            STATUS_TEXT="$UPTIME% uptime"
+          elif (( $(echo "$UPTIME >= 95" | bc -l) )); then
+            STATUS_COLOR="yellow"  
+            STATUS_TEXT="$UPTIME% uptime"
+          else
+            STATUS_COLOR="red"
+            STATUS_TEXT="$UPTIME% uptime"
+          fi
+        fi
+        
+        echo "Badge status: $STATUS_TEXT ($STATUS_COLOR)"
+        
+    - name: Comment on commit (if issues found)
+      if: failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          
+          if (fs.existsSync('uptime-report.md')) {
+            const report = fs.readFileSync('uptime-report.md', 'utf8');
+            
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: `## 🚨 Uptime Issues Detected\n\n${report}\n\n*This comment was automatically generated by the uptime monitoring workflow.*`
+            });
+          }

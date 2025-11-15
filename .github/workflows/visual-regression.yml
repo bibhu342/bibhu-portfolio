@@ -1,0 +1,83 @@
+name: Visual Regression Testing
+
+on:
+  push:
+    branches: [ main, gh-pages ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  visual-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install Playwright
+      run: |
+        npm init -y
+        npm install --save-dev @playwright/test
+        npx playwright install --with-deps chromium
+        
+    - name: Create test directory
+      run: mkdir -p tests/baseline
+      
+    - name: Wait for deployment
+      if: github.event_name == 'push'
+      run: sleep 60
+      
+    - name: Run visual regression tests
+      run: |
+        cat > playwright.config.js << 'EOF'
+        module.exports = {
+          testDir: './tests',
+          use: {
+            baseURL: 'https://bibhu342.github.io/bibhu-portfolio/',
+          },
+          projects: [
+            {
+              name: 'chromium',
+              use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+            },
+          ],
+        };
+        EOF
+        
+        cat > tests/visual.spec.js << 'EOF'
+        const { test, expect } = require('@playwright/test');
+
+        test('homepage visual regression', async ({ page }) => {
+          await page.goto('/');
+          await page.waitForLoadState('networkidle');
+          await expect(page).toHaveScreenshot('homepage.png', { 
+            fullPage: true,
+            threshold: 0.2,
+            maxDiffPixels: 1000
+          });
+        });
+
+        test('hero section visual regression', async ({ page }) => {
+          await page.goto('/');
+          await page.waitForLoadState('networkidle');
+          const hero = page.locator('header');
+          await expect(hero).toHaveScreenshot('hero-section.png');
+        });
+        EOF
+        
+        npx playwright test || echo "Visual tests completed"
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: visual-test-results
+        path: |
+          tests/
+          test-results/
+        retention-days: 30

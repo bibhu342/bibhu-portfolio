@@ -1,0 +1,144 @@
+name: Deploy PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [ main ]
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install Surge CLI
+      run: npm install -g surge
+      
+    - name: Prepare build directory
+      run: |
+        mkdir -p build
+        cp -r * build/ 2>/dev/null || true
+        rm -rf build/.git build/node_modules build/.github 2>/dev/null || true
+        
+    - name: Add PR info to build
+      run: |
+        cat > build/pr-info.html << 'EOF'
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>PR Preview Info</title>
+          <style>
+            body { font-family: system-ui; padding: 20px; background: #f8fafc; }
+            .info-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+            .warning { background: #fef3c7; border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; margin: 20px 0; }
+          </style>
+        </head>
+        <body>
+          <div class="info-box">
+            <h1>🔍 Pull Request Preview</h1>
+            <p><strong>PR #:</strong> ${{ github.event.number }}</p>
+            <p><strong>Branch:</strong> ${{ github.head_ref }}</p>
+            <p><strong>Author:</strong> ${{ github.event.pull_request.user.login }}</p>
+            <p><strong>Preview URL:</strong> <code>https://bibhu-portfolio-pr-${{ github.event.number }}.surge.sh</code></p>
+            
+            <div class="warning">
+              ⚠️ <strong>Preview Notice:</strong> This is a temporary preview deployment for testing purposes. 
+              It may contain experimental features and should not be considered the production site.
+            </div>
+            
+            <p><a href="index.html">→ View Portfolio Preview</a></p>
+            <p><a href="${{ github.event.pull_request.html_url }}">→ View Pull Request on GitHub</a></p>
+          </div>
+        </body>
+        </html>
+        EOF
+        
+    - name: Deploy to Surge
+      run: |
+        # Generate domain name
+        DOMAIN="bibhu-portfolio-pr-${{ github.event.number }}.surge.sh"
+        echo "PREVIEW_URL=https://$DOMAIN" >> $GITHUB_ENV
+        
+        # Deploy to Surge
+        cd build
+        echo "$DOMAIN" > CNAME
+        surge ./ $DOMAIN --token ${{ secrets.SURGE_TOKEN }}
+      env:
+        SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        
+    - name: Update PR status
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const botComment = comments.find(comment => 
+            comment.user.login === 'github-actions[bot]' && 
+            comment.body.includes('Preview deployed')
+          );
+          
+          const commentBody = `## 🚀 Preview deployed successfully!
+          
+          **Preview URL:** ${process.env.PREVIEW_URL}
+          **PR Info:** ${process.env.PREVIEW_URL}/pr-info.html
+          
+          ### What to test:
+          - [ ] Visual layout and responsiveness
+          - [ ] Contact form functionality  
+          - [ ] Social share buttons
+          - [ ] Performance and loading speed
+          - [ ] Accessibility and SEO
+          
+          ---
+          *This preview will be automatically updated on new commits and cleaned up when the PR is closed.*`;
+          
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: commentBody
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: commentBody
+            });
+          }
+
+  cleanup-preview:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed'
+    
+    steps:
+    - name: Cleanup Surge deployment
+      run: |
+        npm install -g surge
+        DOMAIN="bibhu-portfolio-pr-${{ github.event.number }}.surge.sh"
+        surge teardown $DOMAIN --token ${{ secrets.SURGE_TOKEN }} || echo "Preview already cleaned up"
+      env:
+        SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        
+    - name: Update PR with cleanup notice
+      uses: actions/github-script@v7
+      with:
+        script: |
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: '🧹 Preview deployment cleaned up successfully.'
+          });

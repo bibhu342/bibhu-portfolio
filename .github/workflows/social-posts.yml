@@ -1,0 +1,112 @@
+name: Generate Social Media Posts
+
+on:
+  push:
+    branches: [ main, gh-pages ]
+    paths: [ 'data/projects.json' ]
+  workflow_dispatch:
+    inputs:
+      project_id:
+        description: 'Project ID to generate posts for (leave empty for latest)'
+        required: false
+        type: string
+
+jobs:
+  generate-posts:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Generate social media posts
+      run: |
+        cd scripts/social-templates
+        python generate_posts.py ${{ github.event.inputs.project_id }}
+        ls -la generated/ 2>/dev/null || echo "No generated files"
+        
+    - name: Create PR with generated posts
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = require('path');
+          
+          try {
+            const generatedDir = 'scripts/social-templates/generated';
+            const files = fs.readdirSync(generatedDir);
+            
+            let prBody = `## 📱 Generated Social Media Posts\n\n`;
+            prBody += `**Generated on:** ${new Date().toISOString()}\n`;
+            prBody += `**Trigger:** ${context.eventName}\n\n`;
+            
+            for (const file of files) {
+              if (file.endsWith('.txt')) {
+                const content = fs.readFileSync(path.join(generatedDir, file), 'utf8');
+                const platform = file.includes('twitter') ? '🐦 Twitter/X' : '💼 LinkedIn';
+                
+                prBody += `### ${platform}\n\n`;
+                prBody += '```\n' + content + '\n```\n\n';
+              }
+            }
+            
+            prBody += `---\n\n`;
+            prBody += `### 📋 Next Steps:\n`;
+            prBody += `1. Review the generated post options\n`;
+            prBody += `2. Choose your preferred version\n`;
+            prBody += `3. Customize as needed\n`;
+            prBody += `4. Schedule or post immediately\n`;
+            prBody += `5. Close this PR once posted\n\n`;
+            prBody += `**Note:** This is an automated PR for social media content. No code changes are included.`;
+            
+            // Create a branch and PR
+            const branchName = `social-posts-${Date.now()}`;
+            
+            // Get the current commit SHA
+            const { data: ref } = await github.rest.git.getRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'heads/gh-pages'
+            });
+            
+            // Create new branch
+            await github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/heads/${branchName}`,
+              sha: ref.object.sha
+            });
+            
+            // Create PR
+            await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '📱 Social Media Posts - Ready for Publishing',
+              head: branchName,
+              base: 'gh-pages',
+              body: prBody,
+              draft: false
+            });
+            
+          } catch (error) {
+            console.log('Generated posts info:', error.message);
+            // Create a simple issue instead
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '📱 Social Media Posts Generated',
+              body: `Social media posts have been generated. Check the workflow artifacts for the content.\n\n**Generated on:** ${new Date().toISOString()}`
+            });
+          }
+          
+    - name: Upload generated posts
+      uses: actions/upload-artifact@v4  
+      with:
+        name: social-media-posts
+        path: scripts/social-templates/generated/
+        retention-days: 30

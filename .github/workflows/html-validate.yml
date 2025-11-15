@@ -1,0 +1,38 @@
+name: HTML Validation
+
+on:
+  push:
+    branches: [ main, gh-pages ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install HTML validator
+      run: npm install -g html-validate
+      
+    - name: Validate HTML files
+      run: |
+        echo "Validating HTML files..."
+        find . -name "*.html" -not -path "./node_modules/*" -not -path "./.git/*" | while read file; do
+          echo "Validating $file"
+          html-validate "$file"
+        done
+        
+    - name: Validate with W3C Nu Validator (backup)
+      run: |
+        curl -X POST \
+          -H "Content-Type: text/html; charset=utf-8" \
+          --data-binary @index.html \
+          "https://validator.w3.org/nu/?out=text" || true
