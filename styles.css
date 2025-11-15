@@ -2743,13 +2743,13 @@ a:hover::after {
 
 /* Explicit light mode text colors for readability */
 body:not([data-theme="dark"]) {
-  color: var(--text-primary); /* #333333 - dark gray on white */
-  background-color: var(--bg-primary); /* #ffffff - white */
+  color: #333333 !important; /* Dark gray on white */
+  background-color: #ffffff !important; /* White background */
 }
 
 body:not([data-theme="dark"]) .card {
-  background-color: var(--bg-card); /* #ffffff - white */
-  color: var(--text-primary); /* #333333 - dark gray */
+  background-color: #ffffff !important; /* White card background */
+  color: #333333 !important; /* Dark gray text */
 }
 
 body:not([data-theme="dark"]) h1,
@@ -2758,11 +2758,35 @@ body:not([data-theme="dark"]) h3,
 body:not([data-theme="dark"]) h4,
 body:not([data-theme="dark"]) h5,
 body:not([data-theme="dark"]) h6 {
-  color: var(--text-dark); /* #0f172a - very dark for headings */
+  color: #0f172a !important; /* Very dark for headings */
 }
 
 body:not([data-theme="dark"]) p {
-  color: var(--text-secondary); /* #666666 - medium gray for paragraphs */
+  color: #666666 !important; /* Medium gray for paragraphs */
+}
+
+body:not([data-theme="dark"]) .card p,
+body:not([data-theme="dark"]) .card li,
+body:not([data-theme="dark"]) .card span,
+body:not([data-theme="dark"]) .card div {
+  color: #333333 !important; /* Dark text in cards */
+}
+
+/* Ensure all text elements are readable in light mode */
+body:not([data-theme="dark"]) .hero-desc,
+body:not([data-theme="dark"]) .about-text p,
+body:not([data-theme="dark"]) .project-desc,
+body:not([data-theme="dark"]) .service-desc,
+body:not([data-theme="dark"]) .timeline-card,
+body:not([data-theme="dark"]) .timeline-card *,
+body:not([data-theme="dark"]) .stat-label,
+body:not([data-theme="dark"]) .stat-value,
+body:not([data-theme="dark"]) .achievement-desc {
+  color: #333333 !important;
+}
+
+body:not([data-theme="dark"]) .about-text p {
+  color: #475569 !important; /* Slightly lighter for about text */
 }
 
 /* Dark mode: headings use light text */
