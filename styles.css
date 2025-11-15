@@ -930,9 +930,35 @@ section[id], div[id] {
 }
 
 /* Experience Timeline */
+.experience-section {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 .experience-section h2 { 
   margin-bottom: 1rem; 
   color: var(--text-dark); 
+}
+
+.experience-section .timeline {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.experience-section .timeline-item {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.experience-section .timeline-card {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
 }
 
 .timeline { 
