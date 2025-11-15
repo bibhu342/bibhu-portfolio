@@ -1269,10 +1269,16 @@ details.exp-details summary::-webkit-details-marker {
 .project-media { 
   position: relative; 
   height: 240px; 
+  min-height: 240px;
   background: #f1f5f9; 
   display: grid; 
   place-items: center; 
   overflow: hidden;
+}
+
+.project-media img[src=""],
+.project-media img:not([src]) {
+  display: none;
 }
 
 .project-media img { 
@@ -1280,6 +1286,10 @@ details.exp-details summary::-webkit-details-marker {
   height: 100%; 
   object-fit: contain; 
   object-position: center;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  min-height: 200px;
 }
 
 /* Responsive adjustments for project banners */
