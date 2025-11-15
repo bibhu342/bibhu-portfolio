@@ -1074,9 +1074,32 @@ details.exp-details summary::-webkit-details-marker {
 
 .reveal-left.in, 
 .reveal-right.in { 
-  opacity: 1; 
+  opacity: 1 !important; 
   transform: translateX(0); 
   transition: opacity 600ms ease, transform 600ms ease; 
+  visibility: visible !important;
+}
+
+/* Ensure reveal elements are visible */
+.reveal-on-scroll,
+.reveal-left,
+.reveal-right {
+  visibility: visible;
+  opacity: 0;
+}
+
+/* Fallback: show after delay if observer doesn't trigger */
+.reveal-on-scroll:not(.in),
+.reveal-left:not(.in),
+.reveal-right:not(.in) {
+  animation: fadeInReveal 0.6s ease forwards 0.5s;
+}
+
+@keyframes fadeInReveal {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Responsive timeline center on mobile */
