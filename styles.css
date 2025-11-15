@@ -1406,9 +1406,20 @@ details.exp-details summary::-webkit-details-marker {
   border-color: rgba(255,255,255,0.55); 
 }
 
-.btn-card.outline[aria-disabled="true"] { 
-  opacity: 0.6; 
-  cursor: not-allowed; 
+.btn-card.outline[aria-disabled="true"],
+.btn-card.outline[aria-disabled="true"]:hover {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: transparent !important;
+  color: rgba(255,255,255,0.4) !important;
+}
+
+/* Hide or style disabled Live Demo buttons more clearly */
+.btn-card.outline[aria-disabled="true"]::after {
+  content: " (Coming Soon)";
+  font-size: 0.8em;
+  opacity: 0.7;
 }
 
 .btn-card.outline:hover { 
@@ -2253,6 +2264,28 @@ details.exp-details summary::-webkit-details-marker {
   font-size: 0.85rem;
   margin-top: 4px;
   display: none;
+}
+
+.form-error:not(:empty) {
+  display: block;
+}
+
+/* Form validation states */
+.form-group input.error,
+.form-group textarea.error {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+}
+
+.form-group input.error:focus,
+.form-group textarea.error:focus {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;
+}
+
+.form-group input:valid:not(:placeholder-shown),
+.form-group textarea:valid:not(:placeholder-shown) {
+  border-color: #16a34a;
 }
 
 .form-group.error input,
@@ -3200,12 +3233,28 @@ a:hover::after {
   border-color: var(--border-color);
 }
 
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: var(--text-tertiary);
+  opacity: 0.7;
+}
+
 [data-theme="dark"] input:focus,
 [data-theme="dark"] textarea:focus,
 [data-theme="dark"] select:focus {
   border-color: var(--primary-color);
   outline: none;
   box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.12);
+}
+
+[data-theme="dark"] input.error,
+[data-theme="dark"] textarea.error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+[data-theme="dark"] .form-error {
+  color: #fca5a5 !important;
 }
 
 /* Enhanced shadows in dark mode */

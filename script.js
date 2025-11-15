@@ -261,21 +261,39 @@
   }
 
   function showFieldError(field, message) {
-    let errorDiv = field.nextElementSibling;
-    if (!errorDiv || !errorDiv.classList.contains('field-error')) {
-      errorDiv = document.createElement('div');
-      errorDiv.className = 'field-error';
-      errorDiv.setAttribute('role', 'alert');
-      field.parentNode.insertBefore(errorDiv, field.nextSibling);
+    // Use the existing error span if it exists (from HTML)
+    const fieldId = field.id;
+    const errorId = fieldId ? `${fieldId}-error` : null;
+    let errorDiv = errorId ? document.getElementById(errorId) : null;
+    
+    if (!errorDiv) {
+      // Check if there's a sibling error element
+      errorDiv = field.nextElementSibling;
+      if (!errorDiv || (!errorDiv.classList.contains('form-error') && !errorDiv.classList.contains('field-error'))) {
+        errorDiv = document.createElement('span');
+        errorDiv.className = 'form-error';
+        errorDiv.setAttribute('role', 'alert');
+        if (errorId) errorDiv.id = errorId;
+        field.parentNode.insertBefore(errorDiv, field.nextSibling);
+      }
     }
     errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+    field.classList.add('error');
+    field.setAttribute('aria-invalid', 'true');
   }
 
   function hideFieldError(field) {
-    const errorDiv = field.nextElementSibling;
-    if (errorDiv && errorDiv.classList.contains('field-error')) {
-      errorDiv.remove();
+    const fieldId = field.id;
+    const errorId = fieldId ? `${fieldId}-error` : null;
+    const errorDiv = errorId ? document.getElementById(errorId) : field.nextElementSibling;
+    
+    if (errorDiv && (errorDiv.classList.contains('form-error') || errorDiv.classList.contains('field-error'))) {
+      errorDiv.textContent = '';
+      errorDiv.style.display = 'none';
     }
+    field.classList.remove('error');
+    field.setAttribute('aria-invalid', 'false');
   }
 
   // ============================================
@@ -355,8 +373,14 @@
     });
   }, { threshold: 0.5 });
 
-  document.querySelectorAll('.counter, [data-target]').forEach(counter => {
-    if (counter.dataset.target || counter.getAttribute('data-target')) {
+  // Fix achievement counter animation - target achievement-metric elements
+  document.querySelectorAll('.achievement-metric[data-target], .counter[data-target], [data-target]').forEach(counter => {
+    const target = counter.dataset.target || counter.getAttribute('data-target');
+    if (target && !isNaN(parseInt(target))) {
+      // Initialize counter to 0 if it's not already set
+      if (!counter.textContent.trim() || counter.textContent.trim() === '0') {
+        counter.textContent = '0';
+      }
       counterObserver.observe(counter);
     }
   });
