@@ -804,6 +804,91 @@
   showCookieConsent();
 
   // ============================================
+  // SKILL CATEGORY DROPDOWN TOGGLES
+  // ============================================
+  document.querySelectorAll('.cat-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const skillCat = this.closest('.skill-cat');
+      const contentWrapper = skillCat.querySelector('.cat-content-wrapper');
+      const toggle = this.querySelector('.cat-toggle');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      
+      // Toggle expanded state
+      const newExpanded = !isExpanded;
+      this.setAttribute('aria-expanded', newExpanded);
+      
+      if (newExpanded) {
+        // Open: calculate actual height and set it
+        contentWrapper.style.maxHeight = contentWrapper.scrollHeight + 'px';
+        contentWrapper.style.opacity = '1';
+        if (toggle) toggle.textContent = '▼';
+      } else {
+        // Close: set to 0
+        contentWrapper.style.maxHeight = '0';
+        contentWrapper.style.opacity = '0';
+        if (toggle) toggle.textContent = '▶';
+      }
+    });
+    
+    // Initialize: if aria-expanded="true", open it
+    if (header.getAttribute('aria-expanded') === 'true') {
+      const skillCat = header.closest('.skill-cat');
+      const contentWrapper = skillCat.querySelector('.cat-content-wrapper');
+      const toggle = header.querySelector('.cat-toggle');
+      contentWrapper.style.maxHeight = contentWrapper.scrollHeight + 'px';
+      contentWrapper.style.opacity = '1';
+      if (toggle) toggle.textContent = '▼';
+    }
+  });
+
+  // ============================================
+  // ACHIEVEMENT CARDS ANIMATION
+  // ============================================
+  const achievementObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('in');
+        }, entry.target.dataset.delay || index * 100);
+        achievementObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.achievement-card').forEach(card => {
+    achievementObserver.observe(card);
+  });
+
+  // ============================================
+  // SKILLS TAB SWITCHING
+  // ============================================
+  const skillsTabButtons = document.querySelectorAll('.skills-tab-btn');
+  const skillsCols = document.querySelectorAll('.skills-col');
+  
+  skillsTabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetTab = button.dataset.tab;
+      
+      // Update button states
+      skillsTabButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      button.classList.add('active');
+      button.setAttribute('aria-selected', 'true');
+      
+      // Show/hide skill columns
+      skillsCols.forEach(col => {
+        if (col.id === `skills-${targetTab}`) {
+          col.style.display = 'block';
+        } else {
+          col.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ============================================
   // INITIALIZATION COMPLETE
   // ============================================
   console.log('Portfolio JavaScript initialized successfully');
