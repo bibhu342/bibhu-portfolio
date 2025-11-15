@@ -3653,6 +3653,130 @@ button.btn-text:hover, .btn-text:hover {
 }
 
 
+/* ============================================
+   BACK TO TOP BUTTON
+   ============================================ */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+  background: var(--primary-dark);
+}
+
+.back-to-top:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
+}
+
+/* Dark mode back-to-top button */
+[data-theme="dark"] .back-to-top {
+  background: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(77, 171, 247, 0.4);
+}
+
+[data-theme="dark"] .back-to-top:hover {
+  background: var(--primary-light);
+  box-shadow: 0 6px 16px rgba(77, 171, 247, 0.5);
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+}
+
+/* ============================================
+   SOCIAL LINKS MOBILE OPTIMIZATION
+   ============================================ */
+.social-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .social-row {
+    gap: 8px;
+  }
+  
+  .social-link {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+  
+  .social-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-row {
+    gap: 6px;
+    justify-content: center;
+  }
+  
+  .social-link {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    flex: 0 0 auto;
+  }
+  
+  .social-link span {
+    display: none; /* Hide text on very small screens, show only icons */
+  }
+  
+  .social-link::after {
+    content: attr(aria-label);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  
+  .social-link:hover::after,
+  .social-link:focus::after {
+    opacity: 1;
+  }
+}
+
 /* contrast-fix import marker */
 @import 'contrast-fix.css';
 
