@@ -6,11 +6,12 @@
 /* ============================================
    FONT OPTIMIZATION
    ============================================ */
-@font-face {
+/* Font optimization - using system fonts for better performance */
+/* @font-face {
   font-family: 'Inter';
   font-display: swap;
-  /* System fonts will be used until custom font loads */
-}
+  src: url('path/to/inter.woff2') format('woff2');
+} */
 
 /* ============================================
    CSS CUSTOM PROPERTIES (VARIABLES)
@@ -2004,7 +2005,7 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 .footer-copyright {
-  color: #595959;
+  color: #a0a0a0;
   font-size: 0.85rem;
 }
 
@@ -2754,21 +2755,34 @@ button[aria-controls="skills-operational"],
 .contact-card:nth-child(1) > .contact-card-desc,
 .contact-card:nth-child(2) > .contact-card-desc,
 .contact-card:nth-child(3) > .contact-card-desc,
-.contact-card:nth-child(4) > .contact-card-desc,
-.footer-copyright,
-.footer-bottom-content > div:nth-child(1),
-.footer-bottom-content > div:nth-child(2) > span {
+.contact-card:nth-child(4) > .contact-card-desc {
   /* Dark text for content that sits on light backgrounds */
   color: #0f172a !important; /* slate-900 */
 }
 
 /* Footer / dark areas: ensure text is light */
-footer,
+.site-footer,
 .footer-bottom,
 .footer-bottom-content,
-.footer-copyright,
-.footer-bottom-content > div {
-  color: #f8fafc !important; /* very light */
+.footer-bottom-content > div,
+.footer-section,
+.footer-tagline,
+.footer-bio,
+.footer-location,
+.footer-links a {
+  color: #e0e0e0 !important; /* light text for dark footer background */
+}
+
+.footer-section h3 {
+  color: #ffffff !important;
+}
+
+.footer-brand {
+  color: #60a5fa !important; /* lighter blue for better contrast on dark background */
+}
+
+.footer-copyright {
+  color: #a0a0a0 !important; /* slightly lighter for copyright */
 }
 
 /* Cookie buttons */
