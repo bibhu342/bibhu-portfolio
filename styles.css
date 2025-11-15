@@ -1199,6 +1199,35 @@ details.exp-details summary::-webkit-details-marker {
   color: var(--primary-light) !important;
 }
 
+/* Badges Section */
+.badges-section {
+  margin: 24px 0;
+  padding: 20px 0;
+}
+
+.badges-section h2 {
+  margin-bottom: 16px;
+  color: #0f172a;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.badge-img {
+  display: inline-block;
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* Dark mode for badges section */
+[data-theme="dark"] .badges-section h2 {
+  color: var(--text-dark) !important;
+}
+
 /* Enhanced Projects UI */
 .projects-intro { 
   color: #475569; 
