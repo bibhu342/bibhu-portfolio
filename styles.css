@@ -763,42 +763,128 @@ section[id], div[id] {
 }
 
 /* About Section */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.about-text {
+  max-width: 100%;
+}
+
 .about-text p { 
   color: #475569; 
-  line-height: 1.7; 
-  margin-bottom: 0.9rem; 
+  line-height: 1.75; 
+  margin-bottom: 1.1rem; 
+  font-size: 1rem;
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
 }
 
 .about-aside { 
   display: grid; 
-  gap: 1rem; 
+  gap: 1.5rem; 
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .stat-card {
   background: #ffffff;
   border: 1px solid rgba(0,0,0,0.06);
   border-left: 4px solid #007bff;
-  border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  border-radius: 12px;
+  padding: 16px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .stat-value { 
   font-weight: 800; 
   color: #0f172a; 
-  font-size: 1rem; 
+  font-size: 1.1rem; 
+  line-height: 1.2;
 }
 
 .stat-label { 
   color: #64748b; 
   font-size: 0.85rem; 
-  margin-top: 2px; 
+  margin-top: 4px; 
+  line-height: 1.4;
+}
+
+/* Facts List */
+.facts {
+  background: #f8fafc;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.facts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.facts-list li {
+  color: #334155;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.facts-list li strong {
+  color: #0f172a;
+  font-weight: 600;
+  min-width: 80px;
+}
+
+.facts-list li:not(:last-child) {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.facts-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 /* Experience Timeline */
