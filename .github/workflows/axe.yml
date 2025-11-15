@@ -43,7 +43,7 @@ jobs:
           --tags wcag2a,wcag2aa || true
           
     - name: Upload accessibility results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       if: always()
       with:
         name: accessibility-results
