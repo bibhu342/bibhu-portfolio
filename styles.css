@@ -523,8 +523,18 @@ label {
   transition: box-shadow 200ms ease;
 }
 
+/* Dark mode navigation */
+[data-theme="dark"] .site-nav {
+  background: rgba(15, 15, 15, 0.95) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
 .site-nav.scrolled {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] .site-nav.scrolled {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
 }
 
 .nav-container {
@@ -545,6 +555,11 @@ label {
   white-space: nowrap;
 }
 
+/* Dark mode brand */
+[data-theme="dark"] .brand {
+  color: var(--text-dark) !important;
+}
+
 .nav-links {
   list-style: none;
   display: flex;
@@ -562,14 +577,31 @@ label {
   transition: color 150ms ease, background 150ms ease;
 }
 
+/* Dark mode nav links */
+[data-theme="dark"] .nav-links a {
+  color: var(--text-dark) !important;
+}
+
 .nav-links a:hover,
 .nav-links a:focus {
   background: rgba(0,123,255,0.08);
   outline: none;
 }
 
+/* Dark mode nav links hover */
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a:focus {
+  background: rgba(77, 171, 247, 0.15) !important;
+  color: var(--primary-light) !important;
+}
+
 .nav-links a.active {
   color: #0056b3;
+}
+
+/* Dark mode active nav link */
+[data-theme="dark"] .nav-links a.active {
+  color: var(--primary-color) !important;
 }
 
 .nav-toggle {
@@ -595,6 +627,11 @@ label {
   transition: transform 200ms ease, opacity 200ms ease;
 }
 
+/* Dark mode nav toggle bars */
+[data-theme="dark"] .nav-toggle .bar {
+  background: var(--text-dark) !important;
+}
+
 /* Responsive Navigation */
 @media (max-width: 768px) {
   .nav-toggle { display: block; }
@@ -615,6 +652,13 @@ label {
     display: none;
   }
   .nav-links.open { display: flex; }
+  
+  /* Dark mode mobile nav */
+  [data-theme="dark"] .nav-links {
+    background: rgba(20, 20, 20, 0.98) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+  }
 }
 
 /* Anchor offset for sticky nav */
@@ -863,8 +907,18 @@ section[id], div[id] {
   border-left: 4px solid #007bff;
   border-radius: 12px;
   padding: 16px 14px;
+}
+
+.stat-card {
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+/* Dark mode stat card */
+[data-theme="dark"] .stat-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  border-left: 4px solid var(--primary-color) !important;
 }
 
 .stat-card:hover {
@@ -879,11 +933,21 @@ section[id], div[id] {
   line-height: 1.2;
 }
 
+/* Dark mode stat value */
+[data-theme="dark"] .stat-value {
+  color: var(--text-dark) !important;
+}
+
 .stat-label { 
   color: #64748b; 
   font-size: 0.85rem; 
   margin-top: 4px; 
   line-height: 1.4;
+}
+
+/* Dark mode stat label */
+[data-theme="dark"] .stat-label {
+  color: var(--text-secondary) !important;
 }
 
 /* Facts List */
@@ -892,6 +956,12 @@ section[id], div[id] {
   border: 1px solid rgba(0,0,0,0.06);
   border-radius: 12px;
   padding: 20px;
+}
+
+/* Dark mode facts */
+[data-theme="dark"] .facts {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
 }
 
 .facts-list {
@@ -909,14 +979,28 @@ section[id], div[id] {
   line-height: 1.6;
   padding: 0;
   display: flex;
+}
+
+.facts-list li {
   align-items: flex-start;
   gap: 8px;
+}
+
+/* Dark mode facts list items */
+[data-theme="dark"] .facts-list li {
+  color: var(--text-secondary) !important;
+  border-bottom-color: var(--border-color) !important;
 }
 
 .facts-list li strong {
   color: #0f172a;
   font-weight: 600;
   min-width: 80px;
+}
+
+/* Dark mode facts list strong */
+[data-theme="dark"] .facts-list li strong {
+  color: var(--text-dark) !important;
 }
 
 .facts-list li:not(:last-child) {
@@ -1297,9 +1381,21 @@ details.exp-details summary::-webkit-details-marker {
   transition: transform 200ms ease, box-shadow 200ms ease, opacity 300ms ease;
 }
 
+/* Dark mode project cards */
+[data-theme="dark"] .project-card.enhanced {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.3) !important;
+}
+
 .project-card.enhanced:hover { 
   transform: translateY(-10px); 
   box-shadow: 0 12px 30px rgba(0,0,0,0.10); 
+}
+
+/* Dark mode project card hover */
+[data-theme="dark"] .project-card.enhanced:hover {
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5) !important;
 }
 
 .project-media { 
@@ -1310,6 +1406,11 @@ details.exp-details summary::-webkit-details-marker {
   display: grid; 
   place-items: center; 
   overflow: hidden;
+}
+
+/* Dark mode project media */
+[data-theme="dark"] .project-media {
+  background: var(--bg-secondary) !important;
 }
 
 .project-media img[src=""],
@@ -1394,6 +1495,13 @@ details.exp-details summary::-webkit-details-marker {
   border-radius: 999px; 
   font-size: 0.78rem; 
   color: #0f172a; 
+}
+
+/* Dark mode tech pills */
+[data-theme="dark"] .tech-pill {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-dark) !important;
 }
 
 /* Projects Section - Dark Mode */
@@ -2371,6 +2479,12 @@ details.exp-details summary::-webkit-details-marker {
   padding: 28px;
 }
 
+/* Dark mode contact form */
+[data-theme="dark"] .contact-form {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
 .form-group {
   margin-bottom: 18px;
 }
@@ -2467,14 +2581,31 @@ details.exp-details summary::-webkit-details-marker {
   transition: background 200ms ease, transform 200ms ease;
 }
 
+/* Dark mode submit button */
+[data-theme="dark"] .btn-submit {
+  background: var(--primary-color) !important;
+  color: var(--text-white) !important;
+}
+
 .btn-submit:hover:not(:disabled) {
   background: #006ae0;
   transform: translateY(-2px);
 }
 
+/* Dark mode submit button hover */
+[data-theme="dark"] .btn-submit:hover:not(:disabled) {
+  background: var(--primary-dark) !important;
+}
+
 .btn-submit:disabled {
   background: #94a3b8;
   cursor: not-allowed;
+}
+
+/* Dark mode submit button disabled */
+[data-theme="dark"] .btn-submit:disabled {
+  background: var(--text-tertiary) !important;
+  color: var(--text-secondary) !important;
 }
 
 /* Contact Info Cards */
@@ -2490,6 +2621,12 @@ details.exp-details summary::-webkit-details-marker {
   border-radius: 10px;
   padding: 16px;
   transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+/* Dark mode contact card */
+[data-theme="dark"] .contact-card {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
 }
 
 .contact-card:hover {
@@ -2515,6 +2652,11 @@ details.exp-details summary::-webkit-details-marker {
   font-size: 0.95rem;
 }
 
+/* Dark mode contact card label */
+[data-theme="dark"] .contact-card-label {
+  color: var(--text-dark) !important;
+}
+
 .contact-card-value {
   margin: 6px 0 4px;
 }
@@ -2532,6 +2674,11 @@ details.exp-details summary::-webkit-details-marker {
 .contact-card-desc {
   color: #64748b;
   font-size: 0.85rem;
+}
+
+/* Dark mode contact card desc */
+[data-theme="dark"] .contact-card-desc {
+  color: var(--text-secondary) !important;
 }
 
 /* Contact Section - Dark Mode */
@@ -3618,7 +3765,12 @@ body:not([data-theme="dark"]) .about-text p {
 
 /* Dark mode styles for About section */
 [data-theme="dark"] .about-grid {
-  /* Grid layout works the same in dark mode */
+  /* Grid layout works the same in dark mode - no changes needed */
+}
+
+/* Dark mode about text */
+[data-theme="dark"] .about-text p {
+  color: var(--text-secondary) !important;
 }
 
 [data-theme="dark"] .stat-card {
