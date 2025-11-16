@@ -115,6 +115,21 @@
   text-shadow: none !important; /* Clean VS Code look */
 }
 
+/* Hero Section - AI Engineer Theme: Ensure name is highly visible */
+[data-theme="dark"] .hero-section h1,
+[data-theme="dark"] .hero-section .hero-content h1,
+[data-theme="dark"] .hero.hero-section h1,
+[data-theme="dark"] .hero.hero-section .hero-content h1 {
+  color: #FFFFFF !important; /* Pure white for maximum visibility */
+  font-weight: 900 !important; /* Extra-bold for maximum prominence */
+  font-size: 1.8rem !important; /* Ensure adequate size */
+  text-shadow: none !important;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 3 !important; /* Ensure it's above everything */
+  letter-spacing: -0.02em !important; /* Slightly tighter for better readability */
+}
+
 /* Buttons and interactive elements - VS Code style */
 [data-theme="dark"] .btn,
 [data-theme="dark"] .btn-primary,
