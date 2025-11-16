@@ -158,19 +158,28 @@
       try {
         const formData = new FormData(contactForm);
         
-        // Check if form has Netlify attribute
-        if (contactForm.hasAttribute('data-netlify')) {
-          const response = await fetch('/', {
+        // Check if form has Formspree action
+        const formAction = contactForm.getAttribute('action');
+        if (formAction && formAction.includes('formspree.io')) {
+          const response = await fetch(formAction, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
+            headers: { 'Accept': 'application/json' },
+            body: formData
           });
+          
+          const result = await response.json();
           
           if (response.ok) {
             showNotification('Message sent successfully! I will get back to you soon.', 'success');
             contactForm.reset();
           } else {
-            throw new Error('Form submission failed');
+            // Handle Formspree validation errors
+            if (result.errors) {
+              const errorMessage = result.errors.map(err => err.message).join(', ');
+              throw new Error(errorMessage);
+            } else {
+              throw new Error('Form submission failed');
+            }
           }
         } else {
           // Fallback: show success message and email link
