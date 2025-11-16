@@ -2606,6 +2606,13 @@ details.exp-details summary::-webkit-details-marker {
   margin-top: 60px;
 }
 
+/* Footer - Light Mode */
+:not([data-theme="dark"]) .site-footer {
+  background: #f8f9fa;
+  color: #0f172a;
+  border-top-color: #007bff;
+}
+
 /* Footer - Dark Mode (footer is already dark, but ensure consistency) */
 [data-theme="dark"] .site-footer {
   background: #0a0a0a;
@@ -2660,6 +2667,11 @@ details.exp-details summary::-webkit-details-marker {
   font-weight: 700;
 }
 
+/* Light mode footer headings */
+:not([data-theme="dark"]) .footer-section h3 {
+  color: #0f172a !important;
+}
+
 .footer-brand {
   font-size: 1.5rem;
   font-weight: 800;
@@ -2667,10 +2679,20 @@ details.exp-details summary::-webkit-details-marker {
   margin-bottom: 8px;
 }
 
+/* Light mode footer brand */
+:not([data-theme="dark"]) .footer-brand {
+  color: #007bff !important;
+}
+
 .footer-tagline {
   color: #b0b0b0;
   font-size: 0.95rem;
   margin-bottom: 12px;
+}
+
+/* Light mode footer tagline */
+:not([data-theme="dark"]) .footer-tagline {
+  color: #475569 !important;
 }
 
 .footer-bio {
@@ -2680,9 +2702,19 @@ details.exp-details summary::-webkit-details-marker {
   margin-bottom: 16px;
 }
 
+/* Light mode footer bio */
+:not([data-theme="dark"]) .footer-bio {
+  color: #475569 !important;
+}
+
 .footer-copyright {
   color: #a0a0a0;
   font-size: 0.85rem;
+}
+
+/* Light mode footer copyright */
+:not([data-theme="dark"]) .footer-copyright {
+  color: #64748b !important;
 }
 
 .footer-links {
@@ -2702,9 +2734,19 @@ details.exp-details summary::-webkit-details-marker {
   transition: color 0.3s ease;
 }
 
+/* Light mode footer links */
+:not([data-theme="dark"]) .footer-links a {
+  color: #475569 !important;
+}
+
 .footer-links a:hover {
   color: #007bff;
   text-decoration: underline;
+}
+
+/* Light mode footer links hover */
+:not([data-theme="dark"]) .footer-links a:hover {
+  color: #007bff !important;
 }
 
 .footer-social {
@@ -2727,9 +2769,21 @@ details.exp-details summary::-webkit-details-marker {
   transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
+/* Light mode social icons */
+:not([data-theme="dark"]) .social-icon-footer {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
 .social-icon-footer:hover {
   background: #007bff;
   transform: translateY(-3px);
+}
+
+/* Light mode social icons hover */
+:not([data-theme="dark"]) .social-icon-footer:hover {
+  background: #007bff !important;
+  color: #ffffff !important;
 }
 
 .footer-location {
@@ -2737,9 +2791,20 @@ details.exp-details summary::-webkit-details-marker {
   font-size: 0.9rem;
 }
 
+/* Light mode footer location */
+:not([data-theme="dark"]) .footer-location {
+  color: #64748b !important;
+}
+
 .footer-bottom {
   border-top: 1px solid #333;
   padding: 20px 0;
+}
+
+/* Light mode footer bottom */
+:not([data-theme="dark"]) .footer-bottom {
+  background: #f1f5f9 !important;
+  border-top-color: #e2e8f0 !important;
 }
 
 .footer-bottom-content {
@@ -2751,6 +2816,15 @@ details.exp-details summary::-webkit-details-marker {
   align-items: center;
   color: #808080;
   font-size: 0.85rem;
+}
+
+/* Light mode footer bottom content */
+:not([data-theme="dark"]) .footer-bottom-content {
+  color: #64748b !important;
+}
+
+:not([data-theme="dark"]) .footer-bottom-content a {
+  color: #007bff !important;
 }
 
 @media (max-width: 768px) {
@@ -3594,28 +3668,28 @@ button[aria-controls="skills-operational"],
   color: #0f172a !important; /* slate-900 */
 }
 
-/* Footer / dark areas: ensure text is light */
-.site-footer,
-.footer-bottom,
-.footer-bottom-content,
-.footer-bottom-content > div,
-.footer-section,
-.footer-tagline,
-.footer-bio,
-.footer-location,
-.footer-links a {
+/* Footer / dark areas: ensure text is light (dark mode only) */
+[data-theme="dark"] .site-footer,
+[data-theme="dark"] .footer-bottom,
+[data-theme="dark"] .footer-bottom-content,
+[data-theme="dark"] .footer-bottom-content > div,
+[data-theme="dark"] .footer-section,
+[data-theme="dark"] .footer-tagline,
+[data-theme="dark"] .footer-bio,
+[data-theme="dark"] .footer-location,
+[data-theme="dark"] .footer-links a {
   color: #e0e0e0 !important; /* light text for dark footer background */
 }
 
-.footer-section h3 {
+[data-theme="dark"] .footer-section h3 {
   color: #ffffff !important;
 }
 
-.footer-brand {
+[data-theme="dark"] .footer-brand {
   color: #60a5fa !important; /* lighter blue for better contrast on dark background */
 }
 
-.footer-copyright {
+[data-theme="dark"] .footer-copyright {
   color: #a0a0a0 !important; /* slightly lighter for copyright */
 }
 
