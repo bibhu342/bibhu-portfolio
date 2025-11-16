@@ -4,8 +4,14 @@
  * Main functionality for interactive features
  */
 
+// Immediate test - run before IIFE
+console.log('🔴 SCRIPT.JS FILE LOADED!');
+console.log('🔴 Current time:', new Date().toISOString());
+
 (function() {
   'use strict';
+  
+  console.log('🔴 IIFE STARTED - Script is executing');
 
   // ============================================
   // 1. SMOOTH SCROLL FOR ANCHOR LINKS
@@ -30,51 +36,363 @@
   // ============================================
   // 2. MOBILE MENU TOGGLE
   // ============================================
-  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle, .nav-toggle, .menu-toggle');
-  const navMenu = document.querySelector('.nav-menu, .nav-links, .primary-nav');
-
-  if (mobileMenuToggle && navMenu) {
-    mobileMenuToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      navMenu.classList.toggle('active');
-      mobileMenuToggle.classList.toggle('active');
-      document.body.classList.toggle('menu-open');
-      
-      // Update ARIA attributes
-      const isExpanded = navMenu.classList.contains('active');
-      mobileMenuToggle.setAttribute('aria-expanded', isExpanded);
-    });
+  function initMobileMenu() {
+    console.log('=== MOBILE MENU INITIALIZATION START ===');
+    console.log('Viewport width:', window.innerWidth);
+    console.log('Is mobile?', window.innerWidth <= 768);
     
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-menu a, .nav-links a, .primary-nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
+    const mobileMenuToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-links') || document.querySelector('#primary-nav');
+
+    console.log('Elements found:', { 
+      mobileMenuToggle: mobileMenuToggle ? 'YES' : 'NO',
+      navMenu: navMenu ? 'YES' : 'NO',
+      toggleElement: mobileMenuToggle,
+      menuElement: navMenu
+    });
+
+    if (!mobileMenuToggle) {
+      console.error('❌ nav-toggle button NOT FOUND!');
+      console.log('Searching for alternatives...');
+      const allButtons = document.querySelectorAll('button');
+      console.log('All buttons found:', allButtons.length);
+      allButtons.forEach((btn, i) => {
+        console.log(`Button ${i}:`, {
+          classes: btn.className,
+          id: btn.id,
+          text: btn.textContent.trim().substring(0, 20)
+        });
+      });
+      return;
+    }
+
+    if (!navMenu) {
+      console.error('❌ nav-links menu NOT FOUND!');
+      console.log('Searching for alternatives...');
+      const allNavs = document.querySelectorAll('nav, ul, .nav-links, #primary-nav');
+      console.log('Navigation elements found:', allNavs.length);
+      allNavs.forEach((nav, i) => {
+        console.log(`Nav ${i}:`, {
+          tag: nav.tagName,
+          classes: nav.className,
+          id: nav.id
+        });
+      });
+      return;
+    }
+
+    console.log('✅ Both elements found successfully!');
+    console.log('Toggle button styles:', window.getComputedStyle(mobileMenuToggle));
+    console.log('Menu styles:', window.getComputedStyle(navMenu));
+
+    // Ensure button is visible and clickable
+    if (window.innerWidth <= 768) {
+      console.log('Applying mobile button styles...');
+      mobileMenuToggle.style.display = 'block';
+      mobileMenuToggle.style.position = 'relative';
+      mobileMenuToggle.style.zIndex = '1002';
+      mobileMenuToggle.style.pointerEvents = 'auto';
+      mobileMenuToggle.style.cursor = 'pointer';
+      mobileMenuToggle.style.minWidth = '44px';
+      mobileMenuToggle.style.minHeight = '44px';
+      mobileMenuToggle.style.padding = '8px';
+      // Add visible border for debugging
+      mobileMenuToggle.style.border = '2px solid red';
+      mobileMenuToggle.style.backgroundColor = 'rgba(255,0,0,0.1)';
+      console.log('✅ Button styles applied');
+      console.log('Button computed display:', window.getComputedStyle(mobileMenuToggle).display);
+      console.log('Button computed pointer-events:', window.getComputedStyle(mobileMenuToggle).pointerEvents);
+      console.log('Button computed z-index:', window.getComputedStyle(mobileMenuToggle).zIndex);
+      
+      // Check if anything is overlaying the button
+      const buttonRect = mobileMenuToggle.getBoundingClientRect();
+      const centerX = buttonRect.left + buttonRect.width / 2;
+      const centerY = buttonRect.top + buttonRect.height / 2;
+      const elementAtPoint = document.elementFromPoint(centerX, centerY);
+      console.log('Element at button center:', elementAtPoint);
+      console.log('Is button itself?', elementAtPoint === mobileMenuToggle || mobileMenuToggle.contains(elementAtPoint));
+    } else {
+      console.warn('⚠️ Not in mobile viewport! Width is', window.innerWidth, '(needs to be <= 768)');
+    }
+
+    let isMenuOpen = false;
+
+    // Ensure menu is hidden initially
+    navMenu.style.display = 'none';
+    navMenu.style.opacity = '0';
+    navMenu.style.visibility = 'hidden';
+
+    // Function to toggle menu (shared by touch and click)
+    function toggleMenu(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      console.log('Menu toggle triggered, current state:', isMenuOpen);
+      console.log('Viewport width:', window.innerWidth);
+      
+      isMenuOpen = !isMenuOpen;
+      
+      if (isMenuOpen) {
+        // Show menu with inline styles (bypasses CSS conflicts)
+        navMenu.style.display = 'flex';
+        navMenu.style.flexDirection = 'column';
+        navMenu.style.position = 'absolute';
+        navMenu.style.top = '56px';
+        navMenu.style.left = '12px';
+        navMenu.style.right = '12px';
+        navMenu.style.background = 'rgba(255,255,255,0.98)';
+        navMenu.style.zIndex = '1001';
+        navMenu.style.opacity = '1';
+        navMenu.style.visibility = 'visible';
+        navMenu.style.transform = 'translateY(0)';
+        navMenu.style.pointerEvents = 'auto';
+        navMenu.style.padding = '10px';
+        navMenu.style.borderRadius = '10px';
+        navMenu.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+        
+        navMenu.classList.add('open');
+        mobileMenuToggle.classList.add('active');
+        document.body.classList.add('menu-open');
+        mobileMenuToggle.setAttribute('aria-expanded', 'true');
+        console.log('Menu opened - inline styles applied');
+        console.log('Menu computed styles:', window.getComputedStyle(navMenu).display);
+      } else {
+        // Hide menu
+        navMenu.style.display = 'none';
+        navMenu.style.opacity = '0';
+        navMenu.style.visibility = 'hidden';
+        navMenu.style.pointerEvents = 'none';
+        
+        navMenu.classList.remove('open');
         mobileMenuToggle.classList.remove('active');
         document.body.classList.remove('menu-open');
         mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        console.log('Menu closed');
+      }
+    }
+
+    // Handle both touch and click events
+    let touchStartTime = 0;
+    let touchStartPos = null;
+
+    // Add event listeners with detailed logging
+    console.log('Attaching event listeners...');
+    console.log('Button element:', mobileMenuToggle);
+    console.log('Button tagName:', mobileMenuToggle.tagName);
+    console.log('Button className:', mobileMenuToggle.className);
+    console.log('Button parent:', mobileMenuToggle.parentElement);
+    
+    // CRITICAL: Add onclick attribute as absolute fallback
+    mobileMenuToggle.setAttribute('onclick', 'console.log("ONCLICK ATTRIBUTE FIRED!"); return false;');
+    console.log('✅ Added onclick attribute as fallback');
+    
+    mobileMenuToggle.addEventListener('touchstart', function(e) {
+      console.log('🔵 TOUCHSTART EVENT FIRED!');
+      console.log('  - Target:', e.target);
+      console.log('  - Current target:', e.currentTarget);
+      console.log('  - Touch count:', e.touches.length);
+      touchStartTime = Date.now();
+      if (e.touches[0]) {
+        touchStartPos = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY
+        };
+        console.log('  - Touch position:', touchStartPos);
+      }
+      // Don't prevent default immediately - let touchend handle it
+    }, { passive: true });
+
+    mobileMenuToggle.addEventListener('touchend', function(e) {
+      console.log('🟢 TOUCHEND EVENT FIRED!');
+      console.log('  - Target:', e.target);
+      console.log('  - Changed touches:', e.changedTouches.length);
+      
+      const touchEndTime = Date.now();
+      const touchDuration = touchEndTime - touchStartTime;
+      console.log('  - Touch duration:', touchDuration, 'ms');
+      
+      // Check if it was a tap (not a swipe)
+      let isTap = true;
+      if (touchStartPos && e.changedTouches[0]) {
+        const touchEndPos = {
+          x: e.changedTouches[0].clientX,
+          y: e.changedTouches[0].clientY
+        };
+        const distance = Math.sqrt(
+          Math.pow(touchEndPos.x - touchStartPos.x, 2) + 
+          Math.pow(touchEndPos.y - touchStartPos.y, 2)
+        );
+        console.log('  - Touch distance:', distance.toFixed(2), 'px');
+        // If moved more than 10px, it's a swipe, not a tap
+        if (distance > 10) {
+          isTap = false;
+          console.log('  - ❌ Not a tap (swipe detected)');
+        } else {
+          console.log('  - ✅ Valid tap detected');
+        }
+      }
+      
+      // If it's a quick tap (< 300ms), toggle menu
+      if (isTap && touchDuration < 300) {
+        console.log('✅ TOUCH TAP DETECTED - TOGGLING MENU');
+        toggleMenu(e);
+      } else {
+        console.log('❌ Tap conditions not met:', { isTap, touchDuration });
+      }
+      
+      e.preventDefault();
+      e.stopPropagation();
+    }, { passive: false });
+
+    // Also handle click for mouse devices
+    mobileMenuToggle.addEventListener('click', function(e) {
+      console.log('🟡 CLICK EVENT FIRED!');
+      console.log('  - Target:', e.target);
+      console.log('  - Button:', e.button);
+      toggleMenu(e);
+    });
+
+    // Add mousedown for debugging
+    mobileMenuToggle.addEventListener('mousedown', function(e) {
+      console.log('🟣 MOUSEDOWN EVENT FIRED!');
+    });
+
+    console.log('✅ All event listeners attached');
+    
+    // Test if button is actually clickable
+    console.log('Testing button clickability...');
+    const rect = mobileMenuToggle.getBoundingClientRect();
+    console.log('Button position:', {
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height,
+      visible: rect.width > 0 && rect.height > 0
+    });
+    
+    // Try programmatic click test
+    console.log('Attempting programmatic click test in 2 seconds...');
+    setTimeout(function() {
+      console.log('Testing programmatic click...');
+      try {
+        mobileMenuToggle.click();
+        console.log('Programmatic click executed');
+      } catch (err) {
+        console.error('Programmatic click failed:', err);
+      }
+    }, 2000);
+    
+    // Add a visible test - change button background on hover
+    mobileMenuToggle.addEventListener('mouseenter', function() {
+      console.log('🟠 MOUSE ENTER on button!');
+      this.style.backgroundColor = 'rgba(0,123,255,0.1)';
+    });
+    
+    mobileMenuToggle.addEventListener('mouseleave', function() {
+      console.log('🟠 MOUSE LEAVE from button!');
+      this.style.backgroundColor = 'transparent';
+    });
+    
+    console.log('=== MOBILE MENU INITIALIZATION COMPLETE ===');
+    
+    // Close menu when clicking a link
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.style.display = 'none';
+        navMenu.style.opacity = '0';
+        navMenu.style.visibility = 'hidden';
+        navMenu.style.pointerEvents = 'none';
+        navMenu.classList.remove('open');
+        mobileMenuToggle.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        isMenuOpen = false;
       });
     });
     
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-      if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-        navMenu.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
-        document.body.classList.remove('menu-open');
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
+      if (!isMenuOpen) return;
+      if (mobileMenuToggle.contains(e.target)) return;
+      if (navMenu.contains(e.target)) return;
+      
+      navMenu.style.display = 'none';
+      navMenu.style.opacity = '0';
+      navMenu.style.visibility = 'hidden';
+      navMenu.style.pointerEvents = 'none';
+      navMenu.classList.remove('open');
+      mobileMenuToggle.classList.remove('active');
+      document.body.classList.remove('menu-open');
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+      isMenuOpen = false;
+    }, true);
 
     // Close menu on Escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
+      if (e.key === 'Escape' && isMenuOpen) {
+        navMenu.style.display = 'none';
+        navMenu.style.opacity = '0';
+        navMenu.style.visibility = 'hidden';
+        navMenu.style.pointerEvents = 'none';
+        navMenu.classList.remove('open');
         mobileMenuToggle.classList.remove('active');
         document.body.classList.remove('menu-open');
         mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        isMenuOpen = false;
       }
     });
+
+    console.log('Mobile menu initialized successfully');
   }
+
+  // Initialize when DOM is ready
+  console.log('Script loading, document readyState:', document.readyState);
+  
+  if (document.readyState === 'loading') {
+    console.log('Waiting for DOMContentLoaded...');
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOMContentLoaded fired, initializing menu...');
+      initMobileMenu();
+    });
+  } else {
+    console.log('DOM already ready, initializing menu in 100ms...');
+    setTimeout(function() {
+      console.log('Timeout fired, initializing menu...');
+      initMobileMenu();
+    }, 100);
+  }
+
+  // Also try after a longer delay as backup
+  window.addEventListener('load', function() {
+    console.log('Window load event fired');
+    const btn = document.querySelector('.nav-toggle');
+    if (btn) {
+      console.log('Button found on window load, re-initializing...');
+      initMobileMenu();
+    } else {
+      console.error('❌ Button still not found on window load!');
+    }
+  });
+
+  // ULTIMATE FALLBACK - Try every second until button is found
+  let retryCount = 0;
+  const maxRetries = 10;
+  const retryInterval = setInterval(function() {
+    retryCount++;
+    console.log(`Retry attempt ${retryCount}/${maxRetries}...`);
+    const btn = document.querySelector('.nav-toggle');
+    if (btn) {
+      console.log('✅ Button found on retry! Initializing...');
+      clearInterval(retryInterval);
+      initMobileMenu();
+    } else if (retryCount >= maxRetries) {
+      console.error('❌ Button never found after', maxRetries, 'retries');
+      clearInterval(retryInterval);
+    }
+  }, 1000);
 
   // ============================================
   // 3. SCROLL ANIMATIONS WITH INTERSECTION OBSERVER

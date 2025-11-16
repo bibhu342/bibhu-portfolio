@@ -660,8 +660,13 @@ label {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0.25rem;
+  padding: 0.5rem;
   border-radius: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  position: relative;
+  z-index: 1002;
+  pointer-events: auto;
 }
 
 .nav-toggle:focus {
@@ -685,7 +690,16 @@ label {
 
 /* Responsive Navigation */
 @media (max-width: 768px) {
-  .nav-toggle { display: block; }
+  .nav-toggle { 
+    display: block !important;
+    position: relative !important;
+    z-index: 1002 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 8px !important;
+  }
   .nav-links {
     position: absolute;
     top: 56px;
@@ -701,8 +715,19 @@ label {
     flex-direction: column;
     gap: 6px;
     display: none;
+    z-index: 1001;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
   }
-  .nav-links.open { display: flex; }
+  .nav-links.open { 
+    display: flex !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+  }
   
   /* Dark mode mobile nav - VS Code style */
   [data-theme="dark"] .nav-links {
@@ -4220,4 +4245,185 @@ button.btn-text:hover, .btn-text:hover {
 }
 
 /* Nav links focus handled separately above - no colored background */
+
+/* ============================================
+   HERO STYLES — THEME-SCOPED
+   ============================================ */
+.hero { --hero-max-width: 60ch; padding: 28px 18px; }
+
+.hero h1 { font-size: clamp(1.6rem, 2.6vw, 2.6rem); margin:0 0 6px 0; }
+
+.hero .subtitle { display:block; margin-bottom:10px; }
+
+.hero p { max-width: var(--hero-max-width); line-height:1.5; font-weight:500; margin:0 0 14px 0; }
+
+.hero .cta-row { margin-top: 18px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+
+.hero .btn-primary, .hero .btn-secondary, .hero .btn-ghost { border-radius:10px; padding:12px 18px; font-weight:600; }
+
+/* ---------- DARK MODE (class-based + prefers-color-scheme) ---------- */
+body.dark .hero,
+body.theme-dark .hero,
+body.is-dark .hero {
+  color: #e6eef8;
+}
+
+body.dark .hero h1,
+body.theme-dark .hero h1,
+body.is-dark .hero h1 {
+  font-weight: 800;
+  color: #ffffff;
+}
+
+body.dark .hero .subtitle,
+body.theme-dark .hero .subtitle,
+body.is-dark .hero .subtitle {
+  font-weight: 700;
+  color: #dbeafe;
+}
+
+body.dark .hero p,
+body.theme-dark .hero p,
+body.is-dark .hero p {
+  color: #cbd5e1;
+}
+
+body.dark .hero .btn-primary,
+body.theme-dark .hero .btn-primary,
+body.is-dark .hero .btn-primary {
+  background: linear-gradient(90deg,#00b4ff,#00a3ff);
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+body.dark .hero .btn-secondary,
+body.theme-dark .hero .btn-secondary,
+body.is-dark .hero .btn-secondary {
+  background: transparent;
+  color: #e6eef8;
+  border: 1.5px solid rgba(255,255,255,0.12);
+}
+
+body.dark .hero .btn-ghost,
+body.theme-dark .hero .btn-ghost,
+body.is-dark .hero .btn-ghost {
+  background: transparent;
+  color: #dbeafe;
+}
+
+body.dark .hero .social-links,
+body.theme-dark .hero .social-links,
+body.is-dark .hero .social-links {
+  margin-top: 14px;
+  opacity: 0.95;
+  font-size: 0.92rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero { color: #e6eef8; }
+  .hero h1 { font-weight: 800; color: #ffffff; }
+  .hero .subtitle { font-weight: 700; color: #dbeafe; }
+  .hero p { color: #cbd5e1; }
+  .hero .btn-primary {
+    background: linear-gradient(90deg,#00b4ff,#00a3ff);
+    color: #fff;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  }
+  .hero .btn-secondary {
+    background: transparent;
+    color: #e6eef8;
+    border: 1.5px solid rgba(255,255,255,0.12);
+  }
+  .hero .btn-ghost { background: transparent; color: #dbeafe; }
+  .hero .social-links { opacity: 0.95; }
+}
+
+/* ---------- LIGHT MODE (explicit safe set) ---------- */
+body.light .hero,
+body.theme-light .hero,
+body.is-light .hero {
+  color: #0b1220;
+}
+
+body.light .hero h1,
+body.theme-light .hero h1,
+body.is-light .hero h1 {
+  color: #0b1220;
+  font-weight: 800;
+}
+
+body.light .hero .subtitle,
+body.theme-light .hero .subtitle,
+body.is-light .hero .subtitle {
+  color: #0f1724;
+  font-weight: 700;
+}
+
+body.light .hero p,
+body.theme-light .hero p,
+body.is-light .hero p {
+  color: #1f2937;
+}
+
+body.light .hero .btn-primary {
+  background: linear-gradient(90deg,#0077d9,#005bb5);
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 12px rgba(2,6,23,0.06);
+}
+
+body.light .hero .btn-secondary {
+  background: transparent;
+  color: #0b1220;
+  border: 1.2px solid rgba(11,18,32,0.08);
+}
+
+body.light .hero .btn-ghost { background: transparent; color: #0b1220; }
+
+@media (prefers-color-scheme: light) {
+  .hero { color: #0b1220; }
+  .hero h1 { color: #0b1220; }
+  .hero p { color: #1f2937; }
+  .hero .btn-primary {
+    background: linear-gradient(90deg,#0077d9,#005bb5);
+    color: #fff;
+  }
+}
+
+/* ---------- Responsive CTA layout ---------- */
+@media (min-width: 768px) {
+  .hero .cta-row { justify-content:flex-start; }
+  .hero .btn-primary, .hero .btn-secondary, .hero .btn-ghost {
+    display:inline-block; width:auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero .cta-row { display:block; }
+  .hero .btn-primary, .hero .btn-secondary, .hero .btn-ghost {
+    width:100%; text-align:center; display:block;
+  }
+}
+
+/* ---------- Overlay tint (safe: does not change image) ---------- */
+.hero .hero-overlay { background: rgba(6,8,14,0.36); }
+
+body.light .hero .hero-overlay { background: rgba(255,255,255,0); }
+
+/* Button styles for btn-secondary and btn-ghost */
+.btn-secondary {
+  background: transparent;
+  border: 1.5px solid currentColor;
+  color: inherit;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: none;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
