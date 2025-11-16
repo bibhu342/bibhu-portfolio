@@ -2607,10 +2607,11 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Footer - Light Mode */
-:not([data-theme="dark"]) .site-footer {
-  background: #f8f9fa;
-  color: #0f172a;
-  border-top-color: #007bff;
+html:not([data-theme="dark"]) .site-footer,
+body:not([data-theme="dark"]) .site-footer {
+  background: #f8f9fa !important;
+  color: #0f172a !important;
+  border-top-color: #007bff !important;
 }
 
 /* Footer - Dark Mode (footer is already dark, but ensure consistency) */
@@ -2668,7 +2669,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer headings */
-:not([data-theme="dark"]) .footer-section h3 {
+html:not([data-theme="dark"]) .footer-section h3,
+body:not([data-theme="dark"]) .footer-section h3 {
   color: #0f172a !important;
 }
 
@@ -2680,7 +2682,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer brand */
-:not([data-theme="dark"]) .footer-brand {
+html:not([data-theme="dark"]) .footer-brand,
+body:not([data-theme="dark"]) .footer-brand {
   color: #007bff !important;
 }
 
@@ -2691,7 +2694,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer tagline */
-:not([data-theme="dark"]) .footer-tagline {
+html:not([data-theme="dark"]) .footer-tagline,
+body:not([data-theme="dark"]) .footer-tagline {
   color: #475569 !important;
 }
 
@@ -2703,7 +2707,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer bio */
-:not([data-theme="dark"]) .footer-bio {
+html:not([data-theme="dark"]) .footer-bio,
+body:not([data-theme="dark"]) .footer-bio {
   color: #475569 !important;
 }
 
@@ -2713,7 +2718,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer copyright */
-:not([data-theme="dark"]) .footer-copyright {
+html:not([data-theme="dark"]) .footer-copyright,
+body:not([data-theme="dark"]) .footer-copyright {
   color: #64748b !important;
 }
 
@@ -2735,7 +2741,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer links */
-:not([data-theme="dark"]) .footer-links a {
+html:not([data-theme="dark"]) .footer-links a,
+body:not([data-theme="dark"]) .footer-links a {
   color: #475569 !important;
 }
 
@@ -2745,7 +2752,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer links hover */
-:not([data-theme="dark"]) .footer-links a:hover {
+html:not([data-theme="dark"]) .footer-links a:hover,
+body:not([data-theme="dark"]) .footer-links a:hover {
   color: #007bff !important;
 }
 
@@ -2770,7 +2778,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode social icons */
-:not([data-theme="dark"]) .social-icon-footer {
+html:not([data-theme="dark"]) .social-icon-footer,
+body:not([data-theme="dark"]) .social-icon-footer {
   background: #e2e8f0 !important;
   color: #0f172a !important;
 }
@@ -2781,7 +2790,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode social icons hover */
-:not([data-theme="dark"]) .social-icon-footer:hover {
+html:not([data-theme="dark"]) .social-icon-footer:hover,
+body:not([data-theme="dark"]) .social-icon-footer:hover {
   background: #007bff !important;
   color: #ffffff !important;
 }
@@ -2792,7 +2802,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer location */
-:not([data-theme="dark"]) .footer-location {
+html:not([data-theme="dark"]) .footer-location,
+body:not([data-theme="dark"]) .footer-location {
   color: #64748b !important;
 }
 
@@ -2802,7 +2813,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer bottom */
-:not([data-theme="dark"]) .footer-bottom {
+html:not([data-theme="dark"]) .footer-bottom,
+body:not([data-theme="dark"]) .footer-bottom {
   background: #f1f5f9 !important;
   border-top-color: #e2e8f0 !important;
 }
@@ -2819,11 +2831,13 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 /* Light mode footer bottom content */
-:not([data-theme="dark"]) .footer-bottom-content {
+html:not([data-theme="dark"]) .footer-bottom-content,
+body:not([data-theme="dark"]) .footer-bottom-content {
   color: #64748b !important;
 }
 
-:not([data-theme="dark"]) .footer-bottom-content a {
+html:not([data-theme="dark"]) .footer-bottom-content a,
+body:not([data-theme="dark"]) .footer-bottom-content a {
   color: #007bff !important;
 }
 
