@@ -830,13 +830,22 @@ section[id], div[id] {
 }
 
 [data-theme="dark"] .social-link {
-  color: var(--text-dark) !important;
+  color: #ffffff !important; /* Bright white for better visibility */
+  opacity: 1 !important;
+  font-weight: 500 !important;
 }
 
 [data-theme="dark"] .social-link:hover,
 [data-theme="dark"] .social-link:focus {
-  background: rgba(77, 171, 247, 0.15);
+  background: rgba(77, 171, 247, 0.25) !important; /* More visible hover background */
   color: var(--primary-light) !important;
+  opacity: 1 !important;
+}
+
+/* Dark mode social icons - ensure they're visible */
+[data-theme="dark"] .social-icon {
+  opacity: 1 !important;
+  filter: brightness(1.2); /* Make icons brighter */
 }
 
 [data-theme="dark"] .profile-image {
@@ -845,7 +854,9 @@ section[id], div[id] {
 }
 
 [data-theme="dark"] .scroll-indicator {
-  color: var(--primary-light);
+  color: var(--primary-light) !important;
+  opacity: 0.9 !important;
+  filter: drop-shadow(0 2px 4px rgba(77, 171, 247, 0.5)); /* Add glow for visibility */
 }
 
 /* About Section */
@@ -3597,18 +3608,28 @@ a:hover::after {
 
 /* Dark mode specific enhancements */
 [data-theme="dark"] .btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--text-white) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  background-color: var(--primary-dark) !important;
+  opacity: 1 !important;
 }
 
 [data-theme="dark"] .btn-outline {
-  color: var(--primary-color);
-  border-color: var(--primary-color);
+  color: var(--primary-light) !important; /* Lighter blue for better visibility */
+  border-color: var(--primary-color) !important;
+  background-color: transparent !important;
+  opacity: 1 !important;
 }
 
 [data-theme="dark"] .btn-outline:hover {
-  background-color: var(--primary-color);
-  color: var(--text-white);
+  background-color: var(--primary-color) !important;
+  color: var(--text-white) !important;
+  opacity: 1 !important;
 }
 
 /* Inputs/textarea in dark mode */
