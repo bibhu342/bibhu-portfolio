@@ -729,6 +729,7 @@ section[id], div[id] {
 
 .hero-inner {
   position: relative;
+  z-index: 2; /* Ensure content is above wireframe pattern */
   max-width: 1100px;
   margin: 0 auto;
   padding: 48px 16px 64px;
@@ -843,54 +844,101 @@ section[id], div[id] {
   .social-row { justify-content: center; }
 }
 
-/* Hero Section - Dark Mode */
+/* Hero Section - Dark Mode (AI Engineer Theme) */
+[data-theme="dark"] .hero-section,
 [data-theme="dark"] .hero {
-  background: linear-gradient(120deg, #1e3a8a, #4c1d95);
-  color: var(--text-dark);
+  font-family: 'Inter', sans-serif;
+  background-color: #0D0D0D !important; /* Deep charcoal primary dark mode color */
+  color: #E5E5E5 !important; /* Soft light gray for comfortable reading */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Wireframe/Circuit Pattern Background Effect (<5% opacity) */
+[data-theme="dark"] .hero-section::after,
+[data-theme="dark"] .hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    /* Circuit lines pattern */
+    linear-gradient(90deg, rgba(0, 174, 239, 0.03) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(0, 174, 239, 0.03) 1px, transparent 1px),
+    /* Diagonal circuit connections */
+    linear-gradient(45deg, rgba(0, 174, 239, 0.02) 1px, transparent 1px),
+    linear-gradient(-45deg, rgba(0, 174, 239, 0.02) 1px, transparent 1px),
+    /* Grid nodes */
+    radial-gradient(circle, rgba(0, 174, 239, 0.04) 1px, transparent 1px);
+  background-size: 
+    40px 40px,
+    40px 40px,
+    60px 60px,
+    60px 60px,
+    80px 80px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.8; /* Overall pattern opacity */
 }
 
 [data-theme="dark"] .hero::before {
-  background: linear-gradient(120deg, rgba(30,30,30,0.85), rgba(37,37,38,0.83)) !important; /* VS Code backgrounds */
+  background: transparent !important; /* Remove old overlay */
 }
 
+[data-theme="dark"] .hero-section h1,
 [data-theme="dark"] .hero-content h1 {
-  color: #e8e8e8 !important; /* Bright off-white for headings */
-  font-weight: 700 !important;
+  color: #FFFFFF !important; /* Pure white for the main headline */
+  font-weight: 700 !important; /* Bold or extra-bold */
   text-shadow: none !important; /* Clean modern look */
   opacity: 1 !important;
+  position: relative;
+  z-index: 2;
 }
 
+[data-theme="dark"] .hero-section .hero-title,
 [data-theme="dark"] .hero-title {
-  color: #e8e8e8 !important; /* Bright off-white for headings */
+  color: #E5E5E5 !important; /* Soft light gray */
   font-weight: 700 !important;
   opacity: 1 !important;
-  text-shadow: none !important; /* Clean modern look */
+  text-shadow: none !important;
+  position: relative;
+  z-index: 2;
 }
 
+[data-theme="dark"] .hero-section .hero-subtitle,
 [data-theme="dark"] .hero-subtitle {
-  color: #e8e8e8 !important; /* Bright off-white */
+  color: #E5E5E5 !important; /* Soft light gray */
   opacity: 1 !important;
   font-weight: 600 !important;
-  text-shadow: none !important; /* Clean modern look */
+  text-shadow: none !important;
+  position: relative;
+  z-index: 2;
 }
 
+[data-theme="dark"] .hero-section .hero-desc,
+[data-theme="dark"] .hero-section p,
 [data-theme="dark"] .hero-desc {
-  color: #d4d4d4 !important; /* Light gray for body text */
+  color: #E5E5E5 !important; /* Soft light gray for comfortable reading */
   opacity: 1 !important;
-  line-height: 1.7 !important; /* Better line spacing */
+  line-height: 1.7 !important;
   font-weight: 400 !important;
-  text-shadow: none !important; /* Clean modern look */
+  text-shadow: none !important;
+  position: relative;
+  z-index: 2;
 }
 
+[data-theme="dark"] .hero-section .social-link,
 [data-theme="dark"] .social-link {
-  color: #e8e8e8 !important; /* Bright text */
+  color: #E5E5E5 !important; /* Soft light gray */
   opacity: 1 !important;
   font-weight: 600 !important;
-  text-shadow: none !important; /* Clean modern look */
-  background: rgba(37, 37, 37, 0.85) !important; /* Elevated surface with transparency */
-  border: 1px solid #404040 !important; /* More visible border */
+  text-shadow: none !important;
+  background: rgba(37, 37, 37, 0.85) !important;
+  border: 1px solid #404040 !important;
   padding: 8px 12px !important;
   border-radius: 8px !important;
+  position: relative;
+  z-index: 2;
 }
 
 [data-theme="dark"] .social-link:hover,
@@ -3690,6 +3738,24 @@ a:hover::after {
   background-color: #007acc !important; /* VS Code active color */
   box-shadow: 0 4px 12px rgba(86, 156, 214, 0.4) !important; /* VS Code blue shadow */
   opacity: 1 !important;
+}
+
+/* CTA Button - Dark Mode Hero Section (AI Engineer Theme) */
+[data-theme="dark"] .hero-section .cta-button,
+[data-theme="dark"] .cta-button {
+  background-color: #00AEEF !important; /* Accent Color */
+  color: #FFFFFF !important; /* Pure white text */
+  border: none !important;
+  position: relative;
+  z-index: 2;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+[data-theme="dark"] .hero-section .cta-button:hover,
+[data-theme="dark"] .cta-button:hover {
+  background-color: #00C3FF !important; /* Hover state - lighter blue */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 174, 239, 0.4);
 }
 
 [data-theme="dark"] .btn-outline {
