@@ -27,12 +27,8 @@ jobs:
         echo "Validating HTML files..."
         find . -name "*.html" -not -path "./node_modules/*" -not -path "./.git/*" | while read file; do
           echo "Validating $file"
-          # Skip validation if file appears to be minified (all on one line)
-          if [ $(wc -l < "$file") -le 2 ]; then
-            echo "Skipping minified file: $file"
-            continue
-          fi
-          html-validate "$file" || echo "Warning: Validation issues found in $file (may be minified)"
+          # HTML validators can validate minified HTML, so we validate all files
+          html-validate "$file" || echo "Warning: Validation issues found in $file"
         done
         
     - name: Validate with W3C Nu Validator (backup)

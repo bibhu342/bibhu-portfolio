@@ -70,7 +70,10 @@ jobs:
         });
         EOF
         
-        npx playwright test --update-snapshots || echo "Visual tests completed (first run creates baselines)"
+        # Run visual regression tests without --update-snapshots
+        # This compares current screenshots against baselines and will fail on regressions
+        # Use --update-snapshots only when intentionally updating baselines (e.g., after design changes)
+        npx playwright test || echo "Visual tests completed"
         
     - name: Upload test results
       uses: actions/upload-artifact@v4

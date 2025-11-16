@@ -32,7 +32,8 @@ jobs:
         
     - name: Run Pa11y accessibility tests
       run: |
-        pa11y https://bibhu342.github.io/bibhu-portfolio/ \
+        # Use pa11y-ci with sitemap for comprehensive multi-page testing
+        pa11y-ci --sitemap https://bibhu342.github.io/bibhu-portfolio/sitemap.xml \
           --threshold 10 \
           --ignore "color-contrast" || true
           
