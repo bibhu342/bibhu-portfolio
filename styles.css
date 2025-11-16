@@ -115,34 +115,34 @@
    DARK MODE THEME
    ============================================ */
 [data-theme="dark"] {
-  /* Dark Mode Colors */
-  --primary-color: #60a5fa;
-  --primary-dark: #3b82f6;
-  --primary-light: #93c5fd;
-  --accent-color: #6a4db2;
+  /* Dark Mode Colors - Cursor/VS Code Dark Theme */
+  --primary-color: #569cd6;      /* VS Code link color */
+  --primary-dark: #007acc;       /* VS Code active color */
+  --primary-light: #4ec9b0;      /* VS Code cyan */
+  --accent-color: #569cd6;
   
-  /* Text Colors - Brightened for better readability */
-  --text-primary: #f5f5f5;       /* Primary text (h1, h2, h3) - brightened */
-  --text-secondary: #c9c9c9;     /* Secondary text (p, li) - brightened */
-  --text-tertiary: #a0a0a0;      /* Tertiary text (small labels, metadata) - brightened */
-  --text-light: #a0a0a0;
-  --text-dark: #f5f5f5;          /* Headings use primary text color */
-  --text-muted: #a0a0a0;
+  /* Text Colors - VS Code Dark Theme */
+  --text-primary: #cccccc;       /* VS Code default text */
+  --text-secondary: #cccccc;     /* VS Code default text */
+  --text-tertiary: #858585;      /* VS Code secondary text */
+  --text-light: #858585;
+  --text-dark: #cccccc;          /* Headings use VS Code default text */
+  --text-muted: #858585;         /* VS Code secondary text */
   --text-white: #ffffff;         /* Only for hover/highlights */
   
-  /* Background Colors - Lightened for better contrast */
-  --bg-primary: #121212;         /* Global dark mode background - keep as is */
-  --bg-secondary: #1e1e1e;       /* Elevated surfaces - lightened */
-  --bg-tertiary: #1e1e1e;
-  --bg-dark: #121212;
-  --bg-light: #1e1e1e;
-  --bg-card: #1e1e1e;            /* Cards and sections - lightened */
-  --card-bg: #1e1e1e;
+  /* Background Colors - VS Code Dark Theme */
+  --bg-primary: #1e1e1e;         /* VS Code editor background */
+  --bg-secondary: #252526;       /* VS Code sidebar background */
+  --bg-tertiary: #252526;
+  --bg-dark: #1e1e1e;
+  --bg-light: #252526;
+  --bg-card: #252526;            /* VS Code sidebar background for cards */
+  --card-bg: #252526;
   
-  /* Border Colors - Lightened for better visibility */
-  --border-color: #2a2a2a;       /* Card/section borders - lightened */
-  --border-light: rgba(255, 255, 255, 0.1);
-  --border-dark: #2a2a2a;
+  /* Border Colors - VS Code Dark Theme */
+  --border-color: #3e3e42;       /* VS Code border color */
+  --border-light: #3e3e42;
+  --border-dark: #3e3e42;
   
   /* Shadows (darker in dark mode) */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -180,6 +180,20 @@ body {
   animation: pageLoad 0.5s ease forwards;
 }
 
+/* Ensure dark mode html and body use VS Code background */
+[data-theme="dark"] html,
+[data-theme="dark"] body {
+  background-color: #1e1e1e !important; /* VS Code editor background */
+  color: #cccccc !important; /* VS Code default text */
+}
+
+/* Ensure all sections and containers in dark mode use VS Code background */
+[data-theme="dark"] section,
+[data-theme="dark"] .container,
+[data-theme="dark"] main {
+  background-color: #1e1e1e !important; /* VS Code editor background */
+}
+
 /* Smooth page load animation */
 @keyframes pageLoad {
   to { opacity: 1; }
@@ -195,14 +209,14 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-dark);
 }
 
-/* Dark mode headings - use brightened primary text color */
+/* Dark mode headings - VS Code text color */
 [data-theme="dark"] h1,
 [data-theme="dark"] h2,
 [data-theme="dark"] h3,
 [data-theme="dark"] h4,
 [data-theme="dark"] h5,
 [data-theme="dark"] h6 {
-  color: #f5f5f5 !important; /* Brightened primary text */
+  color: #cccccc !important; /* VS Code default text */
   line-height: 1.6 !important;
 }
 
@@ -218,9 +232,9 @@ p {
   color: var(--text-secondary);
 }
 
-/* Dark mode paragraphs - use brightened secondary text color */
+/* Dark mode paragraphs - VS Code text color */
 [data-theme="dark"] p {
-  color: #c9c9c9 !important; /* Brightened secondary text */
+  color: #cccccc !important; /* VS Code default text */
   line-height: 1.6 !important;
 }
 
@@ -234,13 +248,13 @@ a:hover {
   color: var(--primary-dark);
 }
 
-/* Dark mode links - use specified colors */
+/* Dark mode links - VS Code link colors */
 [data-theme="dark"] a {
-  color: #60a5fa !important;
+  color: #569cd6 !important; /* VS Code link color */
 }
 
 [data-theme="dark"] a:hover {
-  color: #93c5fd !important;
+  color: #4ec9b0 !important; /* VS Code cyan for hover */
 }
 
 img {
@@ -573,9 +587,9 @@ label {
   white-space: nowrap;
 }
 
-/* Dark mode brand */
+/* Dark mode brand - VS Code style */
 [data-theme="dark"] .brand {
-  color: #e5e5e5 !important; /* Navbar brand text */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 .nav-links {
@@ -595,9 +609,9 @@ label {
   transition: color 150ms ease, background 150ms ease;
 }
 
-/* Dark mode nav links */
+/* Dark mode nav links - VS Code style */
 [data-theme="dark"] .nav-links a {
-  color: #f0f0f0 !important; /* Brightened navbar links default */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 .nav-links a:hover,
@@ -606,10 +620,10 @@ label {
   outline: none;
 }
 
-/* Dark mode nav links hover */
+/* Dark mode nav links hover - VS Code style */
 [data-theme="dark"] .nav-links a:hover,
 [data-theme="dark"] .nav-links a:focus {
-  background: rgba(77, 171, 247, 0.2) !important; /* More visible hover */
+  background: rgba(86, 156, 214, 0.1) !important; /* VS Code blue */
   color: #ffffff !important; /* White on hover */
 }
 
@@ -617,9 +631,9 @@ label {
   color: #0056b3;
 }
 
-/* Dark mode active nav link */
+/* Dark mode active nav link - VS Code style */
 [data-theme="dark"] .nav-links a.active {
-  color: var(--primary-color) !important;
+  color: #569cd6 !important; /* VS Code link color */
 }
 
 .nav-toggle {
@@ -671,10 +685,10 @@ label {
   }
   .nav-links.open { display: flex; }
   
-  /* Dark mode mobile nav - Enhanced visibility */
+  /* Dark mode mobile nav - VS Code style */
   [data-theme="dark"] .nav-links {
-    background: #1e1e1e !important; /* Lightened background */
-    border: 1px solid #2a2a2a !important; /* Visible border */
+    background: #252526 !important; /* VS Code sidebar background */
+    border: 1px solid #3e3e42 !important; /* VS Code border */
     box-shadow: 0 8px 24px rgba(0,0,0,0.6) !important; /* Enhanced shadow */
   }
 }
@@ -831,81 +845,81 @@ section[id], div[id] {
 }
 
 [data-theme="dark"] .hero::before {
-  background: linear-gradient(120deg, rgba(15,15,15,0.85), rgba(26,26,26,0.83)) !important; /* More opaque for better text contrast */
+  background: linear-gradient(120deg, rgba(30,30,30,0.85), rgba(37,37,38,0.83)) !important; /* VS Code backgrounds */
 }
 
 [data-theme="dark"] .hero-content h1 {
-  color: #ffffff !important; /* Pure white for maximum visibility */
-  font-weight: 900 !important;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(77, 171, 247, 0.5) !important; /* Stronger shadow with glow */
+  color: #cccccc !important; /* VS Code default text */
+  font-weight: 700 !important;
+  text-shadow: none !important; /* Clean VS Code look */
   opacity: 1 !important;
 }
 
 [data-theme="dark"] .hero-title {
-  color: #f0f0f0 !important; /* Bright white-gray */
+  color: #cccccc !important; /* VS Code default text */
   font-weight: 700 !important;
   opacity: 1 !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
+  text-shadow: none !important; /* Clean VS Code look */
 }
 
 [data-theme="dark"] .hero-subtitle {
-  color: #d4d4d4 !important; /* Light gray */
+  color: #cccccc !important; /* VS Code default text */
   opacity: 1 !important;
   font-weight: 600 !important;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5) !important;
+  text-shadow: none !important; /* Clean VS Code look */
 }
 
 [data-theme="dark"] .hero-desc {
-  color: #c9c9c9 !important; /* Secondary text color */
+  color: #cccccc !important; /* VS Code default text */
   opacity: 1 !important;
   line-height: 1.6 !important;
   font-weight: 400 !important;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+  text-shadow: none !important; /* Clean VS Code look */
 }
 
 [data-theme="dark"] .social-link {
-  color: #ffffff !important; /* Pure white */
+  color: #cccccc !important; /* VS Code default text */
   opacity: 1 !important;
   font-weight: 600 !important;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
-  background: rgba(255, 255, 255, 0.15) !important; /* More visible background */
-  border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Added border */
+  text-shadow: none !important; /* Clean VS Code look */
+  background: rgba(37, 37, 38, 0.8) !important; /* VS Code sidebar with transparency */
+  border: 1px solid #3e3e42 !important; /* VS Code border */
   padding: 8px 12px !important;
   border-radius: 8px !important;
 }
 
 [data-theme="dark"] .social-link:hover,
 [data-theme="dark"] .social-link:focus {
-  background: rgba(77, 171, 247, 0.45) !important; /* More visible hover */
-  color: #ffffff !important; /* Pure white */
+  background: rgba(86, 156, 214, 0.3) !important; /* VS Code blue */
+  color: #ffffff !important; /* White on hover */
   opacity: 1 !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 16px rgba(77, 171, 247, 0.4) !important; /* Enhanced shadow */
+  box-shadow: 0 4px 16px rgba(86, 156, 214, 0.5) !important; /* VS Code blue shadow */
 }
 
-/* Dark mode social icons - ensure they're very visible */
+/* Dark mode social icons - VS Code style */
 [data-theme="dark"] .social-icon {
   opacity: 1 !important;
-  filter: brightness(1.2) !important; /* Brightened icons */
+  filter: brightness(1.1) !important; /* Subtle brighten */
 }
 
 [data-theme="dark"] .social-icon svg,
 [data-theme="dark"] .social-link svg {
-  fill: #ffffff !important;
+  fill: currentColor !important; /* Use current text color */
   opacity: 1 !important;
-  filter: brightness(1.2) !important; /* Brightened SVG icons */
+  filter: brightness(1.1) !important; /* Subtle brighten */
 }
 
 [data-theme="dark"] .profile-image {
-  filter: brightness(1.15) contrast(1.05) !important; /* Enhanced visibility */
-  border-color: rgba(255,255,255,0.3) !important; /* More visible border */
+  filter: brightness(1.05) contrast(1.02) !important; /* Subtle enhancement */
+  border-color: #3e3e42 !important; /* VS Code border */
   box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
 }
 
 [data-theme="dark"] .scroll-indicator {
-  color: #93c5fd !important; /* Light blue color */
+  color: #569cd6 !important; /* VS Code link color */
   opacity: 1 !important;
-  filter: drop-shadow(0 3px 6px rgba(77, 171, 247, 0.6)) !important; /* Enhanced glow */
+  filter: drop-shadow(0 3px 6px rgba(86, 156, 214, 0.6)) !important; /* VS Code blue glow */
 }
 
 /* About Section */
@@ -1282,17 +1296,17 @@ details.exp-details summary::-webkit-details-marker {
 
 /* Experience Section - Dark Mode */
 [data-theme="dark"] .timeline::before {
-  background: linear-gradient(to bottom, rgba(77, 171, 247, 0.3), rgba(77, 171, 247, 0.1)) !important; /* Blue gradient for visibility */
+  background: linear-gradient(to bottom, rgba(86, 156, 214, 0.5), rgba(86, 156, 214, 0.1)) !important; /* VS Code blue gradient */
 }
 
 [data-theme="dark"] .timeline-marker {
-  background: #60a5fa !important; /* Primary color */
-  box-shadow: 0 0 0 4px rgba(77, 171, 247, 0.3) !important; /* Enhanced shadow */
+  background: #569cd6 !important; /* VS Code link color */
+  box-shadow: 0 0 0 4px rgba(86, 156, 214, 0.3) !important; /* VS Code blue shadow */
 }
 
 [data-theme="dark"] .timeline-card {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  border-color: #2a2a2a !important; /* Lightened card border */
+  background: #252526 !important; /* VS Code sidebar background */
+  border-color: #3e3e42 !important; /* VS Code border */
   box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important; /* Enhanced shadow */
 }
 
@@ -1302,41 +1316,41 @@ details.exp-details summary::-webkit-details-marker {
 
 [data-theme="dark"] .exp-title,
 [data-theme="dark"] .exp-company {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .exp-meta {
-  color: #a0a0a0 !important; /* Brightened tertiary text color */
+  color: #858585 !important; /* VS Code secondary text */
 }
 
 [data-theme="dark"] .exp-clients {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .exp-list {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .exp-list li {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .exp-relevance {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .exp-relevance strong {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 /* Tech badge updated above with tech-pill */
 
 [data-theme="dark"] details.exp-details summary {
-  color: var(--primary-color) !important;
+  color: #569cd6 !important; /* VS Code link color */
 }
 
 [data-theme="dark"] details.exp-details[open] summary {
-  color: var(--primary-light) !important;
+  color: #4ec9b0 !important; /* VS Code cyan */
 }
 
 /* Badges Section */
@@ -1437,10 +1451,10 @@ details.exp-details summary::-webkit-details-marker {
   transition: transform 200ms ease, box-shadow 200ms ease, opacity 300ms ease;
 }
 
-/* Dark mode project cards */
+/* Dark mode project cards - VS Code style */
 [data-theme="dark"] .project-card.enhanced {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  border: 1px solid #2a2a2a !important; /* Lightened card border */
+  background: #252526 !important; /* VS Code sidebar background */
+  border: 1px solid #3e3e42 !important; /* VS Code border */
   box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important; /* Enhanced shadow */
 }
 
@@ -1553,41 +1567,41 @@ details.exp-details summary::-webkit-details-marker {
   color: #0f172a; 
 }
 
-/* Dark mode tech pills */
+/* Dark mode tech pills - VS Code style */
 [data-theme="dark"] .tech-pill,
 [data-theme="dark"] .tech-badge,
 [data-theme="dark"] .edu-tag {
-  background: #2a2a2a !important; /* Lightened background */
-  border: 1px solid #3a3a3a !important; /* Lightened border */
-  color: #f0f0f0 !important; /* Brightened text */
+  background: #252526 !important; /* VS Code sidebar background */
+  border: 1px solid #3e3e42 !important; /* VS Code border */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 /* Projects Section - Dark Mode */
 [data-theme="dark"] .projects-intro,
 [data-theme="dark"] .services-intro {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .filter-btn {
-  border-color: rgba(77, 171, 247, 0.5) !important; /* More visible border */
-  color: #93c5fd !important; /* Light blue text */
-  background: rgba(77, 171, 247, 0.08) !important; /* Subtle background */
+  border-color: rgba(86, 156, 214, 0.4) !important; /* VS Code blue */
+  color: #cccccc !important; /* VS Code default text */
+  background: rgba(86, 156, 214, 0.05) !important; /* VS Code blue */
 }
 
 [data-theme="dark"] .filter-btn:hover {
-  background: rgba(77, 171, 247, 0.15) !important; /* More visible hover */
-  border-color: #60a5fa !important; /* Primary color border */
+  background: rgba(86, 156, 214, 0.15) !important; /* VS Code blue */
+  border-color: #569cd6 !important; /* VS Code link color */
 }
 
 [data-theme="dark"] .filter-btn.active {
-  background: #60a5fa !important; /* Primary background */
+  background: #569cd6 !important; /* VS Code link color */
   color: #ffffff !important; /* White text */
-  border-color: #60a5fa !important; /* Primary border */
+  border-color: #569cd6 !important; /* VS Code link color */
 }
 
 [data-theme="dark"] .project-card.enhanced {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  border-color: #2a2a2a !important; /* Lightened card border */
+  background: #252526 !important; /* VS Code sidebar background */
+  border-color: #3e3e42 !important; /* VS Code border */
   box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important; /* Enhanced shadow */
 }
 
@@ -1596,31 +1610,31 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .project-media {
-  background: #1e1e1e !important; /* Lightened elevated surface */
+  background: #252526 !important; /* VS Code sidebar background */
 }
 
 [data-theme="dark"] .project-title {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .project-tagline {
-  color: #a0a0a0 !important; /* Brightened tertiary text color */
+  color: #858585 !important; /* VS Code secondary text */
 }
 
 [data-theme="dark"] .project-desc {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 
 [data-theme="dark"] .category-tag {
-  background: var(--primary-color);
-  color: var(--text-white);
+  background: #569cd6 !important; /* VS Code link color */
+  color: #ffffff !important;
 }
 
 [data-theme="dark"] .status-badge {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  color: #f5f5f5 !important; /* Brightened primary text */
-  border-color: #2a2a2a !important; /* Lightened border */
+  background: #252526 !important; /* VS Code sidebar background */
+  color: #cccccc !important; /* VS Code default text */
+  border-color: #3e3e42 !important; /* VS Code border */
 }
 
 .status-badge { 
@@ -1749,37 +1763,37 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .skill-cat {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  border-color: #2a2a2a !important; /* Lightened border */
+  background: #1e1e1e !important; /* VS Code editor background */
+  border-color: #3e3e42 !important; /* VS Code border */
 }
 
 [data-theme="dark"] .cat-title {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .skill-item {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
-  background: #2a2a2a !important; /* Lightened background */
-  border-color: #3a3a3a !important; /* Lightened border */
+  color: #cccccc !important; /* VS Code default text */
+  background: #252526 !important; /* VS Code sidebar background */
+  border-color: #3e3e42 !important; /* VS Code border */
 }
 
 [data-theme="dark"] .skill-item strong {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
-/* Dark mode list items - Brightened */
+/* Dark mode list items - VS Code style */
 [data-theme="dark"] li {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
   line-height: 1.6 !important;
 }
 
-/* Dark mode metadata and small text - Brightened */
+/* Dark mode metadata and small text - VS Code style */
 [data-theme="dark"] small,
 [data-theme="dark"] .meta,
 [data-theme="dark"] .label,
 [data-theme="dark"] .text-muted,
 [data-theme="dark"] .text-tertiary {
-  color: #a0a0a0 !important; /* Brightened tertiary text color */
+  color: #858585 !important; /* VS Code secondary text */
 }
 
 /* Skills & Expertise */
@@ -2052,10 +2066,10 @@ details.exp-details summary::-webkit-details-marker {
   line-height: 1.5;
 }
 
-/* Achievements Section - Dark Mode */
+/* Achievements Section - Dark Mode - VS Code style */
 [data-theme="dark"] .achievement-card {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  border-color: #2a2a2a !important; /* Lightened card border */
+  background: #252526 !important; /* VS Code sidebar background */
+  border-color: #3e3e42 !important; /* VS Code border */
   box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important; /* Enhanced shadow */
 }
 
@@ -2064,11 +2078,11 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .achievement-metric {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #569cd6 !important; /* VS Code link color for metrics */
 }
 
 [data-theme="dark"] .achievement-desc {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 /* Services / What I Bring */
@@ -2180,12 +2194,12 @@ details.exp-details summary::-webkit-details-marker {
 
 /* Services Section - Dark Mode */
 [data-theme="dark"] .services-intro {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .service-card {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  border-color: #2a2a2a !important; /* Lightened card border */
+  background: #252526 !important; /* VS Code sidebar background */
+  border-color: #3e3e42 !important; /* VS Code border */
   box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important; /* Enhanced shadow */
 }
 
@@ -2194,15 +2208,15 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .service-title {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .service-desc {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .service-strengths li {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .service-strengths li::before {
@@ -2447,8 +2461,8 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .edu-card {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  border-color: #2a2a2a !important; /* Lightened card border */
+  background: #252526 !important; /* VS Code sidebar background */
+  border-color: #3e3e42 !important; /* VS Code border */
   box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important; /* Enhanced shadow */
 }
 
@@ -2457,19 +2471,19 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .edu-card.degree {
-  background: linear-gradient(135deg, #1e1e1e 0%, #1e1e1e 100%) !important; /* Use lightened colors */
+  background: linear-gradient(135deg, #252526 0%, #252526 100%) !important; /* VS Code sidebar */
 }
 
 [data-theme="dark"] .edu-title {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .edu-subtitle {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .edu-meta {
-  color: #a0a0a0 !important; /* Brightened tertiary text color */
+  color: #858585 !important; /* VS Code secondary text */
 }
 
 [data-theme="dark"] .edu-skills {
@@ -2724,9 +2738,9 @@ details.exp-details summary::-webkit-details-marker {
   font-size: 0.95rem;
 }
 
-/* Dark mode contact card label */
+/* Dark mode contact card label - VS Code style */
 [data-theme="dark"] .contact-card-label {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 .contact-card-value {
@@ -2763,11 +2777,11 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .contact-card-value a {
-  color: #60a5fa !important; /* Link color */
+  color: #569cd6 !important; /* VS Code link color */
 }
 
 [data-theme="dark"] .contact-card-value a:hover {
-  color: #93c5fd !important; /* Link hover color */
+  color: #4ec9b0 !important; /* VS Code cyan for hover */
 }
 
 /* Toast Notification */
@@ -2819,9 +2833,9 @@ body:not([data-theme="dark"]) .site-footer {
   border-top-color: #007bff !important;
 }
 
-/* Footer - Dark Mode (footer is already dark, but ensure consistency) */
+/* Footer - Dark Mode - VS Code style */
 [data-theme="dark"] .site-footer {
-  background: #121212 !important; /* Footer background matches global dark mode */
+  background: #1e1e1e !important; /* VS Code editor background */
   border-top-color: var(--primary-color);
 }
 
@@ -3658,56 +3672,57 @@ a:hover::after {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Dark mode specific enhancements - Enhanced visibility */
+/* Dark mode specific enhancements - VS Code style */
 [data-theme="dark"] .btn-primary {
-  background-color: #60a5fa !important; /* Primary color */
-  border-color: #60a5fa !important;
+  background-color: #569cd6 !important; /* VS Code link color */
+  border-color: #569cd6 !important;
   color: #ffffff !important; /* Pure white text */
   opacity: 1 !important;
-  box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3) !important; /* Enhanced shadow */
+  box-shadow: 0 2px 8px rgba(86, 156, 214, 0.3) !important; /* VS Code blue shadow */
 }
 
 [data-theme="dark"] .btn-primary:hover {
-  background-color: #3b82f6 !important; /* Darker primary on hover */
-  box-shadow: 0 6px 16px rgba(77, 171, 247, 0.4) !important; /* Enhanced hover shadow */
+  background-color: #007acc !important; /* VS Code active color */
+  box-shadow: 0 4px 12px rgba(86, 156, 214, 0.4) !important; /* VS Code blue shadow */
   opacity: 1 !important;
 }
 
 [data-theme="dark"] .btn-outline {
-  color: #93c5fd !important; /* Light blue text */
-  border-color: #60a5fa !important; /* Primary color border */
-  background-color: rgba(77, 171, 247, 0.1) !important; /* Subtle background */
+  color: #cccccc !important; /* VS Code default text */
+  border-color: #3e3e42 !important; /* VS Code border */
+  background-color: transparent !important;
   opacity: 1 !important;
 }
 
 [data-theme="dark"] .btn-outline:hover {
-  background-color: #60a5fa !important; /* Primary background on hover */
-  color: #ffffff !important; /* White text on hover */
+  background-color: rgba(86, 156, 214, 0.1) !important; /* VS Code blue */
+  border-color: #569cd6 !important; /* VS Code link color */
+  color: #569cd6 !important; /* VS Code link color on hover */
   opacity: 1 !important;
 }
 
-/* Inputs/textarea in dark mode - Enhanced visibility */
+/* Inputs/textarea in dark mode - VS Code style */
 [data-theme="dark"] input,
 [data-theme="dark"] textarea,
 [data-theme="dark"] select {
-  background-color: #2a2a2a !important; /* Darker background for contrast */
-  color: #f5f5f5 !important; /* Bright text */
-  border: 2px solid #3a3a3a !important; /* Visible border */
+  background-color: #1e1e1e !important; /* VS Code editor background */
+  color: #cccccc !important; /* VS Code default text */
+  border: 1px solid #3e3e42 !important; /* VS Code border */
 }
 
 [data-theme="dark"] input::placeholder,
 [data-theme="dark"] textarea::placeholder {
-  color: #888888 !important; /* Visible placeholder */
+  color: #858585 !important; /* VS Code secondary text */
   opacity: 1;
 }
 
 [data-theme="dark"] input:focus,
 [data-theme="dark"] textarea:focus,
 [data-theme="dark"] select:focus {
-  border-color: #60a5fa !important; /* Primary color border */
-  background-color: #2f2f2f !important; /* Slightly lighter on focus */
+  border-color: #569cd6 !important; /* VS Code link color */
+  background-color: #252526 !important; /* VS Code sidebar background on focus */
   outline: none;
-  box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.25) !important; /* Enhanced focus ring */
+  box-shadow: 0 0 0 1px #569cd6 !important; /* Subtle VS Code focus ring */
 }
 
 [data-theme="dark"] input.error,
@@ -3771,8 +3786,8 @@ a:hover::after {
 [data-theme="dark"] .about-grid,
 [data-theme="dark"] section > .container,
 [data-theme="dark"] .skill-cat {
-  background-color: #1e1e1e !important; /* Lightened elevated surfaces */
-  border-color: #2a2a2a !important; /* Lightened card borders */
+  background-color: #252526 !important; /* VS Code sidebar background */
+  border-color: #3e3e42 !important; /* VS Code border */
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important; /* Enhanced shadow */
 }
 
@@ -3858,36 +3873,36 @@ body:not([data-theme="dark"]) .about-text p {
   color: #475569 !important; /* Slightly lighter for about text */
 }
 
-/* Dark mode about text */
+/* Dark mode about text - VS Code style */
 [data-theme="dark"] .about-text p {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .stat-card {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  border-color: #2a2a2a !important; /* Lightened border */
+  background: #252526 !important; /* VS Code sidebar background */
+  border-color: #3e3e42 !important; /* VS Code border */
 }
 
 [data-theme="dark"] .stat-value {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #569cd6 !important; /* VS Code link color for emphasis */
 }
 
 [data-theme="dark"] .stat-label {
-  color: #a0a0a0 !important; /* Brightened tertiary text color */
+  color: #858585 !important; /* VS Code secondary text */
 }
 
 [data-theme="dark"] .facts {
-  background: #1e1e1e !important; /* Lightened elevated surface */
-  border-color: #2a2a2a !important; /* Lightened border */
+  background: #252526 !important; /* VS Code sidebar background */
+  border-color: #3e3e42 !important; /* VS Code border */
 }
 
 [data-theme="dark"] .facts-list li {
-  color: #c9c9c9 !important; /* Brightened secondary text color */
-  border-bottom-color: #2a2a2a !important; /* Lightened border */
+  color: #cccccc !important; /* VS Code default text */
+  border-bottom-color: #3e3e42 !important; /* VS Code border */
 }
 
 [data-theme="dark"] .facts-list li strong {
-  color: #f5f5f5 !important; /* Brightened primary text color */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 /* Ensure section headings inherit correctly in both modes */
@@ -3926,19 +3941,19 @@ button[aria-controls="skills-operational"],
 [data-theme="dark"] .footer-location,
 [data-theme="dark"] .footer-links a,
 [data-theme="dark"] .footer-copyright {
-  color: #a0a0a0 !important; /* Brightened footer text */
+  color: #858585 !important; /* VS Code secondary text */
 }
 
 [data-theme="dark"] .footer-section h3 {
-  color: #f5f5f5 !important; /* Brightened footer headings */
+  color: #cccccc !important; /* VS Code default text */
 }
 
 [data-theme="dark"] .footer-brand {
-  color: #60a5fa !important; /* Footer brand uses link color */
+  color: #569cd6 !important; /* VS Code link color */
 }
 
 [data-theme="dark"] .footer-links a:hover {
-  color: #93c5fd !important; /* Footer link hover */
+  color: #569cd6 !important; /* VS Code link color */
 }
 
 /* Cookie buttons */
@@ -4115,7 +4130,7 @@ button.btn-text:hover, .btn-text:hover {
 [data-theme="dark"] .filter-btn:focus,
 [data-theme="dark"] .nav-links a:focus,
 [data-theme="dark"] .social-link:focus {
-  outline: 3px solid #93c5fd !important; /* Light blue outline */
-  outline-offset: 2px !important; /* Visible offset */
+  outline: 1px solid #569cd6 !important; /* VS Code link color */
+  outline-offset: 1px !important; /* Subtle offset */
 }
 
