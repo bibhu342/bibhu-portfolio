@@ -1,0 +1,225 @@
+/* css/contrast-fix.css
+
+   Dark-mode scoped accessibility overrides.
+
+   Loaded AFTER main styles.css.
+
+   DO NOT modify light mode.
+
+*/
+
+/* Dark-mode tokens (safe, slightly cool palette for tech portfolios) */
+[data-theme="dark"] {
+  --cf-text-primary: #E6EEF6;    /* primary headings & important labels */
+  --cf-text-secondary: #C1CCD6;  /* body and paragraph text */
+  --cf-text-muted: #9AA6B3;      /* metadata & small labels */
+  --cf-surface: #121217;         /* page background */
+  --cf-surface-elev: #1a1a1a;    /* card / elevated surface */
+  --cf-hero-overlay: rgba(2,6,23,0.60); /* hero overlay to ensure readability */
+  --cf-accent: #60a5fa;          /* blue accent for links/buttons */
+  --cf-accent-strong: #3b82f6;
+}
+
+/* Global headings and important labels */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] .brand,
+[data-theme="dark"] .project-title,
+[data-theme="dark"] .stat-value,
+[data-theme="dark"] .achievement-metric,
+[data-theme="dark"] .exp-title,
+[data-theme="dark"] .edu-title {
+  color: var(--cf-text-primary) !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.6) !important;
+  font-weight: 600 !important;
+}
+
+/* Paragraphs, list items, body text */
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] .project-desc,
+[data-theme="dark"] .about-text p,
+[data-theme="dark"] .exp-list,
+[data-theme="dark"] .project-tagline,
+[data-theme="dark"] .skills-intro,
+[data-theme="dark"] .fact-text,
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .edu-subtitle,
+[data-theme="dark"] .edu-meta,
+[data-theme="dark"] .description,
+[data-theme="dark"] .card p {
+  color: var(--cf-text-secondary) !important;
+  opacity: 1 !important;
+  line-height: 1.6 !important;
+}
+
+/* Muted / tertiary text */
+[data-theme="dark"] small,
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] .meta,
+[data-theme="dark"] .achievement-sub,
+[data-theme="dark"] .muted {
+  color: var(--cf-text-muted) !important;
+}
+
+/* Card and surface styles */
+[data-theme="dark"] .card,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .edu-card,
+[data-theme="dark"] .timeline-card,
+[data-theme="dark"] .skill-card,
+[data-theme="dark"] .about-aside,
+[data-theme="dark"] .facts,
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .achievement-card,
+[data-theme="dark"] .experience-card,
+[data-theme="dark"] .service-card,
+[data-theme="dark"] .project-card.enhanced {
+  background: var(--cf-surface-elev) !important;
+  border: 1px solid rgba(255,255,255,0.04) !important;
+  color: var(--cf-text-secondary) !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.48) !important;
+  border-radius: 10px !important;
+}
+
+/* Hero overlay to ensure hero text readability */
+[data-theme="dark"] .hero,
+[data-theme="dark"] .home-hero,
+[data-theme="dark"] .hero-section {
+  position: relative !important;
+}
+[data-theme="dark"] .hero::before,
+[data-theme="dark"] .home-hero::before,
+[data-theme="dark"] .hero-section::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: var(--cf-hero-overlay) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+[data-theme="dark"] .hero * ,
+[data-theme="dark"] .home-hero * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+[data-theme="dark"] .hero h1,
+[data-theme="dark"] .hero .hero-title,
+[data-theme="dark"] .home-hero h1 {
+  color: var(--cf-text-primary) !important;
+  text-shadow: 0 6px 22px rgba(0,0,0,0.6) !important;
+}
+
+/* Buttons and interactive elements */
+[data-theme="dark"] .btn,
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .btn-card,
+[data-theme="dark"] .filter-btn,
+[data-theme="dark"] .skills-tab-btn,
+[data-theme="dark"] .btn-outline {
+  color: var(--cf-text-primary) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+/* Primary accent button - visible CTA */
+[data-theme="dark"] .btn-primary {
+  background: var(--cf-accent) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(59,130,246,0.18) !important;
+  border: none !important;
+}
+[data-theme="dark"] .btn-primary:hover {
+  background: var(--cf-accent-strong) !important;
+}
+
+/* Links and accent color */
+[data-theme="dark"] a,
+[data-theme="dark"] .link {
+  color: var(--cf-accent) !important;
+}
+[data-theme="dark"] a:hover,
+[data-theme="dark"] .link:hover {
+  color: var(--cf-accent-strong) !important;
+}
+
+/* Form inputs */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background: #2b2b2b !important;
+  color: var(--cf-text-primary) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  outline: none !important;
+}
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: rgba(255,255,255,0.45) !important;
+}
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+  border: 1px solid var(--cf-accent) !important;
+  box-shadow: 0 0 0 6px rgba(96,165,250,0.08) !important;
+}
+
+/* Badges & tech pills */
+[data-theme="dark"] .tech-badge,
+[data-theme="dark"] .category-tag,
+[data-theme="dark"] .status-badge,
+[data-theme="dark"] .tech-pill {
+  background: rgba(255,255,255,0.03) !important;
+  color: var(--cf-text-primary) !important;
+  border: 1px solid rgba(255,255,255,0.04) !important;
+}
+
+/* Icons and SVGs */
+[data-theme="dark"] svg,
+[data-theme="dark"] .icon,
+[data-theme="dark"] .social-icon {
+  color: var(--cf-text-primary) !important;
+  fill: currentColor !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Navbar */
+[data-theme="dark"] .site-nav,
+[data-theme="dark"] nav,
+[data-theme="dark"] .navbar {
+  background: var(--cf-surface) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.04) !important;
+}
+[data-theme="dark"] .nav-links a,
+[data-theme="dark"] .nav-links li a {
+  color: var(--cf-text-primary) !important;
+}
+[data-theme="dark"] .nav-links a:hover {
+  background: rgba(96,165,250,0.08) !important;
+  color: #ffffff !important;
+}
+
+/* Explicit fixes for problematic components seen in screenshots */
+[data-theme="dark"] .about-text p { color: var(--cf-text-secondary) !important; }
+[data-theme="dark"] .stat-value { color: var(--cf-text-primary) !important; }
+[data-theme="dark"] .stat-card { background: var(--cf-surface-elev) !important; }
+[data-theme="dark"] .experience-card * { color: var(--cf-text-secondary) !important; }
+[data-theme="dark"] .project-card * { color: var(--cf-text-secondary) !important; }
+[data-theme="dark"] .achievement-card * { color: var(--cf-text-secondary) !important; }
+
+/* Prevent extremely low-opacity rules from hiding text */
+[data-theme="dark"] [style*="opacity: 0."] { opacity: 1 !important; }
+[data-theme="dark"] *[style*="color: rgba(0,0,0,"] { color: var(--cf-text-secondary) !important; }
+
+/* Accessibility: focus outlines */
+[data-theme="dark"] :focus {
+  outline: 3px solid rgba(96,165,250,0.28) !important;
+  outline-offset: 2px !important;
+}
+
+/* End of overrides */
+
