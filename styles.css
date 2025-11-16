@@ -1551,11 +1551,6 @@ details.exp-details summary::-webkit-details-marker {
   color: var(--text-secondary) !important;
 }
 
-[data-theme="dark"] .tech-pill {
-  background: var(--bg-secondary);
-  color: var(--text-dark);
-  border-color: var(--border-color);
-}
 
 [data-theme="dark"] .category-tag {
   background: var(--primary-color);
@@ -3761,11 +3756,6 @@ body:not([data-theme="dark"]) .achievement-desc {
 
 body:not([data-theme="dark"]) .about-text p {
   color: #475569 !important; /* Slightly lighter for about text */
-}
-
-/* Dark mode styles for About section */
-[data-theme="dark"] .about-grid {
-  /* Grid layout works the same in dark mode - no changes needed */
 }
 
 /* Dark mode about text */
