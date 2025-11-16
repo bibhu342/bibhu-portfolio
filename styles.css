@@ -2054,9 +2054,9 @@ details.exp-details summary::-webkit-details-marker {
 
 /* Achievements Section - Dark Mode */
 [data-theme="dark"] .achievement-card {
-  background: #181818 !important; /* Elevated surface */
-  border-color: #1f1f1f !important; /* Card border */
-  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  background: #1e1e1e !important; /* Lightened elevated surface */
+  border-color: #2a2a2a !important; /* Lightened card border */
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important; /* Enhanced shadow */
 }
 
 [data-theme="dark"] .achievement-card:hover {
@@ -2190,7 +2190,7 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .service-card:hover {
-  box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6) !important; /* Enhanced hover shadow */
 }
 
 [data-theme="dark"] .service-title {
