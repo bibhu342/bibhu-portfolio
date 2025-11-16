@@ -813,50 +813,71 @@ section[id], div[id] {
 }
 
 [data-theme="dark"] .hero::before {
-  background: linear-gradient(120deg, rgba(15,15,15,0.95), rgba(26,26,26,0.93)) !important; /* Slightly less opaque for better text visibility */
+  background: linear-gradient(120deg, rgba(15,15,15,0.70), rgba(26,26,26,0.68)) !important; /* Much less opaque for better text visibility */
 }
 
 [data-theme="dark"] .hero-content h1 {
-  color: #ffffff !important; /* Bright white for main heading */
-  font-weight: 800 !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important; /* Add subtle shadow for depth */
+  color: #ffffff !important; /* Pure white for maximum visibility */
+  font-weight: 900 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(77, 171, 247, 0.3) !important; /* Strong shadow with subtle glow */
+  opacity: 1 !important;
 }
 
 [data-theme="dark"] .hero-title {
-  color: #e0e7ff !important; /* Light blue-white for better visibility */
-  font-weight: 600 !important;
+  color: #ffffff !important; /* Pure white for title */
+  font-weight: 700 !important;
   opacity: 1 !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4) !important;
 }
 
 [data-theme="dark"] .hero-subtitle {
-  color: #c7d2fe !important; /* Lighter blue for subtitle */
+  color: #e0e7ff !important; /* Very bright blue-white */
   opacity: 1 !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
 [data-theme="dark"] .hero-desc {
-  color: #e0e0e0 !important; /* Bright light gray for description */
+  color: #f5f5f5 !important; /* Very bright white-gray for description */
   opacity: 1 !important;
   line-height: 1.7 !important;
+  font-weight: 400 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 [data-theme="dark"] .social-link {
-  color: #ffffff !important; /* Bright white for better visibility */
+  color: #ffffff !important; /* Pure white for maximum visibility */
   opacity: 1 !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+  background: rgba(255, 255, 255, 0.1) !important; /* Subtle background for visibility */
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
 }
 
 [data-theme="dark"] .social-link:hover,
 [data-theme="dark"] .social-link:focus {
-  background: rgba(77, 171, 247, 0.25) !important; /* More visible hover background */
-  color: var(--primary-light) !important;
+  background: rgba(77, 171, 247, 0.35) !important; /* More visible hover background */
+  color: #ffffff !important;
+  opacity: 1 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3) !important;
+}
+
+/* Dark mode social icons - ensure they're very visible */
+[data-theme="dark"] .social-icon {
+  opacity: 1 !important;
+  filter: brightness(1.5) contrast(1.2) !important; /* Much brighter icons */
+}
+
+[data-theme="dark"] .social-icon svg {
+  fill: #ffffff !important;
   opacity: 1 !important;
 }
 
-/* Dark mode social icons - ensure they're visible */
-[data-theme="dark"] .social-icon {
+[data-theme="dark"] .social-link svg {
+  fill: #ffffff !important;
   opacity: 1 !important;
-  filter: brightness(1.2); /* Make icons brighter */
 }
 
 [data-theme="dark"] .profile-image {
