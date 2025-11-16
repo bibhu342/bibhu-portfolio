@@ -223,3 +223,103 @@
 
 /* End of overrides */
 
+/* === DARK MODE REMAINING CONTRAST FIXES (PR REVIEW PATCH) === */
+
+/* 1. HERO: intro paragraph still too dim */
+[data-theme="dark"] .hero p,
+[data-theme="dark"] .hero .hero-desc,
+[data-theme="dark"] .hero .hero-text {
+  color: var(--cf-text-secondary) !important;
+  opacity: 1 !important;
+}
+
+/* 2. ABOUT (Left Text) — paragraph + spans still low contrast */
+[data-theme="dark"] .about-text,
+[data-theme="dark"] .about-text p,
+[data-theme="dark"] .about-text span {
+  color: var(--cf-text-secondary) !important;
+  opacity: 1 !important;
+}
+
+/* 3. ABOUT (Right Sidebar Facts Card) */
+[data-theme="dark"] .facts *,
+[data-theme="dark"] .facts-item *,
+[data-theme="dark"] .fact-label,
+[data-theme="dark"] .fact-value {
+  color: var(--cf-text-secondary) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .facts svg,
+[data-theme="dark"] .facts-item svg {
+  color: var(--cf-text-primary) !important;
+  opacity: 1 !important;
+}
+
+/* 4. EXPERIENCE SECTION — titles OK, descriptions are still dim */
+[data-theme="dark"] .experience-card *,
+[data-theme="dark"] .experience-card p,
+[data-theme="dark"] .experience-card li {
+  color: var(--cf-text-secondary) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .exp-meta {
+  color: var(--cf-text-muted) !important;
+}
+
+/* 5. PROJECT SECTION — descriptions + taglines still too dark */
+[data-theme="dark"] .project-card p,
+[data-theme="dark"] .project-card .project-desc,
+[data-theme="dark"] .project-card .project-tagline {
+  color: var(--cf-text-secondary) !important;
+  opacity: 1 !important;
+}
+
+/* Project tech badges */
+[data-theme="dark"] .tech-pill,
+[data-theme="dark"] .project-card .tech-pill {
+  color: var(--cf-text-primary) !important;
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+
+/* 6. ACHIEVEMENTS — metric ok, description text too dim */
+[data-theme="dark"] .achievement-card .achievement-desc,
+[data-theme="dark"] .achievement-card p,
+[data-theme="dark"] .achievement-card li {
+  color: var(--cf-text-secondary) !important;
+  opacity: 1 !important;
+}
+
+/* 7. FORM INPUTS — border still too faint */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  border: 1px solid rgba(255,255,255,0.16) !important;
+}
+
+/* 8. SOCIAL ICONS — still too dim */
+[data-theme="dark"] .social-link,
+[data-theme="dark"] .social-link svg {
+  color: var(--cf-text-primary) !important;
+  opacity: 1 !important;
+}
+
+/* 9. GLOBAL OPACITY FIX — remove any opacity-based dimming */
+[data-theme="dark"] *[style*="opacity"] {
+  opacity: 1 !important;
+}
+
+/* 10. PREVENT slate/light-mode colors from leaking into dark mode */
+[data-theme="dark"] *[style*="color:#475569"],
+[data-theme="dark"] *[style*="color:#334155"],
+[data-theme="dark"] *[style*="color:#64748b"],
+[data-theme="dark"] *[style*="color: #475569"],
+[data-theme="dark"] *[style*="color: #334155"],
+[data-theme="dark"] *[style*="color: #64748b"] {
+  color: var(--cf-text-secondary) !important;
+}
+
+/* === END OF PATCH === */
+
