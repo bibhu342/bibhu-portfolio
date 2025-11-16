@@ -813,20 +813,31 @@ section[id], div[id] {
 }
 
 [data-theme="dark"] .hero::before {
-  background: linear-gradient(120deg, rgba(15,15,15,0.98), rgba(26,26,26,0.96));
+  background: linear-gradient(120deg, rgba(15,15,15,0.95), rgba(26,26,26,0.93)) !important; /* Slightly less opaque for better text visibility */
 }
 
-[data-theme="dark"] .hero-content h1,
+[data-theme="dark"] .hero-content h1 {
+  color: #ffffff !important; /* Bright white for main heading */
+  font-weight: 800 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important; /* Add subtle shadow for depth */
+}
+
 [data-theme="dark"] .hero-title {
-  color: var(--text-dark) !important; /* Light text in dark mode */
+  color: #e0e7ff !important; /* Light blue-white for better visibility */
+  font-weight: 600 !important;
+  opacity: 1 !important;
 }
 
 [data-theme="dark"] .hero-subtitle {
-  color: var(--text-secondary) !important;
+  color: #c7d2fe !important; /* Lighter blue for subtitle */
+  opacity: 1 !important;
+  font-weight: 500 !important;
 }
 
 [data-theme="dark"] .hero-desc {
-  color: var(--text-secondary) !important;
+  color: #e0e0e0 !important; /* Bright light gray for description */
+  opacity: 1 !important;
+  line-height: 1.7 !important;
 }
 
 [data-theme="dark"] .social-link {
