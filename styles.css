@@ -2184,9 +2184,9 @@ details.exp-details summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .service-card {
-  background: #181818 !important; /* Elevated surface */
-  border-color: #1f1f1f !important; /* Card border */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  background: #1e1e1e !important; /* Lightened elevated surface */
+  border-color: #2a2a2a !important; /* Lightened card border */
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important; /* Enhanced shadow */
 }
 
 [data-theme="dark"] .service-card:hover {
@@ -4101,4 +4101,21 @@ button.btn-text:hover, .btn-text:hover {
 
 /* contrast-fix import marker */
 @import 'contrast-fix.css';
+
+/* ============================================
+   ACCESSIBILITY - FOCUS STATES (DARK MODE)
+   ============================================ */
+/* Enhanced focus states for all focusable elements in dark mode */
+[data-theme="dark"] a:focus,
+[data-theme="dark"] button:focus,
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] .btn:focus,
+[data-theme="dark"] .filter-btn:focus,
+[data-theme="dark"] .nav-links a:focus,
+[data-theme="dark"] .social-link:focus {
+  outline: 3px solid #93c5fd !important; /* Light blue outline */
+  outline-offset: 2px !important; /* Visible offset */
+}
 
