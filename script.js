@@ -860,14 +860,22 @@
       }
     });
     
-    // Initialize: if aria-expanded="true", open it
-    if (header.getAttribute('aria-expanded') === 'true') {
-      const skillCat = header.closest('.skill-cat');
-      const contentWrapper = skillCat.querySelector('.cat-content-wrapper');
-      const toggle = header.querySelector('.cat-toggle');
+    // Initialize: set collapsed state for all categories
+    const skillCat = header.closest('.skill-cat');
+    const contentWrapper = skillCat.querySelector('.cat-content-wrapper');
+    const toggle = header.querySelector('.cat-toggle');
+    const isExpanded = header.getAttribute('aria-expanded') === 'true';
+    
+    if (isExpanded) {
+      // If expanded, open it
       contentWrapper.style.maxHeight = contentWrapper.scrollHeight + 'px';
       contentWrapper.style.opacity = '1';
       if (toggle) toggle.textContent = '▼';
+    } else {
+      // If collapsed, ensure it's closed
+      contentWrapper.style.maxHeight = '0';
+      contentWrapper.style.opacity = '0';
+      if (toggle) toggle.textContent = '▶';
     }
   });
 
