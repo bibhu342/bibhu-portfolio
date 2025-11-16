@@ -790,7 +790,10 @@
 
 [data-theme="dark"] .nav-links a.active {
   color: #5eb3f6 !important; /* Bright blue */
-  background: rgba(94, 179, 246, 0.15) !important; /* Bright blue */
+  background: transparent !important; /* Remove colored background */
+  text-decoration: underline !important;
+  text-decoration-color: #5eb3f6 !important;
+  text-underline-offset: 4px !important;
 }
 
 /* === 18. THEME TOGGLE BUTTON === */

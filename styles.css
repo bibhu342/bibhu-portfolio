@@ -625,20 +625,34 @@ label {
   outline: none;
 }
 
-/* Dark mode nav links hover - Optimized */
+/* Dark mode nav links hover - Optimized (no background, just color change) */
 [data-theme="dark"] .nav-links a:hover,
-[data-theme="dark"] .nav-links a:focus {
-  background: rgba(94, 179, 246, 0.15) !important; /* Bright blue */
-  color: #ffffff !important; /* White on hover */
+[data-theme="dark"] .nav-links a:focus,
+[data-theme="dark"] .nav-links a:active {
+  background: transparent !important; /* No background on hover/focus/active */
+  color: #5eb3f6 !important; /* Blue text on hover */
+  text-decoration: underline !important;
+  text-decoration-color: #5eb3f6 !important;
+  text-underline-offset: 4px !important;
+  outline: none !important; /* Remove default outline */
+}
+
+/* Remove focus outline that might create colored space */
+[data-theme="dark"] .nav-links a:focus-visible {
+  outline: 2px solid #5eb3f6 !important;
+  outline-offset: 2px !important;
+  background: transparent !important;
 }
 
 .nav-links a.active {
   color: #0056b3;
+  background: transparent !important; /* Remove any background */
 }
 
 /* Dark mode active nav link - Optimized */
 [data-theme="dark"] .nav-links a.active {
   color: #5eb3f6 !important; /* Bright blue */
+  background: transparent !important; /* No colored background */
 }
 
 .nav-toggle {
@@ -3613,9 +3627,10 @@ a:hover::after {
   width: 100%;
 }
 
-/* Exclude buttons from link underline */
+/* Exclude buttons and nav links from link underline */
 .btn::after,
-.theme-toggle::after {
+.theme-toggle::after,
+.nav-links a::after {
   display: none;
 }
 
@@ -4192,16 +4207,17 @@ button.btn-text:hover, .btn-text:hover {
    ACCESSIBILITY - FOCUS STATES (DARK MODE)
    ============================================ */
 /* Enhanced focus states for all focusable elements in dark mode */
-[data-theme="dark"] a:focus,
+[data-theme="dark"] a:focus:not(.nav-links a),
 [data-theme="dark"] button:focus,
 [data-theme="dark"] input:focus,
 [data-theme="dark"] textarea:focus,
 [data-theme="dark"] select:focus,
 [data-theme="dark"] .btn:focus,
 [data-theme="dark"] .filter-btn:focus,
-[data-theme="dark"] .nav-links a:focus,
 [data-theme="dark"] .social-link:focus {
   outline: 1px solid #569cd6 !important; /* VS Code link color */
   outline-offset: 1px !important; /* Subtle offset */
 }
+
+/* Nav links focus handled separately above - no colored background */
 

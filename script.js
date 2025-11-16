@@ -102,12 +102,26 @@
   // ============================================
   // 4. ACTIVE NAVIGATION HIGHLIGHT
   // ============================================
-  const sections = document.querySelectorAll('section[id]');
+  // Include both sections and header elements with IDs (for home section)
+  const sections = document.querySelectorAll('section[id], header[id]');
   const navLinks = document.querySelectorAll('.nav-menu a[href^="#"], .nav-links a[href^="#"]');
 
   function highlightNavigation() {
     const scrollY = window.pageYOffset;
+    const windowHeight = window.innerHeight;
     
+    // Check if we're at the top (home section)
+    if (scrollY < 200) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#home' || link.getAttribute('href') === '#') {
+          link.classList.add('active');
+        }
+      });
+      return;
+    }
+    
+    // Check all sections/headers
     sections.forEach(section => {
       const sectionHeight = section.offsetHeight;
       const sectionTop = section.offsetTop - 100;
@@ -137,6 +151,17 @@
 
   // Initial highlight
   highlightNavigation();
+  
+  // Also highlight on page load based on hash
+  if (window.location.hash) {
+    const hash = window.location.hash;
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === hash) {
+        link.classList.add('active');
+      }
+    });
+  }
 
   // ============================================
   // 5. CONTACT FORM VALIDATION AND SUBMISSION
