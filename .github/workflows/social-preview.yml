@@ -131,6 +131,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         git add assets/og-image.png
         git commit -m "chore: auto-update og-image [skip ci]" || exit 0
         git push
