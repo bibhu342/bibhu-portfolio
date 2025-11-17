@@ -50,16 +50,26 @@ Professional portfolio showcasing data automation projects, Python engineering s
 ```
 bibhu-portfolio/
 ├── assets/
-│   ├── favicon.svg          # Primary favicon
-│   ├── favicon.png          # Fallback favicon
+│   ├── images/             # Profile and project images
+│   ├── favicon-16x16.png   # Favicon (16x16)
+│   ├── favicon-32x32.png   # Favicon (32x32)
 │   ├── apple-touch-icon.png # iOS home screen icon
-│   ├── og-image.png         # Social media preview
-│   └── resume.pdf           # Downloadable resume
-├── .github/workflows/       # CI/CD automation
-├── index.html              # Main portfolio page
-├── manifest.webmanifest    # PWA configuration
-├── robots.txt             # Search engine directives
-├── sitemap.xml           # SEO sitemap
+│   ├── og-image.png        # Social media preview
+│   └── Bibhudendu_Behera_Resume.pdf # Downloadable resume
+├── css/
+│   └── contrast-fix.css    # Dark mode accessibility fixes
+├── data/
+│   └── projects.json       # Project data
+├── scripts/                # Build and utility scripts
+├── .github/workflows/      # CI/CD automation
+├── index.html             # Main portfolio page
+├── 404.html               # Error page with SEO meta tags
+├── privacy.html           # Privacy policy page
+├── terms.html             # Terms of service page
+├── site.webmanifest       # PWA configuration
+├── robots.txt            # Search engine directives
+├── sitemap.xml          # SEO sitemap (includes all pages)
+├── feed.xml             # RSS feed for projects
 └── README.md            # This file
 ```
 
@@ -148,6 +158,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Added privacy-compliant analytics
 - Implemented contact form with Formspree
 - Added comprehensive CI/CD pipeline
+
+### [1.0.1] - 2025-01-XX
+- ✅ Fixed HTML DOCTYPE syntax errors in all HTML files
+- ✅ Completed sitemap.xml with privacy.html and terms.html entries
+- ✅ Added comprehensive SEO meta tags to 404.html (meta description, Open Graph, canonical URL)
+- ✅ Improved HTML validation compliance
 
 ### [1.0.0] - 2025-11-13
 - Initial portfolio launch
