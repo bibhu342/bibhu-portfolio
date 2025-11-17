@@ -413,17 +413,6 @@
     });
   }
 
-  // Throttle scroll event for better performance
-  let scrollTimeout;
-  window.addEventListener('scroll', () => {
-    if (!scrollTimeout) {
-      scrollTimeout = setTimeout(() => {
-        highlightNavigation();
-        scrollTimeout = null;
-      }, 100);
-    }
-  });
-
   // Initial highlight
   highlightNavigation();
   
@@ -757,14 +746,6 @@
     document.body.appendChild(backToTopButton);
   }
 
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      backToTopButton.classList.add('show');
-    } else {
-      backToTopButton.classList.remove('show');
-    }
-  });
-
   backToTopButton.addEventListener('click', () => {
     window.scrollTo({
       top: 0,
@@ -789,13 +770,6 @@
     document.body.appendChild(progressBar);
   }
 
-  window.addEventListener('scroll', () => {
-    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (window.pageYOffset / windowHeight) * 100;
-    progressBar.style.width = scrolled + '%';
-    progressBar.setAttribute('aria-valuenow', Math.round(scrolled));
-  });
-
   // ============================================
   // 10. HEADER SHADOW ON SCROLL
   // ============================================
@@ -804,16 +778,6 @@
    * Provides visual separation from content
    */
   const header = document.querySelector('.site-header, header, .header, nav[role="navigation"]');
-
-  if (header) {
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-  }
 
   // ============================================
   // 11. LAZY LOADING IMAGES
@@ -1112,19 +1076,70 @@
 
   // Scroll depth tracking (25/50/75/100)
   let scrollDepthTracked = { '25': false, '50': false, '75': false, '100': false };
-  window.addEventListener('scroll', () => {
-    const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-    Object.keys(scrollDepthTracked).forEach(depth => {
-      const d = Number(depth);
-      if (scrollPercent >= d && !scrollDepthTracked[depth]) {
-        scrollDepthTracked[depth] = true;
-        trackEvent('scroll_depth', {
-          'event_category': 'Engagement',
-          'event_label': `${depth}% Scrolled`
-        });
+  
+  // ============================================
+  // OPTIMIZED SCROLL HANDLER (COMBINED)
+  // ============================================
+  /**
+   * Combined scroll event handler using requestAnimationFrame
+   * Handles: navigation highlighting, back-to-top button, scroll progress, header shadow, scroll depth tracking
+   * Uses requestAnimationFrame for optimal performance
+   */
+  let scrollRafId = null;
+  let lastScrollY = window.pageYOffset;
+  
+  function handleScroll() {
+    const scrollY = window.pageYOffset;
+    
+    // Navigation highlighting (throttled via requestAnimationFrame)
+    highlightNavigation();
+    
+    // Back to top button visibility
+    if (scrollY > 300) {
+      backToTopButton.classList.add('show');
+    } else {
+      backToTopButton.classList.remove('show');
+    }
+    
+    // Scroll progress indicator
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = windowHeight > 0 ? (scrollY / windowHeight) * 100 : 0;
+    progressBar.style.width = scrolled + '%';
+    progressBar.setAttribute('aria-valuenow', Math.round(scrolled));
+    
+    // Header shadow
+    if (header) {
+      if (scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
       }
-    });
-  });
+    }
+    
+    // Scroll depth tracking (only check if scroll changed significantly)
+    if (Math.abs(scrollY - lastScrollY) > 10) {
+      const scrollPercent = windowHeight > 0 ? (scrollY / windowHeight) * 100 : 0;
+      Object.keys(scrollDepthTracked).forEach(depth => {
+        const d = Number(depth);
+        if (scrollPercent >= d && !scrollDepthTracked[depth]) {
+          scrollDepthTracked[depth] = true;
+          trackEvent('scroll_depth', {
+            'event_category': 'Engagement',
+            'event_label': `${depth}% Scrolled`
+          });
+        }
+      });
+      lastScrollY = scrollY;
+    }
+    
+    scrollRafId = null;
+  }
+  
+  window.addEventListener('scroll', () => {
+    if (!scrollRafId) {
+      scrollRafId = requestAnimationFrame(handleScroll);
+    }
+  }, { passive: true });
 
   // Time on page (send on beforeunload)
   let startTime = Date.now();
