@@ -6,6 +6,8 @@
 
    DO NOT modify light mode.
 
+   Comprehensive fixes to ensure all text is readable in dark mode.
+
 */
 
 /* Dark-mode tokens - Optimized for Readability & WCAG AA+ Compliance */
@@ -20,663 +22,419 @@
   --cf-accent-strong: #4a9de8;   /* Slightly darker for hover */
 }
 
-/* Global headings and important labels - Bright for readability */
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] h5,
-[data-theme="dark"] h6,
-[data-theme="dark"] .brand,
-[data-theme="dark"] .project-title,
-[data-theme="dark"] .stat-value,
-[data-theme="dark"] .achievement-metric,
-[data-theme="dark"] .exp-title,
-[data-theme="dark"] .edu-title {
-  color: var(--cf-text-primary) !important; /* #E8E8E8 - Bright off-white */
-  text-shadow: none !important; /* Clean modern look */
-  font-weight: 600 !important;
-}
-
-/* Paragraphs, list items, body text */
-[data-theme="dark"] p,
-[data-theme="dark"] li,
-[data-theme="dark"] .project-desc,
-[data-theme="dark"] .about-text p,
-[data-theme="dark"] .exp-list,
-[data-theme="dark"] .project-tagline,
-[data-theme="dark"] .skills-intro,
-[data-theme="dark"] .fact-text,
-[data-theme="dark"] .stat-label,
-[data-theme="dark"] .edu-subtitle,
-[data-theme="dark"] .edu-meta,
-[data-theme="dark"] .description,
-[data-theme="dark"] .card p {
-  color: var(--cf-text-secondary) !important;
-  opacity: 1 !important;
-  line-height: 1.6 !important;
-}
-
-/* Muted / tertiary text */
-[data-theme="dark"] small,
-[data-theme="dark"] .text-muted,
-[data-theme="dark"] .meta,
-[data-theme="dark"] .achievement-sub,
-[data-theme="dark"] .muted {
-  color: var(--cf-text-muted) !important;
-}
-
-/* Card and surface styles - Enhanced visibility */
-[data-theme="dark"] .card,
-[data-theme="dark"] .project-card,
-[data-theme="dark"] .stat-card,
-[data-theme="dark"] .edu-card,
-[data-theme="dark"] .timeline-card,
-[data-theme="dark"] .skill-card,
-[data-theme="dark"] .about-aside,
-[data-theme="dark"] .facts,
-[data-theme="dark"] .profile-card,
-[data-theme="dark"] .achievement-card,
-[data-theme="dark"] .experience-card,
-[data-theme="dark"] .service-card,
-[data-theme="dark"] .project-card.enhanced {
-  background: var(--cf-surface-elev) !important; /* #252525 - Elevated surface */
-  border: 1px solid #404040 !important; /* More visible border */
-  color: var(--cf-text-secondary) !important; /* #D4D4D4 - Readable text */
-  box-shadow: 0 4px 16px rgba(0,0,0,0.5) !important; /* Enhanced shadow for depth */
-  border-radius: 10px !important;
-}
-
-/* Hero overlay to ensure hero text readability */
-[data-theme="dark"] .hero,
-[data-theme="dark"] .home-hero,
-[data-theme="dark"] .hero-section {
-  position: relative !important;
-}
-[data-theme="dark"] .hero::before,
-[data-theme="dark"] .home-hero::before,
-[data-theme="dark"] .hero-section::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  background: var(--cf-hero-overlay) !important;
-  z-index: 1 !important;
-  pointer-events: none !important;
-}
-[data-theme="dark"] .hero * ,
-[data-theme="dark"] .home-hero * {
-  position: relative !important;
-  z-index: 2 !important;
-}
-[data-theme="dark"] .hero h1,
-[data-theme="dark"] .hero .hero-title,
-[data-theme="dark"] .home-hero h1 {
-  color: var(--cf-text-primary) !important; /* #E8E8E8 - Bright off-white */
-  text-shadow: none !important; /* Clean VS Code look */
-}
-
-/* Hero Section - AI Engineer Theme: Ensure name is highly visible */
+/* ============================================
+   HERO SECTION - Ensure all text is readable
+   ============================================ */
 [data-theme="dark"] .hero-section h1,
-[data-theme="dark"] .hero-section .hero-content h1,
-[data-theme="dark"] .hero.hero-section h1,
-[data-theme="dark"] .hero.hero-section .hero-content h1 {
+[data-theme="dark"] .hero h1,
+[data-theme="dark"] .hero-content h1 {
   color: #FFFFFF !important; /* Pure white for maximum visibility */
-  font-weight: 900 !important; /* Extra-bold for maximum prominence */
-  font-size: 1.8rem !important; /* Ensure adequate size */
+  font-weight: 900 !important;
   text-shadow: none !important;
   opacity: 1 !important;
-  position: relative;
-  z-index: 3 !important; /* Ensure it's above everything */
-  letter-spacing: -0.02em !important; /* Slightly tighter for better readability */
 }
 
-/* Buttons and interactive elements - VS Code style */
-[data-theme="dark"] .btn,
-[data-theme="dark"] .btn-primary,
-[data-theme="dark"] .btn-card,
-[data-theme="dark"] .filter-btn,
-[data-theme="dark"] .skills-tab-btn,
-[data-theme="dark"] .btn-outline {
-  color: var(--cf-text-primary) !important; /* #E8E8E8 - Bright off-white */
-  border-color: #404040 !important; /* More visible border */
+[data-theme="dark"] .hero-section .subtitle,
+[data-theme="dark"] .hero .subtitle,
+[data-theme="dark"] .hero-content h2 {
+  color: #E8E8E8 !important; /* Bright off-white */
+  font-weight: 600 !important;
+  opacity: 1 !important;
 }
 
-/* Primary accent button - Bright and visible */
-[data-theme="dark"] .btn-primary {
-  background: var(--cf-accent) !important; /* #5eb3f6 - Bright blue */
-  color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(94, 179, 246, 0.4) !important; /* Enhanced shadow */
-  border: none !important;
+[data-theme="dark"] .hero-desc,
+[data-theme="dark"] .hero-section p,
+[data-theme="dark"] .hero p {
+  color: #D4D4D4 !important; /* Light gray for body text */
+  opacity: 1 !important;
+  line-height: 1.7 !important;
+}
+
+[data-theme="dark"] .hero .btn,
+[data-theme="dark"] .hero .btn-primary,
+[data-theme="dark"] .hero .btn-secondary,
+[data-theme="dark"] .hero .btn-ghost {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .social-link,
+[data-theme="dark"] .hero .social-link {
+  color: #E8E8E8 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .social-link:hover {
+  color: #5eb3f6 !important;
+}
+
+[data-theme="dark"] .scroll-indicator {
+  color: #5eb3f6 !important;
+  opacity: 1 !important;
+}
+
+/* ============================================
+   ABOUT SECTION - All text readable
+   ============================================ */
+[data-theme="dark"] #about h2,
+[data-theme="dark"] .about-text h2,
+[data-theme="dark"] .about-text h3,
+[data-theme="dark"] .about-text h4 {
+  color: #E8E8E8 !important;
   font-weight: 600 !important;
 }
-[data-theme="dark"] .btn-primary:hover {
-  background: var(--cf-accent-strong) !important; /* #4a9de8 - Slightly darker */
-  box-shadow: 0 6px 16px rgba(94, 179, 246, 0.5) !important;
-  transform: translateY(-1px);
-}
 
-/* Links and accent color - Bright and visible */
-[data-theme="dark"] a,
-[data-theme="dark"] .link {
-  color: var(--cf-accent) !important; /* #5eb3f6 - Bright blue */
-  text-decoration: underline;
-  text-decoration-color: rgba(94, 179, 246, 0.4);
-}
-[data-theme="dark"] a:hover,
-[data-theme="dark"] .link:hover {
-  color: #7bc5ff !important; /* Lighter blue on hover */
-  text-decoration-color: rgba(123, 197, 255, 0.6);
-}
-
-/* Form inputs - Enhanced visibility */
-[data-theme="dark"] input,
-[data-theme="dark"] textarea,
-[data-theme="dark"] select {
-  background: #1f1f1f !important; /* Slightly lighter than base */
-  color: var(--cf-text-primary) !important; /* #E8E8E8 - Bright text */
-  border: 2px solid #404040 !important; /* More visible border */
-  outline: none !important;
-}
-[data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder {
-  color: var(--cf-text-muted) !important; /* #9A9A9A - Visible placeholder */
-  opacity: 1 !important;
-}
-[data-theme="dark"] input:focus,
-[data-theme="dark"] textarea:focus,
-[data-theme="dark"] select:focus {
-  border: 2px solid var(--cf-accent) !important; /* #5eb3f6 - Bright blue */
-  background: #252525 !important; /* Lighter on focus */
-  box-shadow: 0 0 0 3px rgba(94, 179, 246, 0.2) !important; /* Visible focus ring */
-}
-
-/* Badges & tech pills - Enhanced visibility */
-[data-theme="dark"] .tech-badge,
-[data-theme="dark"] .category-tag,
-[data-theme="dark"] .status-badge,
-[data-theme="dark"] .tech-pill {
-  background: #2d2d2d !important; /* Slightly lighter for visibility */
-  color: var(--cf-text-primary) !important; /* #E8E8E8 - Bright text */
-  border: 1px solid #404040 !important; /* More visible border */
-}
-
-/* Icons and SVGs */
-[data-theme="dark"] svg,
-[data-theme="dark"] .icon,
-[data-theme="dark"] .social-icon {
-  color: var(--cf-text-primary) !important;
-  fill: currentColor !important;
-  filter: none !important;
-  opacity: 1 !important;
-}
-
-/* Navbar - Enhanced visibility */
-[data-theme="dark"] .site-nav,
-[data-theme="dark"] nav,
-[data-theme="dark"] .navbar {
-  background: var(--cf-surface) !important; /* #1a1a1a - Base background */
-  border-bottom: 2px solid #404040 !important; /* More visible border */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.6) !important; /* Enhanced shadow */
-}
-[data-theme="dark"] .nav-links a,
-[data-theme="dark"] .nav-links li a {
-  color: var(--cf-text-primary) !important; /* #E8E8E8 - Bright text */
-  font-weight: 500 !important;
-}
-[data-theme="dark"] .nav-links a:hover {
-  background: rgba(94, 179, 246, 0.15) !important; /* Bright blue hover */
-  color: #ffffff !important;
-}
-
-/* Explicit fixes for problematic components seen in screenshots */
-[data-theme="dark"] .about-text p { color: var(--cf-text-secondary) !important; }
-[data-theme="dark"] .stat-value { color: var(--cf-text-primary) !important; }
-[data-theme="dark"] .stat-card { background: var(--cf-surface-elev) !important; }
-[data-theme="dark"] .experience-card * { color: var(--cf-text-secondary) !important; }
-[data-theme="dark"] .project-card * { color: var(--cf-text-secondary) !important; }
-[data-theme="dark"] .achievement-card * { color: var(--cf-text-secondary) !important; }
-
-/* Prevent extremely low-opacity rules from hiding text */
-[data-theme="dark"] [style*="opacity: 0."] { opacity: 1 !important; }
-[data-theme="dark"] *[style*="color: rgba(0,0,0,"] { color: var(--cf-text-secondary) !important; }
-
-/* Accessibility: focus outlines - VS Code style */
-[data-theme="dark"] :focus {
-  outline: 1px solid var(--cf-accent) !important; /* #5eb3f6 - Bright blue */
-  outline-offset: 1px !important;
-}
-
-/* End of overrides */
-
-/* === DARK MODE REMAINING CONTRAST FIXES (PR REVIEW PATCH) === */
-
-/* 1. HERO: intro paragraph still too dim */
-[data-theme="dark"] .hero p,
-[data-theme="dark"] .hero .hero-desc,
-[data-theme="dark"] .hero .hero-text {
-  color: var(--cf-text-secondary) !important;
-  opacity: 1 !important;
-}
-
-/* 2. ABOUT (Left Text) — paragraph + spans still low contrast */
 [data-theme="dark"] .about-text,
 [data-theme="dark"] .about-text p,
 [data-theme="dark"] .about-text span {
-  color: var(--cf-text-secondary) !important;
+  color: #D4D4D4 !important;
   opacity: 1 !important;
+  line-height: 1.7 !important;
 }
 
-/* 3. ABOUT (Right Sidebar Facts Card) */
-[data-theme="dark"] .facts *,
-[data-theme="dark"] .facts-item *,
-[data-theme="dark"] .fact-label,
-[data-theme="dark"] .fact-value {
-  color: var(--cf-text-secondary) !important;
-  opacity: 1 !important;
-}
-
-[data-theme="dark"] .facts svg,
-[data-theme="dark"] .facts-item svg {
-  color: var(--cf-text-primary) !important;
-  opacity: 1 !important;
-}
-
-/* 4. EXPERIENCE SECTION — titles OK, descriptions are still dim */
-[data-theme="dark"] .experience-card *,
-[data-theme="dark"] .experience-card p,
-[data-theme="dark"] .experience-card li {
-  color: var(--cf-text-secondary) !important;
-  opacity: 1 !important;
-}
-
-[data-theme="dark"] .exp-meta {
-  color: var(--cf-text-muted) !important;
-}
-
-/* 5. PROJECT SECTION — descriptions + taglines still too dark */
-[data-theme="dark"] .project-card p,
-[data-theme="dark"] .project-card .project-desc,
-[data-theme="dark"] .project-card .project-tagline {
-  color: var(--cf-text-secondary) !important;
-  opacity: 1 !important;
-}
-
-/* Project tech badges */
-[data-theme="dark"] .tech-pill,
-[data-theme="dark"] .project-card .tech-pill {
-  color: var(--cf-text-primary) !important;
-  background: rgba(255,255,255,0.06) !important;
-  border-color: rgba(255,255,255,0.12) !important;
-}
-
-/* 6. ACHIEVEMENTS — metric ok, description text too dim */
-[data-theme="dark"] .achievement-card .achievement-desc,
-[data-theme="dark"] .achievement-card p,
-[data-theme="dark"] .achievement-card li {
-  color: var(--cf-text-secondary) !important;
-  opacity: 1 !important;
-}
-
-/* 7. FORM INPUTS — border still too faint */
-[data-theme="dark"] input,
-[data-theme="dark"] textarea,
-[data-theme="dark"] select {
-  border: 1px solid rgba(255,255,255,0.16) !important;
-}
-
-/* 8. SOCIAL ICONS — still too dim */
-[data-theme="dark"] .social-link,
-[data-theme="dark"] .social-link svg {
-  color: var(--cf-text-primary) !important;
-  opacity: 1 !important;
-}
-
-/* 9. GLOBAL OPACITY FIX — remove any opacity-based dimming */
-[data-theme="dark"] *[style*="opacity"] {
-  opacity: 1 !important;
-}
-
-/* 10. PREVENT slate/light-mode colors from leaking into dark mode */
-[data-theme="dark"] *[style*="color:#475569"],
-[data-theme="dark"] *[style*="color:#334155"],
-[data-theme="dark"] *[style*="color:#64748b"],
-[data-theme="dark"] *[style*="color: #475569"],
-[data-theme="dark"] *[style*="color: #334155"],
-[data-theme="dark"] *[style*="color: #64748b"] {
+[data-theme="dark"] .stat-card {
+  background: var(--cf-surface-elev) !important;
   color: var(--cf-text-secondary) !important;
 }
 
-/* === END OF PATCH === */
+[data-theme="dark"] .stat-value {
+  color: #5eb3f6 !important; /* Bright blue for emphasis */
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .stat-label {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .facts,
+[data-theme="dark"] .facts-list,
+[data-theme="dark"] .facts-list li {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .facts-list li strong {
+  color: #E8E8E8 !important;
+  font-weight: 700 !important;
+}
 
 /* ============================================
-   COMPREHENSIVE DARK MODE READABILITY FIXES
-   WCAG AA Compliance (4.5:1 contrast ratio minimum)
+   EXPERIENCE SECTION - All text readable
    ============================================ */
+[data-theme="dark"] #experience h2 {
+  color: #E8E8E8 !important;
+}
 
-/* === 1. ENHANCED TEXT CONTRAST === */
-/* Optimized for Maximum Readability & WCAG AA+ Compliance */
-
-/* Ensure all headings meet WCAG AA+ (7:1 contrast) */
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] h5,
-[data-theme="dark"] h6 {
-  color: #E8E8E8 !important; /* Bright off-white for headings (WCAG AA+) */
-  text-shadow: none !important; /* Clean modern look */
+[data-theme="dark"] .exp-title,
+[data-theme="dark"] .exp-company {
+  color: #E8E8E8 !important;
   font-weight: 600 !important;
 }
 
-/* All body text - Optimized for comfortable reading */
-[data-theme="dark"] p,
-[data-theme="dark"] li,
-[data-theme="dark"] span:not(.skill-icon):not(.icon) {
-  color: #D4D4D4 !important; /* Light gray for body text (WCAG AA) */
-  line-height: 1.7 !important; /* Better line spacing */
+[data-theme="dark"] .exp-meta,
+[data-theme="dark"] .exp-clients {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
 }
 
-/* === 2. DETAILS/SUMMARY ELEMENTS === */
-[data-theme="dark"] details.exp-details summary {
-  color: #5eb3f6 !important; /* Bright blue for clickability */
-  font-weight: 600 !important;
-  text-decoration: none !important;
-}
-
-[data-theme="dark"] details.exp-details summary:hover {
-  color: #7bc5ff !important; /* Lighter blue for hover */
-  text-decoration: underline !important;
-}
-
-[data-theme="dark"] details.exp-details[open] summary {
-  color: #7bc5ff !important;
+[data-theme="dark"] .timeline-card,
+[data-theme="dark"] .timeline-card p {
+  color: #D4D4D4 !important;
+  background: var(--cf-surface-elev) !important;
 }
 
 [data-theme="dark"] .exp-list,
 [data-theme="dark"] .exp-list li {
-  color: #D4D4D4 !important; /* Readable body text */
-}
-
-[data-theme="dark"] .exp-relevance {
   color: #D4D4D4 !important;
-}
-
-[data-theme="dark"] .exp-relevance strong {
-  color: #E8E8E8 !important; /* Bright for emphasis */
-}
-
-/* === 3. EXPERIENCE TIMELINE === */
-[data-theme="dark"] .timeline::before {
-  background: linear-gradient(to bottom, 
-    rgba(94, 179, 246, 0.6) 0%, 
-    rgba(94, 179, 246, 0.4) 50%,
-    rgba(94, 179, 246, 0.2) 100%) !important; /* Bright blue gradient */
-}
-
-[data-theme="dark"] .timeline-marker {
-  background: #5eb3f6 !important; /* Bright blue */
-  box-shadow: 0 0 0 5px rgba(94, 179, 246, 0.5), 
-              0 0 15px rgba(94, 179, 246, 0.7) !important; /* Enhanced glow */
-}
-
-[data-theme="dark"] .exp-company {
-  color: #E8E8E8 !important; /* Bright for headings */
-  font-weight: 600 !important;
-}
-
-[data-theme="dark"] .exp-clients {
-  color: #D4D4D4 !important; /* Readable body text */
-}
-
-/* === 4. SERVICE CARDS === */
-[data-theme="dark"] .service-card {
-  background: #252525 !important; /* Elevated surface */
-  border: 1px solid #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] .service-title {
-  color: #E8E8E8 !important; /* Bright for headings */
-}
-
-[data-theme="dark"] .service-desc {
-  color: #D4D4D4 !important; /* Readable body text */
-}
-
-[data-theme="dark"] .service-strengths li {
-  color: #D4D4D4 !important; /* Readable body text */
-}
-
-[data-theme="dark"] .service-strengths li::before {
-  color: #5eb3f6 !important; /* Bright blue accent */
-}
-
-[data-theme="dark"] .service-ideal {
-  color: #B0B0B0 !important; /* Medium gray for secondary text */
-  border-top-color: #404040 !important; /* Visible border */
-}
-
-/* === 5. CONTACT SECTION === */
-[data-theme="dark"] .contact-form {
-  background: #252525 !important; /* Elevated surface */
-  border: 1px solid #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] .form-group label {
-  color: #E8E8E8 !important; /* Bright for labels */
-  font-weight: 600 !important;
-}
-
-[data-theme="dark"] .form-group label .required {
-  color: #ff6b6b !important; /* Bright red for required indicator */
-}
-
-[data-theme="dark"] input,
-[data-theme="dark"] textarea,
-[data-theme="dark"] select {
-  background: #1f1f1f !important; /* Slightly lighter than base */
-  color: #E8E8E8 !important; /* Bright text */
-  border: 2px solid #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder {
-  color: #9A9A9A !important; /* Visible but distinct placeholder */
   opacity: 1 !important;
 }
 
-[data-theme="dark"] input:focus,
-[data-theme="dark"] textarea:focus,
-[data-theme="dark"] select:focus {
-  border-color: #5eb3f6 !important; /* Bright blue */
-  background: #252525 !important; /* Lighter on focus */
-  box-shadow: 0 0 0 3px rgba(94, 179, 246, 0.2) !important; /* Visible focus ring */
+[data-theme="dark"] .tech-tags,
+[data-theme="dark"] .tech-badge {
+  color: #E8E8E8 !important;
+  opacity: 1 !important;
 }
 
-[data-theme="dark"] .contact-card {
-  background: #252525 !important; /* Elevated surface */
-  border: 1px solid #404040 !important; /* More visible border */
+/* ============================================
+   PROJECTS SECTION - All text readable
+   ============================================ */
+[data-theme="dark"] #projects h2 {
+  color: #E8E8E8 !important;
 }
 
-[data-theme="dark"] .contact-card-label {
-  color: #E8E8E8 !important; /* Bright for labels */
+[data-theme="dark"] .projects-intro {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
 }
 
-[data-theme="dark"] .contact-card-value {
-  color: #E8E8E8 !important; /* Bright for values */
-}
-
-[data-theme="dark"] .contact-card-value a {
-  color: #5eb3f6 !important; /* Bright blue */
-  text-decoration: underline !important;
-}
-
-[data-theme="dark"] .contact-card-value a:hover {
-  color: #7bc5ff !important; /* Lighter blue on hover */
-}
-
-[data-theme="dark"] .contact-card-desc {
-  color: #B0B0B0 !important; /* Medium gray for descriptions */
-}
-
-/* === 6. SKILLS SECTION === */
-[data-theme="dark"] .skills-col {
-  background: #252525 !important; /* Elevated surface */
-  border: 1px solid #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] .skills-col h3 {
-  color: #E8E8E8 !important; /* Bright for headings */
-}
-
-[data-theme="dark"] .skill-cat {
-  background: #1f1f1f !important; /* Slightly lighter for nested */
-  border: 1px solid #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] .cat-title {
-  color: #E8E8E8 !important; /* Bright for titles */
+[data-theme="dark"] .project-title {
+  color: #E8E8E8 !important;
   font-weight: 700 !important;
 }
 
-[data-theme="dark"] .cat-toggle {
-  color: #5eb3f6 !important; /* Bright blue */
+[data-theme="dark"] .project-tagline {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
 }
 
-[data-theme="dark"] .skill-item {
-  background: #252525 !important; /* Elevated surface */
-  border: 1px solid #404040 !important; /* More visible border */
-  color: #D4D4D4 !important; /* Readable text */
+[data-theme="dark"] .project-desc,
+[data-theme="dark"] .project-card p {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+  line-height: 1.7 !important;
 }
 
-[data-theme="dark"] .proficiency.expert {
-  background: rgba(94, 179, 246, 0.25) !important; /* Bright blue */
-  color: #5eb3f6 !important; /* Bright blue text */
-  border-color: rgba(94, 179, 246, 0.6) !important;
+[data-theme="dark"] .project-content h4,
+[data-theme="dark"] .project-content h5 {
+  color: #E8E8E8 !important;
 }
 
-[data-theme="dark"] .skills-tab-btn {
-  color: #D4D4D4 !important; /* Readable text */
-  border-color: #404040 !important; /* More visible border */
-  background: #252525 !important; /* Elevated surface */
+[data-theme="dark"] .project-content ul,
+[data-theme="dark"] .project-content li {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
 }
 
-[data-theme="dark"] .skills-tab-btn.active {
-  background: rgba(94, 179, 246, 0.2) !important; /* Bright blue */
-  color: #5eb3f6 !important; /* Bright blue text */
-  border-color: #5eb3f6 !important;
+[data-theme="dark"] .tech-pill,
+[data-theme="dark"] .tech-list span {
+  color: #E8E8E8 !important;
+  opacity: 1 !important;
 }
 
-[data-theme="dark"] .skills-tab-btn:hover {
-  background: rgba(94, 179, 246, 0.15) !important;
-  border-color: rgba(94, 179, 246, 0.4) !important;
-}
-
-/* === 7. EDUCATION SECTION === */
-[data-theme="dark"] .education-timeline::before {
-  background: linear-gradient(180deg, 
-    #5eb3f6 0%, 
-    rgba(94, 179, 246, 0.7) 50%,
-    #4ec9b0 100%) !important; /* Bright blue to cyan */
-}
-
-[data-theme="dark"] .edu-marker {
-  border-color: #1a1a1a !important;
-  box-shadow: 0 0 0 4px rgba(94, 179, 246, 0.5),
-              0 0 10px rgba(94, 179, 246, 0.7) !important; /* Bright blue glow */
-}
-
-[data-theme="dark"] .edu-marker.completed {
-  box-shadow: 0 0 0 4px rgba(78, 201, 176, 0.5),
-              0 0 10px rgba(78, 201, 176, 0.7) !important; /* Cyan glow */
-}
-
-[data-theme="dark"] .edu-card {
-  background: #252525 !important; /* Elevated surface */
-  border: 1px solid #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] .edu-skills-label {
-  color: #B0B0B0 !important; /* Medium gray for labels */
-}
-
-[data-theme="dark"] .edu-status.completed {
-  background: rgba(78, 201, 176, 0.25) !important; /* Cyan background */
-  color: #4ec9b0 !important; /* Cyan text */
-  border-color: rgba(78, 201, 176, 0.5) !important;
-}
-
-/* === 8. FILTER BUTTONS === */
 [data-theme="dark"] .filter-btn {
-  color: #D4D4D4 !important; /* Readable text */
-  border-color: rgba(94, 179, 246, 0.5) !important; /* Bright blue */
-  background: rgba(94, 179, 246, 0.08) !important;
-}
-
-[data-theme="dark"] .filter-btn:hover {
-  background: rgba(94, 179, 246, 0.2) !important; /* Bright blue */
-  border-color: #5eb3f6 !important; /* Bright blue */
-  color: #E8E8E8 !important; /* Brighter text on hover */
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
 }
 
 [data-theme="dark"] .filter-btn.active {
-  background: #5eb3f6 !important; /* Bright blue */
-  color: #ffffff !important;
-  border-color: #5eb3f6 !important;
+  color: #FFFFFF !important;
 }
 
-/* === 9. BADGES AND STATUS === */
-[data-theme="dark"] .category-tag {
-  background: #5eb3f6 !important; /* Bright blue */
-  color: #ffffff !important;
-  border: none !important;
+/* ============================================
+   SKILLS SECTION - All text readable
+   ============================================ */
+[data-theme="dark"] #skills h2,
+[data-theme="dark"] .skills-header h2 {
+  color: #E8E8E8 !important;
+}
+
+[data-theme="dark"] .skills-intro {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .technical-skills h3,
+[data-theme="dark"] .production-mindset h3 {
+  color: #E8E8E8 !important;
   font-weight: 700 !important;
 }
 
-[data-theme="dark"] .status-badge {
-  background: #252525 !important; /* Elevated surface */
-  color: #E8E8E8 !important; /* Bright text */
-  border: 1px solid #404040 !important; /* More visible border */
+[data-theme="dark"] .skill-category h4 {
+  color: #E8E8E8 !important;
+  font-weight: 600 !important;
 }
 
-/* === 10. PROJECT OVERLAY BUTTONS === */
-[data-theme="dark"] .btn-card.primary {
-  background: #5eb3f6 !important; /* Bright blue */
-  color: #ffffff !important;
-  border-color: #5eb3f6 !important;
+[data-theme="dark"] .skill-category p {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
 }
 
-[data-theme="dark"] .btn-card.primary:hover {
-  background: #4a9de8 !important; /* Slightly darker on hover */
-  border-color: #4a9de8 !important;
+[data-theme="dark"] .production-mindset h4 {
+  color: #E8E8E8 !important;
 }
 
-[data-theme="dark"] .btn-card.outline {
-  background: rgba(212, 212, 212, 0.1) !important; /* Light gray with opacity */
-  color: #D4D4D4 !important; /* Readable text */
-  border-color: #404040 !important; /* More visible border */
+[data-theme="dark"] .production-mindset p,
+[data-theme="dark"] .mindset-item p {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
 }
 
-[data-theme="dark"] .btn-card.outline:hover {
-  background: rgba(212, 212, 212, 0.2) !important;
-  border-color: #5eb3f6 !important; /* Bright blue */
-  color: #E8E8E8 !important; /* Brighter text */
+[data-theme="dark"] .mindset-item h5 {
+  color: #5eb3f6 !important; /* Bright blue for emphasis */
 }
 
-/* === 11. PROJECT OVERLAY === */
-[data-theme="dark"] .project-overlay {
-  background: linear-gradient(to top, 
-    rgba(0, 0, 0, 0.9) 0%, 
-    rgba(0, 0, 0, 0.5) 100%) !important;
+[data-theme="dark"] .proven-impact,
+[data-theme="dark"] .proven-impact h4 {
+  color: #E8E8E8 !important;
 }
 
-/* === 12. FOOTER === */
+[data-theme="dark"] .proven-impact ul,
+[data-theme="dark"] .proven-impact li {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .proven-impact strong {
+  color: #5eb3f6 !important;
+}
+
+/* ============================================
+   ACHIEVEMENTS SECTION - All text readable
+   ============================================ */
+[data-theme="dark"] #achievements h2 {
+  color: #E8E8E8 !important;
+}
+
+[data-theme="dark"] .achievement-metric {
+  color: #5eb3f6 !important; /* Bright blue for metrics */
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .achievement-desc,
+[data-theme="dark"] .achievement-desc strong {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .achievement-desc strong {
+  color: #E8E8E8 !important;
+  font-weight: 700 !important;
+}
+
+/* ============================================
+   SERVICES SECTION - All text readable
+   ============================================ */
+[data-theme="dark"] #services h2 {
+  color: #E8E8E8 !important;
+}
+
+[data-theme="dark"] .services-intro {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .service-title {
+  color: #E8E8E8 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="dark"] .service-desc,
+[data-theme="dark"] .service-desc p {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .service-strengths,
+[data-theme="dark"] .service-strengths li {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .service-ideal {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .services-cta {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .services-cta strong {
+  color: #E8E8E8 !important;
+}
+
+/* ============================================
+   EDUCATION SECTION - All text readable
+   ============================================ */
+[data-theme="dark"] #education h2,
+[data-theme="dark"] #education h3 {
+  color: #E8E8E8 !important;
+}
+
+/* Fix inline-styled text in education section */
+[data-theme="dark"] #education h3[style*="color:#0f172a"],
+[data-theme="dark"] #education p[style*="color:#475569"],
+[data-theme="dark"] #education p[style*="color:#64748b"],
+[data-theme="dark"] #education ul[style*="color:#475569"],
+[data-theme="dark"] #education ul[style*="color:#475569"] li,
+[data-theme="dark"] #education .edu-card p[style*="color:#475569"] {
+  color: #D4D4D4 !important;
+}
+
+[data-theme="dark"] .edu-title {
+  color: #E8E8E8 !important;
+  font-weight: 600 !important;
+}
+
+[data-theme="dark"] .edu-subtitle,
+[data-theme="dark"] .edu-meta {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .edu-card p {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .edu-skills-label {
+  color: #D4D4D4 !important;
+}
+
+[data-theme="dark"] .edu-tag {
+  color: #E8E8E8 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .edu-verify a {
+  color: #5eb3f6 !important;
+}
+
+/* ============================================
+   CONTACT SECTION - All text readable
+   ============================================ */
+[data-theme="dark"] #contact h2 {
+  color: #E8E8E8 !important;
+}
+
+[data-theme="dark"] .contact-intro {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+/* Fix inline-styled text in contact form */
+[data-theme="dark"] #contact .contact-form h3[style*="color:#0f172a"],
+[data-theme="dark"] #contact .contact-form p[style*="color:#475569"],
+[data-theme="dark"] #contact .contact-form p[style*="color:#64748b"] {
+  color: #D4D4D4 !important;
+}
+
+[data-theme="dark"] .contact-form h3 {
+  color: #E8E8E8 !important;
+}
+
+[data-theme="dark"] .contact-form p {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .form-group label {
+  color: #E8E8E8 !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .contact-card-label {
+  color: #E8E8E8 !important;
+}
+
+[data-theme="dark"] .contact-card-value,
+[data-theme="dark"] .contact-card-value a {
+  color: #5eb3f6 !important;
+}
+
+[data-theme="dark"] .contact-card-desc {
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+/* ============================================
+   FOOTER - All text readable
+   ============================================ */
 [data-theme="dark"] .site-footer {
-  background: #1a1a1a !important; /* Base background */
-  border-top: 2px solid rgba(94, 179, 246, 0.4) !important; /* Bright blue */
-}
-
-[data-theme="dark"] .footer-section h3 {
-  color: #E8E8E8 !important; /* Bright for headings */
+  background: var(--cf-surface) !important;
+  color: var(--cf-text-secondary) !important;
 }
 
 [data-theme="dark"] .footer-brand {
@@ -685,269 +443,507 @@
 
 [data-theme="dark"] .footer-tagline,
 [data-theme="dark"] .footer-bio {
-  color: #B0B0B0 !important; /* Medium gray for secondary text */
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
+}
+
+/* Fix inline-styled text in footer */
+[data-theme="dark"] .site-footer .footer-section p[style*="color:#475569"] {
+  color: #D4D4D4 !important;
+}
+
+[data-theme="dark"] .footer-section h3 {
+  color: #E8E8E8 !important;
 }
 
 [data-theme="dark"] .footer-links a {
-  color: #D4D4D4 !important; /* Readable text */
+  color: #D4D4D4 !important;
+  opacity: 1 !important;
 }
 
 [data-theme="dark"] .footer-links a:hover {
-  color: #5eb3f6 !important; /* Bright blue */
-  text-decoration: underline !important;
-}
-
-[data-theme="dark"] .footer-copyright,
-[data-theme="dark"] .footer-bottom-content {
-  color: #9A9A9A !important; /* Muted text */
-}
-
-[data-theme="dark"] .social-icon-footer {
-  background: #252525 !important; /* Elevated surface */
-  color: #E8E8E8 !important; /* Bright text */
-  border: 1px solid #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] .social-icon-footer:hover {
-  background: #5eb3f6 !important; /* Bright blue */
-  color: #ffffff !important;
-  border-color: #5eb3f6 !important;
-}
-
-[data-theme="dark"] .footer-bottom {
-  border-top-color: #404040 !important; /* More visible border */
-}
-
-/* === 13. HERO SOCIAL LINKS === */
-[data-theme="dark"] .hero .social-link {
-  background: rgba(37, 37, 37, 0.85) !important; /* Elevated surface with transparency */
-  border: 1px solid #404040 !important; /* More visible border */
-  color: #E8E8E8 !important; /* Bright text */
-  backdrop-filter: blur(10px) !important;
-}
-
-[data-theme="dark"] .hero .social-link:hover {
-  background: rgba(94, 179, 246, 0.35) !important; /* Bright blue */
-  border-color: #5eb3f6 !important; /* Bright blue */
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 16px rgba(94, 179, 246, 0.6) !important;
-  color: #ffffff !important;
-}
-
-[data-theme="dark"] .hero .social-icon {
-  filter: brightness(1.1) !important;
-}
-
-/* === 14. ACHIEVEMENT CARDS === */
-[data-theme="dark"] .achievement-card {
-  background: #252525 !important; /* Elevated surface */
-  border: 1px solid #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] .achievement-metric {
-  color: #5eb3f6 !important; /* Bright blue for metrics */
-  text-shadow: none !important; /* Clean look */
-}
-
-[data-theme="dark"] .achievement-icon svg {
-  filter: brightness(1.1) drop-shadow(0 2px 4px rgba(94, 179, 246, 0.4)) !important; /* Bright blue */
-}
-
-/* === 15. STAT CARDS === */
-[data-theme="dark"] .stat-card {
-  background: #252525 !important; /* Elevated surface */
-  border-left-color: #5eb3f6 !important; /* Bright blue */
-  border-left-width: 4px !important;
-}
-
-[data-theme="dark"] .stat-value {
-  color: #5eb3f6 !important; /* Bright blue for emphasis */
-}
-
-[data-theme="dark"] .stat-label {
-  color: #B0B0B0 !important; /* Medium gray for labels */
-}
-
-/* === 16. FACTS LIST === */
-[data-theme="dark"] .facts-list li {
-  border-bottom-color: #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] .facts-list li strong {
-  color: #E8E8E8 !important; /* Bright for emphasis */
-  font-weight: 700 !important;
-}
-
-/* === 17. NAVBAR ENHANCEMENTS === */
-[data-theme="dark"] .site-nav {
-  border-bottom-color: #404040 !important; /* More visible border */
-  box-shadow: 0 2px 10px rgba(0,0,0,0.6) !important;
-}
-
-[data-theme="dark"] .nav-links a {
-  color: #E8E8E8 !important; /* Bright text */
-}
-
-[data-theme="dark"] .nav-links a.active {
-  color: #5eb3f6 !important; /* Bright blue */
-  background: transparent !important; /* Remove colored background */
-  text-decoration: underline !important;
-  text-decoration-color: #5eb3f6 !important;
-  text-underline-offset: 4px !important;
-}
-
-/* === 18. THEME TOGGLE BUTTON === */
-[data-theme="dark"] .theme-toggle {
-  border-color: #404040 !important; /* More visible border */
-  color: #E8E8E8 !important; /* Bright text */
-}
-
-[data-theme="dark"] .theme-toggle:hover {
-  background: rgba(94, 179, 246, 0.15) !important; /* Bright blue */
-  border-color: #5eb3f6 !important; /* Bright blue */
-}
-
-[data-theme="dark"] .theme-toggle svg {
-  stroke: currentColor !important;
-  filter: brightness(1.1) !important;
-}
-
-/* === 19. SCROLL INDICATOR === */
-[data-theme="dark"] .scroll-indicator {
-  color: #5eb3f6 !important; /* Bright blue */
-  filter: drop-shadow(0 3px 8px rgba(94, 179, 246, 0.7)) !important; /* Bright blue */
-}
-
-/* === 20. BUTTONS GENERAL === */
-[data-theme="dark"] .btn-outline {
-  border-width: 2px !important;
-  border-color: #404040 !important; /* More visible border */
-  color: #D4D4D4 !important; /* Readable text */
-}
-
-[data-theme="dark"] .btn-outline:hover {
-  border-color: #5eb3f6 !important; /* Bright blue */
   color: #5eb3f6 !important;
 }
 
-[data-theme="dark"] .btn-services {
-  background: #5eb3f6 !important; /* Bright blue */
-  color: #ffffff !important;
-}
-
-[data-theme="dark"] .btn-services:hover {
-  background: #4a9de8 !important; /* Slightly darker on hover */
-}
-
-/* === 21. COOKIE CONSENT === */
-[data-theme="dark"] .cookie-consent {
-  background: #252525 !important; /* Elevated surface */
-  border-top: 1px solid #404040 !important; /* More visible border */
-  color: #E8E8E8 !important; /* Bright text */
-}
-
-[data-theme="dark"] .cookie-content p {
-  color: #D4D4D4 !important; /* Readable text */
-}
-
-[data-theme="dark"] #accept-cookies,
-[data-theme="dark"] #decline-cookies {
-  border: 2px solid #404040 !important; /* More visible border */
-}
-
-[data-theme="dark"] #accept-cookies {
-  background: #5eb3f6 !important; /* Bright blue */
-  color: #ffffff !important;
-}
-
-[data-theme="dark"] #decline-cookies {
-  background: transparent !important;
-  color: #D4D4D4 !important; /* Readable text */
-}
-
-/* === 22. BACK TO TOP BUTTON === */
-[data-theme="dark"] .back-to-top {
-  background: #5eb3f6 !important; /* Bright blue */
-  color: #ffffff !important;
-  box-shadow: 0 4px 16px rgba(94, 179, 246, 0.6) !important; /* Bright blue */
-}
-
-[data-theme="dark"] .back-to-top:hover {
-  background: #4a9de8 !important; /* Slightly darker on hover */
-  box-shadow: 0 6px 20px rgba(94, 179, 246, 0.7) !important; /* Bright blue */
-}
-
-/* === 23. IMAGE ENHANCEMENTS === */
-[data-theme="dark"] .project-media {
-  background: #252525 !important; /* Elevated surface */
-}
-
-[data-theme="dark"] .project-media img {
-  opacity: 1 !important;
-  filter: brightness(1.05) contrast(1.02) !important; /* Subtle enhancement */
-}
-
-/* === 24. ENSURE ALL INTERACTIVE ELEMENTS ARE VISIBLE === */
-[data-theme="dark"] button,
-[data-theme="dark"] a,
-[data-theme="dark"] [role="button"],
-[data-theme="dark"] [tabindex="0"] {
+[data-theme="dark"] .footer-bottom,
+[data-theme="dark"] .footer-bottom-content {
+  color: #D4D4D4 !important;
   opacity: 1 !important;
 }
 
-/* === 25. FORM ERROR STATES === */
-[data-theme="dark"] .form-error {
-  color: #ff6b6b !important; /* Bright red for errors */
-  font-weight: 500 !important;
+[data-theme="dark"] .footer-bottom-content a {
+  color: #5eb3f6 !important;
 }
 
-[data-theme="dark"] input.error,
-[data-theme="dark"] textarea.error {
-  border-color: #ff6b6b !important; /* Bright red */
-  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2) !important;
-}
-
-/* === 26. BADGES SECTION === */
-[data-theme="dark"] .badges-section h2 {
-  color: #E8E8E8 !important; /* Bright for headings */
-}
-
-[data-theme="dark"] .badge-img {
-  filter: brightness(1.05) !important; /* Subtle brighten */
+[data-theme="dark"] .footer-location {
+  color: #D4D4D4 !important;
   opacity: 1 !important;
 }
 
-/* === 27. CONTACT INTRO TEXT === */
-[data-theme="dark"] .contact-intro {
-  color: #D4D4D4 !important; /* Readable text */
-}
-
-/* === 28. SERVICES INTRO === */
-[data-theme="dark"] .services-intro {
-  color: #D4D4D4 !important; /* Readable text */
-}
-
-/* === 29. PROJECTS INTRO === */
-[data-theme="dark"] .projects-intro {
-  color: #D4D4D4 !important; /* Readable text */
-}
-
-/* === 30. FINAL OVERRIDE: Ensure no text is invisible === */
-/* VS Code theme uses clean text without shadows for a modern look */
-[data-theme="dark"] * {
-  /* Prevent any text from being completely invisible */
-  text-shadow: none !important; /* Clean look like VS Code */
-}
-
+/* ============================================
+   GLOBAL OVERRIDES - Ensure all text is visible
+   ============================================ */
+/* Global headings and important labels - Bright for readability */
 [data-theme="dark"] h1,
 [data-theme="dark"] h2,
 [data-theme="dark"] h3,
 [data-theme="dark"] h4,
 [data-theme="dark"] h5,
 [data-theme="dark"] h6 {
-  /* No text shadows for clean VS Code look */
+  color: #E8E8E8 !important; /* Bright off-white for headings (WCAG AA+) */
   text-shadow: none !important;
+  font-weight: 600 !important;
+}
+
+/* Paragraphs, list items, body text */
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] span:not(.skill-icon):not(.icon) {
+  color: #D4D4D4 !important; /* Light gray for body text (WCAG AA) */
+  line-height: 1.7 !important;
+}
+
+/* Prevent any text from being invisible */
+[data-theme="dark"] * {
+  text-shadow: none !important;
+}
+
+[data-theme="dark"] *[style*="opacity"] {
+  opacity: 1 !important;
+}
+
+/* Prevent light-theme colors from leaking into dark mode */
+[data-theme="dark"] *[style*="color:#475569"],
+[data-theme="dark"] *[style*="color:#334155"],
+[data-theme="dark"] *[style*="color:#64748b"],
+[data-theme="dark"] *[style*="color: #475569"],
+[data-theme="dark"] *[style*="color: #334155"],
+[data-theme="dark"] *[style*="color: #64748b"],
+[data-theme="dark"] *[style*="color:#0f172a"],
+[data-theme="dark"] *[style*="color: #0f172a"] {
+  color: #D4D4D4 !important;
+}
+
+/* Links */
+[data-theme="dark"] a {
+  color: #5eb3f6 !important; /* Bright blue */
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] a:hover {
+  color: #7bc5ff !important; /* Lighter blue on hover */
+}
+
+/* Buttons */
+[data-theme="dark"] .btn,
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .btn-secondary,
+[data-theme="dark"] .btn-ghost {
+  opacity: 1 !important;
+}
+
+/* Cards */
+[data-theme="dark"] .card,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .achievement-card,
+[data-theme="dark"] .service-card,
+[data-theme="dark"] .timeline-card,
+[data-theme="dark"] .edu-card,
+[data-theme="dark"] .contact-card {
+  background: var(--cf-surface-elev) !important;
+  border: 1px solid #404040 !important;
+  color: var(--cf-text-secondary) !important;
 }
 
 /* End of comprehensive dark mode fixes */
 
+/* ============================================
+   BLACK TEXT OVERRIDES - Must be at the end
+   These override all previous rules to make
+   specific headings and text black
+   ============================================ */
+
+/* Section Headings - Make black (both light and dark mode) */
+#about h2,
+#experience h2,
+#projects h2,
+#skills h2,
+#achievements h2,
+#services h2,
+#education h2,
+#contact h2,
+#about-heading,
+#experience-heading,
+#achievements-heading,
+#services-heading,
+#education-heading,
+#contact-heading,
+#skills-title {
+  color: #000000 !important;
+}
+
+/* Skills Section Headings - Make black */
+#skills h3,
+.technical-skills h3,
+.production-mindset h3,
+.skill-category h4 {
+  color: #000000 !important;
+}
+
+/* Education Section - Professional Certifications and Continuous Learning */
+#education h3[style*="color:#0f172a"],
+#education ul[style*="color:#475569"] li,
+#education p[style*="color:#64748b"] {
+  color: #000000 !important;
+}
+
+/* Services CTA Text */
+.services-cta p,
+.services-cta p strong {
+  color: #000000 !important;
+}
+
+/* Proven Through Real Impact heading - Make black */
+.proven-impact h4,
+.production-mindset .proven-impact h4,
+#skills .proven-impact h4 {
+  color: #000000 !important;
+}
+
+/* About Section - Light mode: black text, Dark mode: white headings and semi-transparent content */
+body:not([data-theme="dark"]) .about-text p,
+body:not([data-theme="dark"]) #about .about-text p,
+body:not([data-theme="dark"]) .about-text p strong,
+body:not([data-theme="dark"]) #about .about-text p strong {
+  color: #000000 !important;
+}
+
+/* Footer Copyright */
+.site-footer .footer-bottom,
+.site-footer .footer-bottom-content,
+.site-footer .footer-bottom-content div,
+.site-footer .footer-bottom-content div span {
+  color: #000000 !important;
+}
+
+/* Dark mode overrides - Keep black even in dark mode */
+[data-theme="dark"] #about h2,
+[data-theme="dark"] #experience h2,
+[data-theme="dark"] #projects h2,
+[data-theme="dark"] #skills h2,
+[data-theme="dark"] #achievements h2,
+[data-theme="dark"] #services h2,
+[data-theme="dark"] #education h2,
+[data-theme="dark"] #contact h2,
+[data-theme="dark"] #about-heading,
+[data-theme="dark"] #experience-heading,
+[data-theme="dark"] #achievements-heading,
+[data-theme="dark"] #services-heading,
+[data-theme="dark"] #education-heading,
+[data-theme="dark"] #contact-heading,
+[data-theme="dark"] #skills-title,
+[data-theme="dark"] #skills h3,
+[data-theme="dark"] .technical-skills h3,
+[data-theme="dark"] .production-mindset h3,
+[data-theme="dark"] .skill-category h4,
+[data-theme="dark"] #education h3[style*="color:#0f172a"],
+[data-theme="dark"] #education ul[style*="color:#475569"] li,
+[data-theme="dark"] #education p[style*="color:#64748b"],
+[data-theme="dark"] .services-cta p,
+[data-theme="dark"] .services-cta p strong,
+[data-theme="dark"] .proven-impact h4,
+[data-theme="dark"] .production-mindset .proven-impact h4,
+[data-theme="dark"] #skills .proven-impact h4,
+[data-theme="dark"] .about-text p strong,
+[data-theme="dark"] #about .about-text p strong {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .about-text p,
+[data-theme="dark"] #about .about-text p {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* All dark backgrounds - Headings white, content semi-transparent white */
+[data-theme="dark"] .card h2,
+[data-theme="dark"] .card h3,
+[data-theme="dark"] .card h4,
+[data-theme="dark"] .card h5,
+[data-theme="dark"] .card h6,
+[data-theme="dark"] .card strong,
+[data-theme="dark"] .timeline-card h2,
+[data-theme="dark"] .timeline-card h3,
+[data-theme="dark"] .timeline-card h4,
+[data-theme="dark"] .timeline-card strong,
+[data-theme="dark"] .project-card h2,
+[data-theme="dark"] .project-card h3,
+[data-theme="dark"] .project-card h4,
+[data-theme="dark"] .project-card strong,
+[data-theme="dark"] .achievement-card h2,
+[data-theme="dark"] .achievement-card h3,
+[data-theme="dark"] .achievement-card h4,
+[data-theme="dark"] .achievement-card strong,
+[data-theme="dark"] .service-card h2,
+[data-theme="dark"] .service-card h3,
+[data-theme="dark"] .service-card h4,
+[data-theme="dark"] .service-card strong,
+[data-theme="dark"] .edu-card h2,
+[data-theme="dark"] .edu-card h3,
+[data-theme="dark"] .edu-card h4,
+[data-theme="dark"] .edu-card strong,
+[data-theme="dark"] .contact-card h2,
+[data-theme="dark"] .contact-card h3,
+[data-theme="dark"] .contact-card h4,
+[data-theme="dark"] .contact-card strong {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .card p,
+[data-theme="dark"] .card li,
+[data-theme="dark"] .card span:not(.icon):not(.skill-icon),
+[data-theme="dark"] .timeline-card p,
+[data-theme="dark"] .timeline-card li,
+[data-theme="dark"] .timeline-card span:not(.icon),
+[data-theme="dark"] .project-card p,
+[data-theme="dark"] .project-card li,
+[data-theme="dark"] .project-card span:not(.icon),
+[data-theme="dark"] .achievement-card p,
+[data-theme="dark"] .achievement-card li,
+[data-theme="dark"] .achievement-card span:not(.icon),
+[data-theme="dark"] .service-card p,
+[data-theme="dark"] .service-card li,
+[data-theme="dark"] .service-card span:not(.icon),
+[data-theme="dark"] .edu-card p,
+[data-theme="dark"] .edu-card li,
+[data-theme="dark"] .edu-card span:not(.icon),
+[data-theme="dark"] .contact-card p,
+[data-theme="dark"] .contact-card li,
+[data-theme="dark"] .contact-card span:not(.icon) {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Keep specific elements in blue */
+.stat-value,
+.stat-label,
+.exp-title,
+.exp-company,
+.exp-meta,
+.exp-date,
+.exp-location,
+.footer-section h3,
+.footer-brand,
+.footer-links a,
+.site-footer a,
+.footer-location {
+  color: #007bff !important;
+}
+
+[data-theme="dark"] .stat-value,
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .exp-title,
+[data-theme="dark"] .exp-company,
+[data-theme="dark"] .exp-meta,
+[data-theme="dark"] .exp-date,
+[data-theme="dark"] .exp-location,
+[data-theme="dark"] .footer-section h3,
+[data-theme="dark"] .footer-brand,
+[data-theme="dark"] .footer-links a,
+[data-theme="dark"] .site-footer a,
+[data-theme="dark"] .footer-location,
+[data-theme="dark"] #education h3:first-of-type + p,
+[data-theme="dark"] #education p[style*="color:#64748b"],
+[data-theme="dark"] .proven-impact strong,
+[data-theme="dark"] .proven-impact li strong,
+[data-theme="dark"] .contact-card-value,
+[data-theme="dark"] .contact-card-value a,
+[data-theme="dark"] .filter-btn,
+[data-theme="dark"] .filter-btn.active,
+[data-theme="dark"] .production-mindset h3,
+[data-theme="dark"] .achievement-metric,
+[data-theme="dark"] .edu-skills-label,
+[data-theme="dark"] #education p[style*="color:#64748b"] strong {
+  color: #007bff !important;
+}
+
+/* Project taglines - Light blue (dark mode) */
+[data-theme="dark"] .project-tagline {
+  color: #60a5fa !important;
+}
+
+.proven-impact strong,
+.proven-impact li strong,
+.contact-card-value,
+.contact-card-value a,
+.filter-btn,
+.filter-btn.active,
+.production-mindset h3,
+.achievement-metric,
+.edu-skills-label,
+#education p[style*="color:#64748b"] strong {
+  color: #007bff !important;
+}
+
+/* Project taglines - Light blue */
+.project-tagline {
+  color: #60a5fa !important;
+}
+
+/* ============================================
+   FINAL BLUE COLOR OVERRIDES - Maximum Priority
+   These must be at the very end to override everything
+   ============================================ */
+html body .exp-meta,
+html body .exp-meta em,
+html body .achievement-metric,
+html body .production-mindset h3,
+html body #skills .production-mindset h3,
+html body .edu-skills-label,
+html body #education p[style*="color:#64748b"] strong,
+html body #education p strong {
+  color: #007bff !important;
+}
+
+html[data-theme="dark"] body .exp-meta,
+html[data-theme="dark"] body .exp-meta em,
+html[data-theme="dark"] body .achievement-metric,
+html[data-theme="dark"] body .production-mindset h3,
+html[data-theme="dark"] body #skills .production-mindset h3,
+html[data-theme="dark"] body .edu-skills-label,
+html[data-theme="dark"] body #education p[style*="color:#64748b"] strong,
+html[data-theme="dark"] body #education p strong {
+  color: #007bff !important;
+}
+
+/* Keep specific text elements in black */
+.projects-intro,
+.skill-category p,
+.proven-impact p,
+.proven-impact li {
+  color: #000000 !important;
+}
+
+[data-theme="dark"] .projects-intro,
+[data-theme="dark"] .skill-category p,
+[data-theme="dark"] .proven-impact p,
+[data-theme="dark"] .proven-impact li {
+  color: #000000 !important;
+}
+
+/* Ensure dark mode About section stays white - Must be at the very end */
+html[data-theme="dark"] body .about-text p,
+html[data-theme="dark"] body #about .about-text p {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+html[data-theme="dark"] body .about-text p strong,
+html[data-theme="dark"] body #about .about-text p strong {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+/* Skills intro text - Keep black in both modes */
+body:not([data-theme="dark"]) .skills-intro,
+body:not([data-theme="dark"]) #skills .skills-intro {
+  color: #000000 !important;
+}
+
+[data-theme="dark"] .skills-intro,
+[data-theme="dark"] #skills .skills-intro {
+  color: #000000 !important;
+}
+
+/* Achievement descriptions - White but not too white in dark mode */
+html[data-theme="dark"] body .achievement-desc,
+html[data-theme="dark"] body .achievement-card .achievement-desc {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Services intro - Black in dark mode */
+html[data-theme="dark"] body .services-intro,
+html[data-theme="dark"] body #services .services-intro {
+  color: #000000 !important;
+}
+
+/* Contact section - Keep dark background in dark mode */
+html[data-theme="dark"] body #contact,
+html[data-theme="dark"] body section#contact,
+html[data-theme="dark"] body #contact.card {
+  background-color: #1a1a1a !important;
+  background: #1a1a1a !important;
+}
+
+/* Services intro strong - Black in dark mode */
+html[data-theme="dark"] body .services-intro strong,
+html[data-theme="dark"] body #services .services-intro strong {
+  color: #000000 !important;
+}
+
+/* Contact section - Preferred Contact and Current Status headings - Black in dark mode */
+html[data-theme="dark"] body #contact p strong,
+html[data-theme="dark"] body #contact p[style*="color:#0f172a"] strong,
+html[data-theme="dark"] body #contact p[style*="color:#475569"] strong {
+  color: #000000 !important;
+}
+
+/* Contact section - Status items text - Black in dark mode */
+html[data-theme="dark"] body #contact p[style*="color:#475569"],
+html[data-theme="dark"] body #contact div[style*="background:#f8f9fa"] p[style*="color:#475569"] {
+  color: #000000 !important;
+}
+
+/* Contact section - Let's Connect heading - White in dark mode */
+html[data-theme="dark"] body #contact h2,
+html[data-theme="dark"] body #contact-heading,
+html[data-theme="dark"] body section#contact h2 {
+  color: #FFFFFF !important;
+}
+
+/* Contact form - Response time - White in dark mode */
+html[data-theme="dark"] body .contact-form p strong,
+html[data-theme="dark"] body #contact .contact-form p strong {
+  color: #FFFFFF !important;
+}
+
+/* Contact card descriptions - White in dark mode */
+html[data-theme="dark"] body .contact-card-desc,
+html[data-theme="dark"] body .contact-card .contact-card-desc {
+  color: #FFFFFF !important;
+}
+
+/* Footer section headings - White in dark mode */
+html[data-theme="dark"] body .footer-section h3 {
+  color: #FFFFFF !important;
+}
+
+/* Contact card links - Blue for specific links in dark mode */
+html[data-theme="dark"] body .contact-card-value a[href*="linkedin.com"],
+html[data-theme="dark"] body .contact-card-value a[href*="github.com/bibhu342"],
+html[data-theme="dark"] body .contact-info .contact-card:nth-child(3) .contact-card-value a,
+html[data-theme="dark"] body .contact-info .contact-card:nth-child(4) .contact-card-value a {
+  color: #007bff !important;
+}
+
+/* Contact card links - Blue for specific links in light mode */
+html body:not([data-theme="dark"]) .contact-card-value a[href*="linkedin.com"],
+html body:not([data-theme="dark"]) .contact-card-value a[href*="github.com/bibhu342"],
+html body:not([data-theme="dark"]) .contact-info .contact-card:nth-child(3) .contact-card-value a,
+html body:not([data-theme="dark"]) .contact-info .contact-card:nth-child(4) .contact-card-value a {
+  color: #007bff !important;
+}
+
+/* Preferred Contact section - Email and Phone links - Blue in light mode */
+html body:not([data-theme="dark"]) #contact a[href="mailto:bibhu342@gmail.com"],
+html body:not([data-theme="dark"]) #contact a[href*="mailto:bibhu342@gmail.com"],
+html body:not([data-theme="dark"]) #contact a[href="tel:+917022403111"],
+html body:not([data-theme="dark"]) #contact a[href*="tel:+917022403111"] {
+  color: #007bff !important;
+}
+
+[data-theme="dark"] .site-footer .footer-bottom,
+[data-theme="dark"] .site-footer .footer-bottom-content,
+[data-theme="dark"] .site-footer .footer-bottom-content div,
+[data-theme="dark"] .site-footer .footer-bottom-content div span {
+  color: #000000 !important;
+}
