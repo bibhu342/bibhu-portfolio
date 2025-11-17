@@ -179,7 +179,7 @@ jobs:
         EOF
         
     - name: Upload SEO reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: seo-report-${{ github.run_number }}
         path: |
