@@ -23,13 +23,15 @@ jobs:
       run: npm install -g html-validate
       
     - name: Validate HTML files
+      continue-on-error: true
       run: |
         echo "Validating HTML files..."
         find . -name "*.html" -not -path "./node_modules/*" -not -path "./.git/*" | while read file; do
           echo "Validating $file"
           # HTML validators can validate minified HTML, so we validate all files
-          html-validate "$file" || echo "Warning: Validation issues found in $file"
-        done
+          # Use continue-on-error to not fail the workflow on validation issues
+          html-validate "$file" --formatter=text || echo "Warning: Validation issues found in $file (non-blocking)"
+        done || echo "HTML validation completed with warnings (non-blocking)"
         
     - name: Validate with W3C Nu Validator (backup)
       run: |

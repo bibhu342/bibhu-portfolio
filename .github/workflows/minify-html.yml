@@ -25,9 +25,11 @@ jobs:
       run: npm install -g html-minifier-terser
       
     - name: Minify HTML files
+      continue-on-error: true
       run: |
         find . -name "*.html" -not -path "./node_modules/*" -not -path "./.git/*" | while read file; do
           echo "Minifying $file"
+          # Preserve DOCTYPE as <!doctype html> (not shorter form) for better compatibility
           html-minifier-terser \
             --collapse-whitespace \
             --remove-comments \
@@ -35,12 +37,11 @@ jobs:
             --remove-redundant-attributes \
             --remove-script-type-attributes \
             --remove-tag-whitespace \
-            --use-short-doctype \
             --minify-css true \
             --minify-js true \
             --output "$file" \
-            "$file"
-        done
+            "$file" || echo "Warning: Failed to minify $file (non-blocking)"
+        done || echo "HTML minification completed with warnings (non-blocking)"
         
     - name: Commit minified files
       run: |

@@ -28,20 +28,22 @@ jobs:
         
     - name: Wait for deployment (if running after push)
       if: github.event_name == 'push'
-      run: sleep 60
-        
+      run: sleep 120
+      
     - name: Run Pa11y accessibility tests
+      continue-on-error: true
       run: |
         # Use pa11y-ci with sitemap for comprehensive multi-page testing
         pa11y-ci --sitemap https://bibhu342.github.io/bibhu-portfolio/sitemap.xml \
           --threshold 10 \
-          --ignore "color-contrast" || true
+          --ignore "color-contrast" || echo "Warning: Pa11y accessibility tests failed (non-blocking)"
           
     - name: Run Axe accessibility tests
+      continue-on-error: true
       run: |
         axe https://bibhu342.github.io/bibhu-portfolio/ \
           --save axe-results.json \
-          --tags wcag2a,wcag2aa || true
+          --tags wcag2a,wcag2aa || echo "Warning: Axe accessibility tests failed (non-blocking)"
           
     - name: Upload accessibility results
       uses: actions/upload-artifact@v4
