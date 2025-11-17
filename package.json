@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/bibhu342/bibhu-portfolio#readme",
   "devDependencies": {
-    "@lhci/cli": "^0.15.1"
+    "@lhci/cli": "^0.15.1",
+    "sharp": "^0.34.5"
   }
 }
