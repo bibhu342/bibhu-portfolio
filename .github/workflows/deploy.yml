@@ -32,12 +32,15 @@ jobs:
         uses: actions/deploy-pages@v4
         
       - name: Ping search engines
+        continue-on-error: true
         run: |
           echo "Pinging search engines about sitemap update..."
+          # Wait a bit for deployment to propagate
+          sleep 5
           # Google
-          curl -f "http://www.google.com/ping?sitemap=https://bibhu342.github.io/bibhuai/sitemap.xml" || echo "Google ping failed"
+          curl -f "http://www.google.com/ping?sitemap=https://bibhu342.github.io/bibhuai/sitemap.xml" || echo "Google ping failed (non-blocking)"
           # Bing
-          curl -f "http://www.bing.com/ping?sitemap=https://bibhu342.github.io/bibhuai/sitemap.xml" || echo "Bing ping failed"
+          curl -f "http://www.bing.com/ping?sitemap=https://bibhu342.github.io/bibhuai/sitemap.xml" || echo "Bing ping failed (non-blocking)"
           echo "Search engine pinging completed"
 
 

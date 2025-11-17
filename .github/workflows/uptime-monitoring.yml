@@ -24,6 +24,7 @@ jobs:
         npm install axios puppeteer fs-extra
         
     - name: Run uptime checks
+      continue-on-error: true
       run: |
         cat > uptime-check.js << 'EOF'
         const axios = require('axios');

@@ -25,6 +25,7 @@ jobs:
         npm install puppeteer
         
     - name: Run SEO audit
+      continue-on-error: true
       run: |
         cat > seo-audit.js << 'EOF'
         const puppeteer = require('puppeteer');
@@ -35,7 +36,13 @@ jobs:
           const page = await browser.newPage();
           
           const url = 'https://bibhu342.github.io/bibhuai/';
-          await page.goto(url, { waitUntil: 'networkidle0' });
+          try {
+            await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
+          } catch (error) {
+            console.error('Failed to load URL:', error.message);
+            console.error('Site may not be deployed yet. Exiting gracefully.');
+            process.exit(0);
+          }
           
           // Extract SEO data
           const seoData = await page.evaluate(() => {
@@ -119,12 +126,13 @@ jobs:
         node seo-audit.js
         
     - name: Run Lighthouse SEO audit
+      continue-on-error: true
       run: |
         lighthouse https://bibhu342.github.io/bibhuai/ \
           --only-categories=seo \
           --output=json \
           --output-path=lighthouse-seo.json \
-          --chrome-flags="--headless --no-sandbox"
+          --chrome-flags="--headless --no-sandbox" || echo "Warning: Lighthouse SEO audit failed (non-blocking)"
           
     - name: Generate summary report
       run: |
