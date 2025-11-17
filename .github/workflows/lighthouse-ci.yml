@@ -32,7 +32,7 @@ jobs:
       run: |
         lhci autorun \
           --upload.target=temporary-public-storage \
-          --collect.url=https://bibhu342.github.io/bibhu-portfolio/ \
+          --collect.url=https://bibhu342.github.io/bibhuai/ \
           --collect.numberOfRuns=3 || echo "Warning: Lighthouse CI failed (non-blocking)"
       env:
         LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}

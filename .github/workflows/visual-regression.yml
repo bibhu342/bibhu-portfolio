@@ -39,7 +39,7 @@ jobs:
         module.exports = {
           testDir: './tests',
           use: {
-            baseURL: 'https://bibhu342.github.io/bibhu-portfolio/',
+            baseURL: 'https://bibhu342.github.io/bibhuai/',
           },
           projects: [
             {

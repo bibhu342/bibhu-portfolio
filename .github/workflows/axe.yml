@@ -34,14 +34,14 @@ jobs:
       continue-on-error: true
       run: |
         # Use pa11y-ci with sitemap for comprehensive multi-page testing
-        pa11y-ci --sitemap https://bibhu342.github.io/bibhu-portfolio/sitemap.xml \
+        pa11y-ci --sitemap https://bibhu342.github.io/bibhuai/sitemap.xml \
           --threshold 10 \
           --ignore "color-contrast" || echo "Warning: Pa11y accessibility tests failed (non-blocking)"
           
     - name: Run Axe accessibility tests
       continue-on-error: true
       run: |
-        axe https://bibhu342.github.io/bibhu-portfolio/ \
+        axe https://bibhu342.github.io/bibhuai/ \
           --save axe-results.json \
           --tags wcag2a,wcag2aa || echo "Warning: Axe accessibility tests failed (non-blocking)"
           

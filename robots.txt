@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bibhu342.github.io/bibhu-portfolio/sitemap.xml
+Sitemap: https://bibhu342.github.io/bibhuai/sitemap.xml

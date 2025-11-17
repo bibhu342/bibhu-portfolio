@@ -66,7 +66,7 @@ Replace `<!doctypehtml>` with `<!doctype html>` (space between `doctype` and `ht
 The sitemap.xml file only includes the homepage:
 ```xml
 <url>
-  <loc>https://bibhu342.github.io/bibhu-portfolio/</loc>
+  <loc>https://bibhu342.github.io/bibhuai/</loc>
   <lastmod>2025-11-14</lastmod>
   <changefreq>monthly</changefreq>
   <priority>1.0</priority>
@@ -120,7 +120,7 @@ Add comprehensive meta tags similar to other pages:
 <meta name="description" content="Page not found. Return to Bibhudendu Behera's portfolio homepage.">
 <meta property="og:title" content="404 - Page Not Found | Bibhudendu Behera">
 <meta property="og:description" content="The page you're looking for doesn't exist.">
-<link rel="canonical" href="https://bibhu342.github.io/bibhu-portfolio/404.html">
+<link rel="canonical" href="https://bibhu342.github.io/bibhuai/404.html">
 ```
 
 **Priority:** **FIX BEFORE DEPLOYMENT**

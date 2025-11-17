@@ -1,8 +1,8 @@
 # 🚀 Bibhudendu Behera Portfolio
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green?logo=github)](https://bibhu342.github.io/bibhu-portfolio/)
-[![HTML Validation](https://img.shields.io/badge/HTML-Valid-brightgreen?logo=w3c)](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbibhu342.github.io%2Fbibhu-portfolio%2F)
-[![Lighthouse](https://img.shields.io/badge/Lighthouse-100%2F100-brightgreen?logo=lighthouse)](https://github.com/bibhu342/bibhu-portfolio/actions)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green?logo=github)](https://bibhu342.github.io/bibhuai/)
+[![HTML Validation](https://img.shields.io/badge/HTML-Valid-brightgreen?logo=w3c)](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbibhu342.github.io%2Fbibhuai%2F)
+[![Lighthouse](https://img.shields.io/badge/Lighthouse-100%2F100-brightgreen?logo=lighthouse)](https://github.com/bibhu342/bibhuai/actions)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Professional portfolio showcasing data automation projects, Python engineering solutions, and CSV processing tools.
@@ -28,8 +28,8 @@ Professional portfolio showcasing data automation projects, Python engineering s
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/bibhu342/bibhu-portfolio.git
-   cd bibhu-portfolio
+   git clone https://github.com/bibhu342/bibhuai.git
+   cd bibhuai
    ```
 
 2. **Customize content**
@@ -48,7 +48,7 @@ Professional portfolio showcasing data automation projects, Python engineering s
 ## 📁 Project Structure
 
 ```
-bibhu-portfolio/
+bibhuai/
 ├── assets/
 │   ├── images/             # Profile and project images
 │   ├── favicon-16x16.png   # Favicon (16x16)

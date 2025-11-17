@@ -35,9 +35,9 @@ jobs:
         run: |
           echo "Pinging search engines about sitemap update..."
           # Google
-          curl -f "http://www.google.com/ping?sitemap=https://bibhu342.github.io/bibhu-portfolio/sitemap.xml" || echo "Google ping failed"
+          curl -f "http://www.google.com/ping?sitemap=https://bibhu342.github.io/bibhuai/sitemap.xml" || echo "Google ping failed"
           # Bing
-          curl -f "http://www.bing.com/ping?sitemap=https://bibhu342.github.io/bibhu-portfolio/sitemap.xml" || echo "Bing ping failed"
+          curl -f "http://www.bing.com/ping?sitemap=https://bibhu342.github.io/bibhuai/sitemap.xml" || echo "Bing ping failed"
           echo "Search engine pinging completed"
 
 

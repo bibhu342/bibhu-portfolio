@@ -46,7 +46,7 @@ jobs:
             <p><strong>PR #:</strong> ${{ github.event.number }}</p>
             <p><strong>Branch:</strong> ${{ github.head_ref }}</p>
             <p><strong>Author:</strong> ${{ github.event.pull_request.user.login }}</p>
-            <p><strong>Preview URL:</strong> <code>https://bibhu-portfolio-pr-${{ github.event.number }}.surge.sh</code></p>
+            <p><strong>Preview URL:</strong> <code>https://bibhuai-pr-${{ github.event.number }}.surge.sh</code></p>
             
             <div class="warning">
               ⚠️ <strong>Preview Notice:</strong> This is a temporary preview deployment for testing purposes. 
@@ -63,7 +63,7 @@ jobs:
     - name: Deploy to Surge
       run: |
         # Generate domain name
-        DOMAIN="bibhu-portfolio-pr-${{ github.event.number }}.surge.sh"
+        DOMAIN="bibhuai-pr-${{ github.event.number }}.surge.sh"
         echo "PREVIEW_URL=https://$DOMAIN" >> $GITHUB_ENV
         
         # Deploy to Surge
@@ -127,7 +127,7 @@ jobs:
     - name: Cleanup Surge deployment
       run: |
         npm install -g surge
-        DOMAIN="bibhu-portfolio-pr-${{ github.event.number }}.surge.sh"
+        DOMAIN="bibhuai-pr-${{ github.event.number }}.surge.sh"
         surge teardown $DOMAIN --token ${{ secrets.SURGE_TOKEN }} || echo "Preview already cleaned up"
       env:
         SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}

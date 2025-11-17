@@ -34,7 +34,7 @@ jobs:
           const browser = await puppeteer.launch({ headless: 'new' });
           const page = await browser.newPage();
           
-          const url = 'https://bibhu342.github.io/bibhu-portfolio/';
+          const url = 'https://bibhu342.github.io/bibhuai/';
           await page.goto(url, { waitUntil: 'networkidle0' });
           
           // Extract SEO data
@@ -120,7 +120,7 @@ jobs:
         
     - name: Run Lighthouse SEO audit
       run: |
-        lighthouse https://bibhu342.github.io/bibhu-portfolio/ \
+        lighthouse https://bibhu342.github.io/bibhuai/ \
           --only-categories=seo \
           --output=json \
           --output-path=lighthouse-seo.json \
@@ -132,7 +132,7 @@ jobs:
         # Weekly SEO Report
         
         **Date:** $(date)
-        **URL:** https://bibhu342.github.io/bibhu-portfolio/
+        **URL:** https://bibhu342.github.io/bibhuai/
         
         ## Lighthouse SEO Score
         ```
